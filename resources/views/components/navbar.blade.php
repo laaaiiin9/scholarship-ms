@@ -50,7 +50,10 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        @if (Auth::user()->hasRole('student'))
+                        <li><a class="dropdown-item" href="{{ route('student.profile') }}">Profile</a></li>
+                        @else
+                        @endif
                         <li><a class="dropdown-item" href="#">Settings</a></li>
                         <li>
                             <hr class="dropdown-divider">

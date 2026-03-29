@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Student\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,3 +15,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::get('/register', [AuthController::class, 'register'])->name('auth.register');
 Route::post('/signUp', [AuthController::class, 'signUp'])->name('auth.signUp');
 /* End Auth */
+
+/* Student */
+Route::middleware(['role:student'])->prefix('student')->name('student.')->group(function () {
+    Route::get('profile', [ProfileController::class, 'index'])->name('profile');
+    Route::post('profile', [ProfileController::class, 'createOrSave'])->name('profile.save');
+});
+/* End Student */

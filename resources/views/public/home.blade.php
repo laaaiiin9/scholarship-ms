@@ -20,8 +20,18 @@
                             </p>
 
                             <div class="d-flex flex-column flex-sm-row gap-3">
-                                <a class="btn btn-custom-primary text-white btn-hero-primary" href="#">Apply Now</a>
-                                <a class="btn btn-light btn-hero-secondary" href="#features">View Scholarships</a>
+                                @auth
+                                    @if (Auth::user()->hasRole('student'))
+                                        <a class="btn btn-custom-primary text-white btn-hero-primary" href="#">View My Applications</a>
+                                        <a class="btn btn-light btn-hero-secondary" href="#features">Browse Scholarships</a>
+                                    @else
+
+                                    @endif
+
+                                @else
+                                    <a class="btn btn-custom-primary text-white btn-hero-primary" href="{{ route('auth.register') }}">Apply Now</a>
+                                    <a class="btn btn-light btn-hero-secondary" href="#features">Browse Scholarships</a>
+                                @endauth
                             </div>
                         </div>
                     </div>
