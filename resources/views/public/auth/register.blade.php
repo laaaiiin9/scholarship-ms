@@ -10,7 +10,7 @@
                     <div class="register-card-header">
                         <div>
                             <p class="eyebrow mb-1">User Registration</p>
-                            <h2>Create your profile</h2>
+                            <h2>Create an account</h2>
                         </div>
                         <span class="status-pill">Step 1 of 1</span>
                     </div>
@@ -54,7 +54,10 @@
                             </div>
                         </div>
 
-                        <button class="btn btn-custom-primary text-white" type="submit">Create Account</button>
+                        <div class="register-actions">
+                            <button class="btn btn-custom-primary text-white" type="submit">Create Account</button>
+                            <a class="register-login-link" href="#">Already have an account? Log in</a>
+                        </div>
                     </form>
                 </div>
             </div>

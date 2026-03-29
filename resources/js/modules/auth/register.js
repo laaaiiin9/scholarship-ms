@@ -3,6 +3,22 @@ import { showToast } from '../../utils/toast';
 
 const form = document.querySelector('#registerForm');
 
+const getErrorMessage = (err) => {
+    if (typeof err === 'string' && err.trim()) {
+        return err;
+    }
+
+    if (err?.errors) {
+        const firstError = Object.values(err.errors).flat()[0];
+
+        if (firstError) {
+            return firstError;
+        }
+    }
+
+    return 'Registration failed.';
+};
+
 if (form) {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -20,12 +36,7 @@ if (form) {
             showToast(res.msg ?? 'Registration successful.', 'success');
             form.reset();
         } catch (err) {
-            if (err.errors) {
-                const firstError = Object.values(err.errors).flat()[0];
-                showToast(firstError ?? 'Please check the form and try again.', 'error');
-            } else {
-                showToast(err.msg ?? 'Registration failed. Please try again.', 'error');
-            }
+            showToast(getErrorMessage(err), 'error');
         } finally {
             if (submitButton) {
                 submitButton.disabled = false;

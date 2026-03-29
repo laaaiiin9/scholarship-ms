@@ -8,7 +8,7 @@ class RegisterService {
 
     public function store($data = []) {
         return User::create([
-            'name' => $data['username'],
+            'username' => $data['username'],
             'email' => $data['email'],
             'password' => $data['password'],
         ]);

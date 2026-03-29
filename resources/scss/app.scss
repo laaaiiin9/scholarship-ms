@@ -1,6 +1,24 @@
+
 $font-family-sans-serif: 'Poppins', 'sans-serif';
 
+$primary: #0d6efd;
+$secondary: #6c757d;
+$success: #198754;
+$info: #0dcaf0;
+$warning: #ffc107;
+$danger: #dc3545;
+$light: #f8f9fa;
+$dark: #212529;
+
 $theme-colors: (
+    "primary": $primary,
+    "secondary": $secondary,
+    "success": $success,
+    "info": $info,
+    "warning": $warning,
+    "danger": $danger,
+    "light": $light,
+    "dark": $dark,
     "custom-primary": #1e7b68,
     "custom-primary-badge": #d9efe9,
     "custom-secondary": #edf2f1,
@@ -763,6 +781,7 @@ a {
 }
 
 @include media-breakpoint-down(lg) {
+
     .stats-strip,
     .cta-panel,
     .site-footer-panel {
