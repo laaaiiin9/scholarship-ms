@@ -56,7 +56,7 @@
 
                         <div class="register-actions">
                             <button class="btn btn-custom-primary text-white" type="submit">Create Account</button>
-                            <a class="register-login-link" href="#">Already have an account? Log in</a>
+                            <a class="register-login-link" href="{{ route('auth.login') }}">Already have an account? Log in</a>
                         </div>
                     </form>
                 </div>

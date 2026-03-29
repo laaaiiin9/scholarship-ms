@@ -60,7 +60,7 @@
                             aria-label="Switch to light theme" aria-pressed="false">
                             <span class="theme-toggle-icon" data-lucide="sun-moon"></span>
                         </button>
-                        <a class="btn btn-soft" href="#">Log In</a>
+                        <a class="btn btn-soft" href="{{ route('auth.login') }}">Log In</a>
                         <a class="btn btn-custom-primary text-white btn-cta" href="{{ route('auth.register') }}">Get Started</a>
                     </div>
                 </div>
