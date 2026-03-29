@@ -14,7 +14,7 @@
                         <span class="status-pill">Secure Access</span>
                     </div>
 
-                    <form id="loginForm" action="#" method="POST" novalidate>
+                    <form id="loginForm" action="{{ route('auth.signIn') }}" method="POST" novalidate>
                         @csrf
 
                         <div class="row g-3">

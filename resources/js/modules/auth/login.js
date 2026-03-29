@@ -2,7 +2,7 @@ import { post } from '../../services/api';
 import { showToast } from '../../utils/toast';
 import { getErrorMessage } from '../../helpers/errorMsg';
 
-const form = document.querySelector('#registerForm');
+const form = document.querySelector('#loginForm');
 
 if (form) {
     form.addEventListener('submit', async (e) => {
@@ -18,7 +18,7 @@ if (form) {
         try {
             const res = await post(form.action, formData);
 
-            showToast(res.msg ?? 'Registration successful.', 'success');
+            showToast(res.msg ?? 'Login successful.', 'success');
             form.reset();
 
             if (res.redirect) {
@@ -26,7 +26,7 @@ if (form) {
                     window.location.href = res.redirect;
                 }, 500);
             }
-
+            
         } catch (err) {
             showToast(getErrorMessage(err), 'error');
         } finally {

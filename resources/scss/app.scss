@@ -223,6 +223,70 @@ a {
     height: 1rem;
 }
 
+.profile-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: .65rem;
+    min-height: 3rem;
+    padding-inline: .9rem;
+}
+
+.profile-toggle::after {
+    display: none;
+}
+
+.profile-toggle-icon,
+.profile-toggle-caret {
+    width: 1rem;
+    height: 1rem;
+    flex: 0 0 auto;
+}
+
+.profile-toggle-name {
+    max-width: 11rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.profile-dropdown {
+    min-width: 14rem;
+    padding: .6rem;
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    background: color-mix(in srgb, var(--surface-strong) 95%, transparent);
+    box-shadow: var(--shadow-card);
+}
+
+.profile-dropdown .dropdown-item,
+.profile-dropdown .dropdown-item-text {
+    border-radius: .75rem;
+    color: var(--ink);
+}
+
+.profile-dropdown .dropdown-item {
+    padding: .65rem .8rem;
+    font-weight: 500;
+}
+
+.profile-dropdown .dropdown-item:hover,
+.profile-dropdown .dropdown-item:focus {
+    background: color-mix(in srgb, var(--surface-muted) 85%, transparent);
+    color: var(--ink);
+}
+
+.profile-dropdown-user {
+    padding: .35rem .45rem .55rem;
+    color: var(--ink-soft);
+    font-size: .92rem;
+    font-weight: 600;
+}
+
+.profile-dropdown .dropdown-divider {
+    margin: .4rem 0;
+    border-color: var(--line);
+}
+
 .btn-cta,
 .btn-hero-primary,
 .btn-hero-secondary {

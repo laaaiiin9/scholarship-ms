@@ -55,14 +55,49 @@
                         </li>
                     </ul>
 
-                    <div class="d-flex flex-column flex-lg-row gap-2 ms-lg-3">
-                        <button class="btn btn-soft theme-toggle" type="button" id="theme-toggle"
-                            aria-label="Switch to light theme" aria-pressed="false">
-                            <span class="theme-toggle-icon" data-lucide="sun-moon"></span>
-                        </button>
-                        <a class="btn btn-soft" href="{{ route('auth.login') }}">Log In</a>
-                        <a class="btn btn-custom-primary text-white btn-cta" href="{{ route('auth.register') }}">Get Started</a>
-                    </div>
+                    @auth
+                        <div class="d-flex flex-column flex-lg-row gap-2 ms-lg-3">
+                            <button class="btn btn-soft theme-toggle" type="button" id="theme-toggle"
+                                aria-label="Switch to light theme" aria-pressed="false">
+                                <span class="theme-toggle-icon" data-lucide="sun-moon"></span>
+                            </button>
+
+                            <div class="dropdown">
+                                <button class="btn btn-soft profile-toggle dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="profile-toggle-icon" data-lucide="circle-user-round"></span>
+                                    <span class="profile-toggle-name">
+                                        {{ auth()->user()->username ?? auth()->user()->name }}
+                                    </span>
+                                    <span class="profile-toggle-caret" data-lucide="chevron-down"></span>
+                                </button>
+
+                                <ul class="dropdown-menu dropdown-menu-end profile-dropdown">
+                                    <li>
+                                        <span class="dropdown-item-text profile-dropdown-user">
+                                            {{ auth()->user()->username ?? auth()->user()->name }}
+                                        </span>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{{ route('auth.logout') }}" id="btn-logout">Log Out</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    @else
+                        <div class="d-flex flex-column flex-lg-row gap-2 ms-lg-3">
+                            <button class="btn btn-soft theme-toggle" type="button" id="theme-toggle"
+                                aria-label="Switch to light theme" aria-pressed="false">
+                                <span class="theme-toggle-icon" data-lucide="sun-moon"></span>
+                            </button>
+                            <a class="btn btn-soft" href="{{ route('auth.login') }}">Log In</a>
+                            <a class="btn btn-custom-primary text-white btn-cta" href="{{ route('auth.register') }}">Get
+                                Started</a>
+                        </div>
+                    @endauth
+
                 </div>
             </div>
         </nav>

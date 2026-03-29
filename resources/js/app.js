@@ -2,6 +2,8 @@ import './bootstrap';
 import 'bootstrap';
 import { createIcons, icons } from 'lucide';
 import './modules/auth/register';
+import './modules/auth/login';
+import './modules/auth/logout';
 
 createIcons({ icons });
 
