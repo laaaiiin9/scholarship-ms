@@ -27,7 +27,10 @@ class ProfileController extends Controller
         return response()->json([
             'msg' => $result['type'] === 'create'
                 ? 'Profile created successfully.'
-                : 'Profile updated successfully.'
+                : 'Profile updated successfully.',
+            'redirect' => $result['type'] === 'create'
+                ? route('student.profile')
+                : ''
         ]);
 
         // return redirect()

@@ -29,10 +29,22 @@
 
 <body class="landing-page">
     <div class="page-shell">
-        
+
         @include('components.navbar')
 
         <main>
+
+            @auth
+                @if (!auth()->user()->hasVerifiedEmail())
+                    <div class="container mt-3">
+                        <div class="alert alert-warning mb-4" role="alert">
+                            Your email is not yet verified. Verify it now to have a full access. <strong><a
+                                    href="{{ route('verification.notice') }}">Verify Here</a></strong>
+                        </div>
+                    </div>
+                @endif
+            @endauth
+
             @yield('content')
         </main>
 

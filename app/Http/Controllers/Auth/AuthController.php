@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function login() {
+    public function login()
+    {
         if (Auth::check()) {
             return redirect()->route('home');
         }
@@ -19,15 +20,18 @@ class AuthController extends Controller
         return view('public.auth.login');
     }
 
-    public function signIn(LoginRequest $request) {
+    public function signIn(LoginRequest $request)
+    {
         $data = $request->validated();
 
         if (Auth::attempt($data)) {
             $request->session()->regenerate();
 
+            $user = auth()->user();
+
             return response()->json([
                 'msg' => 'Login successful',
-                'redirect' => route('home'),
+                'redirect' => $user->hasVerifiedEmail() ? route('home') : route('verification.notice'),
             ]);
         }
 
@@ -38,7 +42,8 @@ class AuthController extends Controller
         ], 422);
     }
 
-    public function register() {
+    public function register()
+    {
         if (Auth::check()) {
             return redirect()->route('home');
         }
@@ -46,8 +51,9 @@ class AuthController extends Controller
         return view('public.auth.register');
     }
 
-    public function signUp(RegisterRequest $request, RegisterService $service) {
-        $service->store($request->validated());
+    public function signUp(RegisterRequest $request, RegisterService $service)
+    {
+        $user = $service->store($request->validated());
 
         return response()->json([
             'ok' => true,
@@ -56,7 +62,8 @@ class AuthController extends Controller
         ], 201);
     }
 
-    public function logout(Request $request) {
+    public function logout(Request $request)
+    {
         Auth::logout();
 
         $request->session()->invalidate();
@@ -67,5 +74,5 @@ class AuthController extends Controller
             'redirect' => route('auth.login'),
         ]);
     }
-    
+
 }
