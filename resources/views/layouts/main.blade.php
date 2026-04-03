@@ -66,34 +66,40 @@
                         <div class="site-footer-nav">
                             <div class="site-footer-column">
                                 <span class="site-footer-heading">Platform</span>
-                                <a href="#features">Features</a>
-                                <a href="#how-it-works">How It Works</a>
-                                <a href="#impact">Impact</a>
+                                <ul class="site-footer-links">
+                                    <li><a href="#features">Features</a></li>
+                                    <li><a href="#how-it-works">How It Works</a></li>
+                                    <li><a href="#impact">Impact</a></li>
+                                </ul>
                             </div>
 
                             <div class="site-footer-column">
                                 <span class="site-footer-heading">Resources</span>
-                                <a href="#">Scholarships</a>
-                                <a href="#">Eligibility</a>
-                                <a href="#">FAQs</a>
+                                <ul class="site-footer-links">
+                                    <li><a href="#">Scholarships</a></li>
+                                    <li><a href="#">Eligibility</a></li>
+                                    <li><a href="#">FAQs</a></li>
+                                </ul>
                             </div>
 
                             <div class="site-footer-column">
                                 <span class="site-footer-heading">Company</span>
-                                <a href="#">About</a>
-                                <a href="#">Contact</a>
-                                <a href="#">Support</a>
+                                <ul class="site-footer-links">
+                                    <li><a href="#">About</a></li>
+                                    <li><a href="#">Contact</a></li>
+                                    <li><a href="#">Support</a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
 
                     <div class="site-footer-bottom">
                         <span>&copy; {{ date('Y') }} {{ config('app.name') }}</span>
-                        <div class="site-footer-bottom-links">
-                            <a href="#">Privacy Policy</a>
-                            <a href="#">Terms of Service</a>
-                            <a href="#">Help Center</a>
-                        </div>
+                        <ul class="site-footer-bottom-links">
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Help Center</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>

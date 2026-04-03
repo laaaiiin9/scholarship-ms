@@ -39,7 +39,14 @@
                         </div>
 
                         <div class="register-actions">
-                            <button class="btn btn-custom-primary text-white" type="submit">Log In</button>
+                            <button
+                                class="btn btn-custom-primary text-white"
+                                type="submit"
+                                data-default-text="Log In"
+                                data-loading-text="Logging in..."
+                            >
+                                Log In
+                            </button>
                             <a class="register-login-link" href="{{ route('auth.register') }}">No account yet? Create one</a>
                         </div>
                     </form>

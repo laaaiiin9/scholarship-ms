@@ -7,10 +7,11 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## ScholarLink
+## Eskoylar
 
-ScholarLink is a centralized scholarship management platform designed to connect students with the right opportunities. With an easy-to-use interface, it allows users to explore available scholarships, submit applications, and track their progress—all in one place. By simplifying the process, ScholarLink helps students focus on what truly matters: achieving their academic goals.
+Eskoylar is a centralized scholarship management platform designed to connect students with the right opportunities. With an easy-to-use interface, it allows users to explore available scholarships, submit applications, and track their progress—all in one place. By simplifying the process, Eskoylar helps students focus on what truly matters: achieving their academic goals.
 
 ## Next Tasks
-- Verify email
+- Verify email (done)
 - Scholarship list
+- 

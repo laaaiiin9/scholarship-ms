@@ -28,7 +28,12 @@
                             <div class="register-actions d-flex flex-column flex-sm-row align-items-sm-center gap-3">
                                 <form id="verificationForm" method="POST" action="{{ route('verification.send') }}">
                                     @csrf
-                                    <button class="btn btn-custom-primary text-white" type="submit">
+                                    <button
+                                        class="btn btn-custom-primary text-white"
+                                        type="submit"
+                                        data-default-text="Resend Verification Email"
+                                        data-loading-text="Sending..."
+                                    >
                                         Resend Verification Email
                                     </button>
                                 </form>

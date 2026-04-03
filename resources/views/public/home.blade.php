@@ -9,27 +9,30 @@
                     <div class="col-12 col-lg-6">
                         <div class="hero-cover-copy">
                             <h1 class="hero-title mb-3">
-                                Scholarship
-                                <span>Management</span>
-                                System
+                                <!-- Scholarship
+                                    <span>Management</span>
+                                    System -->
+                                Eskoylar
                             </h1>
 
                             <p class="hero-copy mb-4">
-                                Centralize applications, track requirements, review students faster, and give scholars a
-                                more confident experience from first click to final approval.
+                                Browse and apply for available scholarships that match your qualifications. Stay updated on
+                                deadlines, requirements, and application status all in one place.
                             </p>
 
                             <div class="d-flex flex-column flex-sm-row gap-3">
                                 @auth
                                     @if (Auth::user()->hasRole('student'))
-                                        <a class="btn btn-custom-primary text-white btn-hero-primary" href="#">View My Applications</a>
+                                        <a class="btn btn-custom-primary text-white btn-hero-primary" href="#">View My
+                                            Applications</a>
                                         <a class="btn btn-light btn-hero-secondary" href="#features">Browse Scholarships</a>
                                     @else
 
                                     @endif
 
                                 @else
-                                    <a class="btn btn-custom-primary text-white btn-hero-primary" href="{{ route('auth.register') }}">Apply Now</a>
+                                    <a class="btn btn-custom-primary text-white btn-hero-primary"
+                                        href="{{ route('auth.register') }}">Apply Now</a>
                                     <a class="btn btn-light btn-hero-secondary" href="#features">Browse Scholarships</a>
                                 @endauth
                             </div>
@@ -39,10 +42,7 @@
                     <div class="col-12 col-lg-6">
                         <div class="hero-dashboard hero-sidecard ms-lg-auto">
                             <div class="hero-dashboard-top">
-                                <div>
-                                    <p class="eyebrow mb-1">Scholarship Pulse</p>
-                                    <h2>Track applications, status changes, and award readiness.</h2>
-                                </div>
+                                <p class="eyebrow mb-1">Scholarship Pulse</p>
                                 <span class="status-pill">
                                     <span class="status-pill-dot"></span>
                                     Active cycle

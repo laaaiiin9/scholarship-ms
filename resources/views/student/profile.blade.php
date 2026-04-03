@@ -48,21 +48,30 @@
 
                                     <div class="col-12">
                                         <label class="form-label register-label" for="school">School</label>
-                                        <input class="form-control register-input" id="school" name="school"
-                                            type="text" placeholder="Enter your school"
+                                        <input class="form-control register-input" id="school" name="school" type="text"
+                                            placeholder="Enter your school"
                                             value="{{ old('school', $profile->school ?? '') }}" required>
                                     </div>
 
                                     <div class="col-12">
                                         <label class="form-label register-label" for="course">Course</label>
-                                        <input class="form-control register-input" id="course" name="course"
-                                            type="text" placeholder="Enter your course"
+                                        <input class="form-control register-input" id="course" name="course" type="text"
+                                            placeholder="Enter your course"
                                             value="{{ old('course', $profile->course ?? '') }}" required>
                                     </div>
                                 </div>
 
                                 <div class="register-actions">
-                                    <button class="btn btn-custom-primary text-white" type="submit">Save Profile</button>
+                                    <!-- Submit Button -->
+                                    <button
+                                        id="btn-submit"
+                                        class="btn btn-custom-primary text-white"
+                                        type="submit"
+                                        data-default-text="{{ $profile ? 'Update Profile' : 'Save Profile' }}"
+                                        data-loading-text="{{ $profile ? 'Updating...' : 'Saving...' }}"
+                                    >
+                                        {{ $profile ? 'Update Profile' : 'Save Profile' }}
+                                    </button>
                                 </div>
                             </form>
                         </div>
