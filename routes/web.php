@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Email\VerificationController;
+use App\Http\Controllers\Public\PublicPagesController;
 use App\Http\Controllers\Student\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,3 +32,8 @@ Route::middleware(['role:student'])->prefix('student')->name('student.')->group(
     Route::post('profile', [ProfileController::class, 'createOrSave'])->name('profile.save');
 });
 /* End Student */
+
+/* Public Pages */
+Route::get('public/scholarships', [PublicPagesController::class, 'scholarships'])->name('public.scholarships');
+Route::get('public/scholarships/fetch', [PublicPagesController::class, 'fetchScholarships'])->name('public.scholarships.fetch');
+/* End Public Pages */
