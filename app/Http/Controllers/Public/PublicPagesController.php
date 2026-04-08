@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
 use App\Models\Scholarship;
+use App\Models\Scholarship;
 use Illuminate\Http\Request;
 
 class PublicPagesController extends Controller
