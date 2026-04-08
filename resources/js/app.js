@@ -6,6 +6,7 @@ import './modules/auth/login';
 import './modules/auth/logout';
 import './modules/student/profile';
 import './modules/email/sendVerification';
+import './modules/public/scholarships';
 
 createIcons({ icons });
 

@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description"
         content="A smarter way to manage scholarship applications, screening, and student support.">
-    <title>Home - {{ config('app.name') }}</title>
+    <title>@yield('title', 'Home') - {{ config('app.name') }}</title>
 
     <script>
         (() => {
@@ -76,7 +76,7 @@
                             <div class="site-footer-column">
                                 <span class="site-footer-heading">Resources</span>
                                 <ul class="site-footer-links">
-                                    <li><a href="#">Scholarships</a></li>
+                                    <li><a href="{{ route('public.scholarships') }}">Scholarships</a></li>
                                     <li><a href="#">Eligibility</a></li>
                                     <li><a href="#">FAQs</a></li>
                                 </ul>

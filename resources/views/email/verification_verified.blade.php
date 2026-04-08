@@ -6,9 +6,9 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-8 col-xl-7">
-                    <div class="register-shell">
-                        <div class="register-card h-100">
-                            <div class="register-card-header">
+                    <div class="register-shell app-card app-card--shell">
+                        <div class="register-card app-card app-form-card h-100">
+                            <div class="register-card-header app-form-header">
                                 <div>
                                     <p class="eyebrow mb-1">Email Verification</p>
                                     <h2>Email verified successfully</h2>

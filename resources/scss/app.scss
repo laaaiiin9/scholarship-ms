@@ -306,6 +306,443 @@ a {
     color: var(--ink);
 }
 
+.app-card,
+.app-surface-shell,
+.register-shell,
+.scholarships-hero-shell {
+    border: 1px solid var(--line);
+    border-radius: 1.6rem;
+    background: var(--surface);
+    box-shadow: var(--shadow-soft);
+}
+
+.app-card--shell,
+.app-surface-shell {
+    border-radius: 2rem;
+    background: linear-gradient(180deg,
+            color-mix(in srgb, var(--surface-strong) 96%, transparent) 0%,
+            color-mix(in srgb, var(--surface) 92%, transparent) 100%);
+    box-shadow: var(--shadow-card);
+}
+
+.app-card--panel,
+.app-panel,
+.scholarship-search-panel,
+.feature-card,
+.process-card,
+.stats-strip,
+.cta-panel,
+.info-tile,
+.metric-card,
+.scholarship-card,
+.app-empty-state {
+    border: 1px solid var(--line);
+    background: var(--surface);
+    box-shadow: var(--shadow-soft);
+}
+
+.app-card--panel,
+.app-panel {
+    border-radius: 1.5rem;
+}
+
+.app-card--muted,
+.app-panel-muted,
+.scholarship-search-panel {
+    background: color-mix(in srgb, var(--surface-strong) 88%, transparent);
+}
+
+.app-card--compact,
+.info-tile {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    height: 100%;
+    padding: 1.1rem;
+    border-radius: 1.2rem;
+}
+
+.app-card--interactive,
+.feature-card,
+.scholarship-card {
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.app-card--interactive:hover,
+.feature-card:hover,
+.scholarship-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-card);
+    border-color: var(--line-strong);
+}
+
+.app-card--split,
+.process-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.2rem;
+    align-items: start;
+}
+
+.app-card--stats,
+.stats-strip {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    padding: 2rem;
+    border-radius: 2rem;
+}
+
+.app-card--cta,
+.cta-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 2rem;
+    border-radius: 2rem;
+    background:
+        radial-gradient(circle at top right, rgba(125, 208, 184, 0.24), transparent 28%),
+        linear-gradient(180deg,
+            color-mix(in srgb, var(--surface-strong) 96%, transparent) 0%,
+            color-mix(in srgb, var(--surface-muted) 92%, transparent) 100%);
+}
+
+.app-card-icon,
+.feature-card-icon,
+.process-card-step {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 1rem;
+    background: var(--brand-soft);
+    color: var(--brand-dark);
+}
+
+.app-card-step,
+.process-card-step {
+    font-weight: 700;
+}
+
+.app-card-label,
+.info-tile-label,
+.stats-strip-label {
+    color: var(--ink-soft);
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+.app-card-copy-soft,
+.feature-card p,
+.process-card p,
+.info-tile small,
+.metric-card span {
+    color: var(--ink-soft);
+    line-height: 1.75;
+}
+
+.app-chip,
+.scholarships-toolbar-copy,
+.scholarships-search-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    padding: .85rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--surface) 84%, transparent);
+}
+
+.app-chip strong,
+.app-chip span,
+.scholarships-search-chip span {
+    color: var(--ink);
+    font-weight: 700;
+}
+
+.app-toolbar,
+.scholarships-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    padding-inline: .25rem;
+}
+
+.app-toolbar-label,
+.scholarships-toolbar-label {
+    color: var(--ink-soft);
+}
+
+.app-form-card,
+.register-card {
+    padding: clamp(1.75rem, 4vw, 3rem);
+    background: color-mix(in srgb, var(--surface) 94%, transparent);
+}
+
+.app-form-header,
+.register-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.app-form-header h2,
+.register-card-header h2 {
+    margin: 0;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.35rem);
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.app-form-label,
+.register-label,
+.scholarship-search-label {
+    margin-bottom: .55rem;
+    color: var(--ink);
+    font-size: .92rem;
+    font-weight: 600;
+}
+
+.scholarship-search-label {
+    display: block;
+    margin-bottom: .75rem;
+}
+
+.app-form-control,
+.register-input {
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    padding: .9rem 1rem;
+    color: var(--ink);
+    background: color-mix(in srgb, var(--surface-strong) 96%, transparent);
+    box-shadow: none;
+}
+
+.app-form-control::placeholder,
+.register-input::placeholder {
+    color: var(--ink-soft);
+}
+
+.app-form-control:focus,
+.register-input:focus {
+    border-color: color-mix(in srgb, var(--brand) 45%, var(--line));
+    box-shadow: 0 0 0 .2rem rgba(30, 123, 104, 0.12);
+    background: var(--surface-strong);
+    color: var(--ink);
+}
+
+.app-form-check,
+.register-check {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+}
+
+.app-form-check input,
+.register-check input {
+    margin-top: .25rem;
+    accent-color: var(--brand);
+}
+
+.app-form-actions,
+.register-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.75rem;
+}
+
+.app-form-link,
+.register-login-link,
+.scholarship-reset-link {
+    color: var(--ink-soft);
+    font-weight: 500;
+}
+
+.app-form-link:hover,
+.app-form-link:focus,
+.register-login-link:hover,
+.register-login-link:focus,
+.scholarship-reset-link:hover,
+.scholarship-reset-link:focus {
+    color: var(--ink);
+}
+
+.app-card,
+.scholarship-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    padding: 1.4rem;
+    border-radius: 1.6rem;
+    background: color-mix(in srgb, var(--surface-strong) 95%, transparent);
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.app-card:hover,
+.scholarship-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-card);
+}
+
+.app-card-header,
+.app-card-meta,
+.scholarship-card-top,
+.scholarship-card-meta {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.app-badge,
+.scholarship-card-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: .55rem .8rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--surface-muted) 92%, transparent);
+    color: var(--ink);
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+.app-stat-label,
+.scholarship-card-amount-label,
+.scholarship-meta-label {
+    display: block;
+    margin-bottom: .2rem;
+    color: var(--ink-soft);
+    font-size: .76rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.app-meta-item,
+.scholarship-meta-item {
+    flex: 1 1 0;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+}
+
+.app-meta-item strong,
+.app-stat-value,
+.scholarship-card-amount strong,
+.scholarship-meta-item strong {
+    color: var(--ink);
+    font-size: 1rem;
+}
+
+.app-card-title,
+.scholarship-card-body h2 {
+    margin-bottom: .8rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.app-card-copy,
+.scholarship-card-body p {
+    margin-bottom: 0;
+    color: var(--ink-soft);
+    line-height: 1.8;
+}
+
+.app-empty-state,
+.scholarships-empty-state {
+    display: grid;
+    place-items: center;
+    gap: 1rem;
+    min-height: 24rem;
+    padding: 2.5rem 1.5rem;
+    border-radius: 2rem;
+    text-align: center;
+}
+
+.app-empty-state h2,
+.scholarships-empty-state h2 {
+    margin: 0;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 700;
+}
+
+.app-empty-state p,
+.scholarships-empty-state p {
+    max-width: 42rem;
+    margin: 0;
+    color: var(--ink-soft);
+    line-height: 1.8;
+}
+
+.app-pagination,
+.scholarships-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .65rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.app-pagination li a,
+.app-pagination li span,
+.scholarships-pagination li a,
+.scholarships-pagination li span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: .7rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: .95rem;
+    background: color-mix(in srgb, var(--surface-strong) 88%, transparent);
+    color: var(--ink);
+    font-weight: 600;
+    transition: background-color .2s ease, border-color .2s ease, transform .2s ease;
+}
+
+.app-pagination li a:hover,
+.app-pagination li a:focus,
+.scholarships-pagination li a:hover,
+.scholarships-pagination li a:focus {
+    background: var(--surface-strong);
+    border-color: var(--line-strong);
+    transform: translateY(-1px);
+}
+
+.app-pagination li.is-active span,
+.scholarships-pagination li.is-active span {
+    background: color-mix(in srgb, var(--surface-muted) 100%, transparent);
+    border-color: var(--line-strong);
+    color: var(--ink);
+    box-shadow: var(--shadow-soft);
+}
+
+.app-pagination li.is-disabled span,
+.scholarships-pagination li.is-disabled span {
+    opacity: .55;
+}
+
 .hero-section {
     position: relative;
 }
@@ -391,10 +828,7 @@ a {
 .metric-card {
     height: 100%;
     padding: 1.2rem 1.15rem;
-    border: 1px solid var(--line);
     border-radius: 1.25rem;
-    background: var(--surface);
-    box-shadow: var(--shadow-soft);
 }
 
 .metric-card strong,
@@ -406,7 +840,6 @@ a {
 }
 
 .metric-card span,
-.info-tile small,
 .stats-item span {
     color: var(--ink-soft);
 }
@@ -500,42 +933,6 @@ a {
     border-radius: 1rem;
 }
 
-.info-tile,
-.feature-card,
-.process-card,
-.stats-strip,
-.cta-panel {
-    border: 1px solid var(--line);
-    background: var(--surface);
-    box-shadow: var(--shadow-soft);
-}
-
-.info-tile {
-    display: flex;
-    flex-direction: column;
-    gap: .2rem;
-    height: 100%;
-    padding: 1.1rem;
-    border-radius: 1.2rem;
-}
-
-.info-tile-label {
-    color: var(--ink-soft);
-    font-size: .8rem;
-    font-weight: 700;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-}
-
-.stats-strip {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 2rem;
-    align-items: center;
-    padding: 2rem;
-    border-radius: 2rem;
-}
-
 .stats-strip h2 {
     max-width: 22ch;
     font-size: clamp(1.6rem, 3vw, 2.4rem);
@@ -565,28 +962,8 @@ a {
     font-size: clamp(2rem, 4vw, 3.2rem);
 }
 
-.feature-card {
-    padding: 1.5rem;
-    border-radius: 1.5rem;
-    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-}
-
-.feature-card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-card);
-    border-color: var(--line-strong);
-}
-
 .feature-card-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 3.25rem;
-    height: 3.25rem;
     margin-bottom: 1rem;
-    border-radius: 1rem;
-    background: var(--brand-soft);
-    color: var(--brand-dark);
 }
 
 .feature-card h3,
@@ -599,8 +976,6 @@ a {
 .feature-card p,
 .process-card p {
     margin-bottom: 0;
-    color: var(--ink-soft);
-    line-height: 1.75;
 }
 
 .process-stack {
@@ -608,39 +983,78 @@ a {
     gap: 1rem;
 }
 
-.process-card {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 1.2rem;
-    align-items: start;
-    padding: 1.4rem;
-    border-radius: 1.5rem;
-}
-
 .process-card-step {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
     width: 3rem;
     height: 3rem;
-    border-radius: 1rem;
-    background: var(--brand-soft);
-    color: var(--brand-dark);
-    font-weight: 700;
 }
 
-.cta-panel {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.scholarships-page {
+    position: relative;
+    padding-top: clamp(1rem, 2.5vw, 2rem);
+    padding-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.scholarships-hero {
+    padding: 1rem 0 0;
+}
+
+.scholarships-hero-shell {
+    display: grid;
     gap: 2rem;
-    padding: 2rem;
-    border-radius: 2rem;
-    background:
-        radial-gradient(circle at top right, rgba(125, 208, 184, 0.24), transparent 28%),
-        linear-gradient(180deg,
-            color-mix(in srgb, var(--surface-strong) 96%, transparent) 0%,
-            color-mix(in srgb, var(--surface-muted) 92%, transparent) 100%);
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.scholarships-hero-title {
+    max-width: 14ch;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: clamp(2.2rem, 4vw, 4rem);
+    font-weight: 700;
+    line-height: 1.02;
+    color: var(--hero-title-color);
+}
+
+.scholarships-hero-copy {
+    max-width: 58ch;
+    color: var(--hero-copy-color);
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.scholarship-search-panel {
+    padding: 1.5rem;
+    margin-bottom: .5rem;
+}
+
+.scholarship-search-row {
+    display: flex;
+    gap: .75rem;
+    align-items: stretch;
+}
+
+.scholarship-search-input {
+    min-height: 3.4rem;
+}
+
+.scholarship-search-button {
+    min-width: 8rem;
+}
+
+.scholarship-reset-link {
+    display: inline-flex;
+    margin-top: 1rem;
+    font-weight: 600;
+}
+
+.scholarship-card-amount {
+    text-align: right;
+}
+
+.scholarship-card-body {
+    flex: 1 1 auto;
+}
+
+.scholarships-pagination-wrap {
+    margin-top: 2rem;
 }
 
 .register-section {
@@ -651,34 +1065,7 @@ a {
     max-width: 40rem;
     margin: 0 auto;
     overflow: hidden;
-    border: 1px solid var(--line);
-    border-radius: 2rem;
-    background: color-mix(in srgb, var(--surface) 88%, transparent);
-    box-shadow: var(--shadow-card);
-}
-
-.register-card {
-    padding: clamp(1.75rem, 4vw, 3rem);
-}
-
-.register-card {
     background: color-mix(in srgb, var(--surface) 94%, transparent);
-}
-
-.register-card-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.register-card-header h2 {
-    margin: 0;
-    font-family: 'Ubuntu', sans-serif;
-    font-size: clamp(1.8rem, 3vw, 2.35rem);
-    font-weight: 700;
-    color: var(--ink);
 }
 
 .app-toast-container {
@@ -692,67 +1079,9 @@ a {
     -webkit-backdrop-filter: blur(10px);
 }
 
-.register-label {
-    margin-bottom: .55rem;
-    color: var(--ink);
-    font-size: .92rem;
-    font-weight: 600;
-}
-
-.register-input {
-    border: 1px solid var(--line);
-    border-radius: 1rem;
-    padding: .9rem 1rem;
-    color: var(--ink);
-    background: color-mix(in srgb, var(--surface-strong) 96%, transparent);
-    box-shadow: none;
-}
-
-.register-input::placeholder {
-    color: var(--ink-soft);
-}
-
-.register-input:focus {
-    border-color: color-mix(in srgb, var(--brand) 45%, var(--line));
-    box-shadow: 0 0 0 .2rem rgba(30, 123, 104, 0.12);
-    background: var(--surface-strong);
-    color: var(--ink);
-}
-
 .register-textarea {
     min-height: 8rem;
     resize: vertical;
-}
-
-.register-check {
-    display: flex;
-    align-items: flex-start;
-    gap: .75rem;
-    color: var(--ink-soft);
-    line-height: 1.7;
-}
-
-.register-check input {
-    margin-top: .25rem;
-    accent-color: var(--brand);
-}
-
-.register-actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-top: 1.75rem;
-}
-
-.register-login-link {
-    color: var(--ink-soft);
-    font-weight: 500;
-}
-
-.register-login-link:hover,
-.register-login-link:focus {
-    color: var(--ink);
 }
 
 .site-footer {
@@ -907,7 +1236,8 @@ a {
         align-items: stretch;
     }
 
-    .register-login-link {
+    .register-login-link,
+    .app-form-link {
         text-align: center;
     }
 
@@ -959,6 +1289,25 @@ a {
 
     .hero-dashboard-top {
         flex-direction: column;
+    }
+
+    .scholarship-search-row,
+    .scholarships-toolbar,
+    .scholarship-card-top,
+    .scholarship-card-meta {
+        flex-direction: column;
+    }
+
+    .scholarship-search-button {
+        width: 100%;
+    }
+
+    .scholarship-search-panel {
+        padding: 1.2rem;
+    }
+
+    .scholarship-card-amount {
+        text-align: left;
     }
 
     .hero-dashboard-image {

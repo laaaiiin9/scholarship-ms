@@ -2,12 +2,9 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Email\VerificationController;
+use App\Http\Controllers\Public\PublicPagesController;
 use App\Http\Controllers\Student\ProfileController;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('public.home');
-})->name('home');
 
 /* Auth */
 Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
@@ -31,3 +28,14 @@ Route::middleware(['role:student'])->prefix('student')->name('student.')->group(
     Route::post('profile', [ProfileController::class, 'createOrSave'])->name('profile.save');
 });
 /* End Student */
+
+/* Public Pages */
+
+Route::get('/', function () {
+    return view('public.home');
+})->name('home');
+
+Route::get('/public/scholarships', [PublicPagesController::class, 'scholarshipsPage'])->name('public.scholarships');
+Route::get('/public/scholarships/list', [PublicPagesController::class, 'scholarships'])->name('public.scholarships.list');
+
+/* End Public Pages */

@@ -6,9 +6,9 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-8 col-xl-7">
-                    <div class="register-shell">
-                        <div class="register-card h-100">
-                            <div class="register-card-header">
+                    <div class="register-shell app-card app-card--shell">
+                        <div class="register-card app-card app-form-card h-100">
+                            <div class="register-card-header app-form-header">
                                 <div>
                                     <p class="eyebrow mb-1">Student Profile</p>
                                     <h2>{{ $profile ? 'Update your profile' : 'Complete your profile' }}</h2>
@@ -33,36 +33,35 @@
 
                                 <div class="row g-3">
                                     <div class="col-12 col-md-6">
-                                        <label class="form-label register-label" for="first_name">First Name</label>
-                                        <input class="form-control register-input" id="first_name" name="first_name"
+                                        <label class="form-label register-label app-form-label" for="first_name">First Name</label>
+                                        <input class="form-control register-input app-form-control" id="first_name" name="first_name"
                                             type="text" placeholder="Enter your first name"
                                             value="{{ old('first_name', $profile->first_name ?? '') }}" required>
                                     </div>
 
                                     <div class="col-12 col-md-6">
-                                        <label class="form-label register-label" for="last_name">Last Name</label>
-                                        <input class="form-control register-input" id="last_name" name="last_name"
+                                        <label class="form-label register-label app-form-label" for="last_name">Last Name</label>
+                                        <input class="form-control register-input app-form-control" id="last_name" name="last_name"
                                             type="text" placeholder="Enter your last name"
                                             value="{{ old('last_name', $profile->last_name ?? '') }}" required>
                                     </div>
 
                                     <div class="col-12">
-                                        <label class="form-label register-label" for="school">School</label>
-                                        <input class="form-control register-input" id="school" name="school" type="text"
+                                        <label class="form-label register-label app-form-label" for="school">School</label>
+                                        <input class="form-control register-input app-form-control" id="school" name="school" type="text"
                                             placeholder="Enter your school"
                                             value="{{ old('school', $profile->school ?? '') }}" required>
                                     </div>
 
                                     <div class="col-12">
-                                        <label class="form-label register-label" for="course">Course</label>
-                                        <input class="form-control register-input" id="course" name="course" type="text"
+                                        <label class="form-label register-label app-form-label" for="course">Course</label>
+                                        <input class="form-control register-input app-form-control" id="course" name="course" type="text"
                                             placeholder="Enter your course"
                                             value="{{ old('course', $profile->course ?? '') }}" required>
                                     </div>
                                 </div>
 
-                                <div class="register-actions">
-                                    <!-- Submit Button -->
+                                <div class="register-actions app-form-actions">
                                     <button
                                         id="btn-submit"
                                         class="btn btn-custom-primary text-white"

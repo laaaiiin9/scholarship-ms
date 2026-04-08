@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="col-12 col-lg-6">
-                        <div class="hero-dashboard hero-sidecard ms-lg-auto">
+                        <div class="hero-dashboard hero-sidecard app-card app-card--shell ms-lg-auto">
                             <div class="hero-dashboard-top">
                                 <p class="eyebrow mb-1">Scholarship Pulse</p>
                                 <span class="status-pill">
@@ -51,25 +51,25 @@
 
                             <div class="row g-3">
                                 <div class="col-12 col-sm-6">
-                                    <div class="info-tile">
-                                        <span class="info-tile-label">Open Applications</span>
+                                    <div class="info-tile app-card app-card--compact">
+                                        <span class="info-tile-label app-card-label">Open Applications</span>
                                         <strong>1,248</strong>
-                                        <small>submitted this term</small>
+                                        <small class="app-card-copy-soft">submitted this term</small>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <div class="info-tile">
-                                        <span class="info-tile-label">For Review</span>
+                                    <div class="info-tile app-card app-card--compact">
+                                        <span class="info-tile-label app-card-label">For Review</span>
                                         <strong>314</strong>
-                                        <small>ready for validation</small>
+                                        <small class="app-card-copy-soft">ready for validation</small>
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="process-card hero-sidecard-highlight">
-                                        <span class="process-card-step">72%</span>
+                                    <div class="process-card app-card app-card--split hero-sidecard-highlight">
+                                        <span class="process-card-step app-card-step">72%</span>
                                         <div>
                                             <h3>Faster review flow</h3>
-                                            <p>Move applicants from submission to screening with a clearer and more
+                                            <p class="app-card-copy-soft">Move applicants from submission to screening with a clearer and more
                                                 organized process.</p>
                                         </div>
                                     </div>
@@ -84,9 +84,9 @@
 
     <section id="impact" class="stats-section py-4 py-lg-5">
         <div class="container">
-            <div class="stats-strip">
+            <div class="stats-strip app-card app-card--stats">
                 <div>
-                    <span class="stats-strip-label">Built for clarity</span>
+                    <span class="stats-strip-label app-card-label">Built for clarity</span>
                     <h2>Everything teams need to review, verify, and award with confidence.</h2>
                 </div>
                 <div class="stats-grid">
@@ -120,31 +120,31 @@
 
             <div class="row g-4 mt-2">
                 <div class="col-12 col-md-6 col-xl-3">
-                    <article class="feature-card h-100">
-                        <div class="feature-card-icon" data-lucide="files"></div>
+                    <article class="feature-card app-card app-card--interactive h-100">
+                        <div class="feature-card-icon app-card-icon" data-lucide="files"></div>
                         <h3>Smart submissions</h3>
-                        <p>Let students upload requirements in one place with a cleaner, less confusing form flow.</p>
+                        <p class="app-card-copy-soft">Let students upload requirements in one place with a cleaner, less confusing form flow.</p>
                     </article>
                 </div>
                 <div class="col-12 col-md-6 col-xl-3">
-                    <article class="feature-card h-100">
-                        <div class="feature-card-icon" data-lucide="search-check"></div>
+                    <article class="feature-card app-card app-card--interactive h-100">
+                        <div class="feature-card-icon app-card-icon" data-lucide="search-check"></div>
                         <h3>Faster screening</h3>
-                        <p>Review eligibility, completeness, and scholarship fit without bouncing between tools.</p>
+                        <p class="app-card-copy-soft">Review eligibility, completeness, and scholarship fit without bouncing between tools.</p>
                     </article>
                 </div>
                 <div class="col-12 col-md-6 col-xl-3">
-                    <article class="feature-card h-100">
-                        <div class="feature-card-icon" data-lucide="bell-ring"></div>
+                    <article class="feature-card app-card app-card--interactive h-100">
+                        <div class="feature-card-icon app-card-icon" data-lucide="bell-ring"></div>
                         <h3>Status visibility</h3>
-                        <p>Keep applicants informed with clearer progress states and less back-and-forth messaging.</p>
+                        <p class="app-card-copy-soft">Keep applicants informed with clearer progress states and less back-and-forth messaging.</p>
                     </article>
                 </div>
                 <div class="col-12 col-md-6 col-xl-3">
-                    <article class="feature-card h-100">
-                        <div class="feature-card-icon" data-lucide="chart-column-big"></div>
+                    <article class="feature-card app-card app-card--interactive h-100">
+                        <div class="feature-card-icon app-card-icon" data-lucide="chart-column-big"></div>
                         <h3>Actionable insights</h3>
-                        <p>Track volumes, bottlenecks, and outcomes so the next scholarship cycle runs even better.</p>
+                        <p class="app-card-copy-soft">Track volumes, bottlenecks, and outcomes so the next scholarship cycle runs even better.</p>
                     </article>
                 </div>
             </div>
@@ -165,27 +165,27 @@
 
                 <div class="col-12 col-lg-7">
                     <div class="process-stack">
-                        <article class="process-card">
-                            <span class="process-card-step">01</span>
+                        <article class="process-card app-card app-card--split">
+                            <span class="process-card-step app-card-step">01</span>
                             <div>
                                 <h3>Create and submit</h3>
-                                <p>Applicants register once, complete their profile, and send all required documents through
+                                <p class="app-card-copy-soft">Applicants register once, complete their profile, and send all required documents through
                                     one guided portal.</p>
                             </div>
                         </article>
-                        <article class="process-card">
-                            <span class="process-card-step">02</span>
+                        <article class="process-card app-card app-card--split">
+                            <span class="process-card-step app-card-step">02</span>
                             <div>
                                 <h3>Review and validate</h3>
-                                <p>Administrators screen entries, verify missing requirements, and organize shortlisted
+                                <p class="app-card-copy-soft">Administrators screen entries, verify missing requirements, and organize shortlisted
                                     candidates more efficiently.</p>
                             </div>
                         </article>
-                        <article class="process-card">
-                            <span class="process-card-step">03</span>
+                        <article class="process-card app-card app-card--split">
+                            <span class="process-card-step app-card-step">03</span>
                             <div>
                                 <h3>Track and award</h3>
-                                <p>Teams monitor progress, update statuses, and keep scholars informed through a more
+                                <p class="app-card-copy-soft">Teams monitor progress, update statuses, and keep scholars informed through a more
                                     transparent awarding process.</p>
                             </div>
                         </article>
@@ -197,7 +197,7 @@
 
     <section class="cta-section pb-5 pb-lg-7">
         <div class="container">
-            <div class="cta-panel">
+            <div class="cta-panel app-card app-card--cta">
                 <div>
                     <span class="section-heading-eyebrow">Ready to launch</span>
                     <h2>Give your scholarship program a homepage that feels credible, modern, and easy to trust.</h2>
