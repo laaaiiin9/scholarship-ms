@@ -53,7 +53,7 @@ class AuthController extends Controller
 
     public function signUp(RegisterRequest $request, RegisterService $service)
     {
-        $user = $service->store($request->validated());
+        $service->store($request->validated());
 
         return response()->json([
             'ok' => true,

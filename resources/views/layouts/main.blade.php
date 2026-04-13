@@ -32,7 +32,7 @@
 
         @include('components.navbar')
 
-        <main>
+        <main class="min-vh-100">
 
             @auth
                 @if (!auth()->user()->hasVerifiedEmail())
@@ -48,7 +48,7 @@
             @yield('content')
         </main>
 
-        <footer class="site-footer">
+        <footer class="site-footer sticky-bottom">
             <div class="site-footer-inner">
                 <div class="container">
                     <div class="site-footer-panel">

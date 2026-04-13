@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
 use App\Models\Scholarship;
-use App\Models\Scholarship;
 use Illuminate\Http\Request;
 
 class PublicPagesController extends Controller
@@ -23,7 +22,7 @@ class PublicPagesController extends Controller
             $query->where('name', 'like', '%' . $search . '%');
         }
 
-        $result = $query->paginate(5);
+        $result = $query->paginate(6);
 
         return response()->json($result);
     }

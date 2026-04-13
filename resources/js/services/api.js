@@ -25,3 +25,26 @@ export async function post(url, data) {
 
     return result;
 }
+
+export async function get(url) {
+    const response = await fetch(url, {
+        headers: {
+            Accept: 'application/json',
+        },
+    });
+
+    const result = await response.json().catch(() => ({
+        ok: false,
+        msg: response.statusText || 'Unexpected server response.'
+    }));
+
+    if (!result.msg && result.message) {
+        result.msg = result.message;
+    }
+
+    if (!response.ok || result.ok === false) {
+        throw result;
+    }
+
+    return result
+}

@@ -3,21 +3,31 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Models\UserRole;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class RegisterService {
+class RegisterService
+{
 
-    public function store($data = []) {
-        $user =  User::create([
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+    public function store(array $data)
+    {
+        return DB::transaction(function () use ($data) {
 
-        event(new Registered($user));
+            $user = User::create([
+                'username' => $data['username'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
 
-        return $user;
+            /* inserts student role for new users */
+            $user->roles()->attach(2);
+
+            event(new Registered($user));
+
+            return $user;
+        });
     }
 
 }
