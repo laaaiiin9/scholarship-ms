@@ -14,7 +14,7 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
             <ul class="navbar-nav mx-auto mb-3 mb-lg-0 nav-pill-group">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('public.scholarships') }}">Scholarships</a>
+                    <a class="nav-link" href="{{ route('scholarships') }}">Scholarships</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}#how-it-works">How It Works</a>

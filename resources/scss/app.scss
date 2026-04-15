@@ -367,10 +367,13 @@ a {
     transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
 
+.app-card-box-icon {
+    background-color: #111418;
+}
+
 .app-card--interactive:hover,
 .feature-card:hover,
 .scholarship-card:hover {
-    transform: translateY(-6px);
     box-shadow: var(--shadow-card);
     border-color: var(--line-strong);
 }
@@ -593,7 +596,6 @@ a {
 
 .app-card:hover,
 .scholarship-card:hover {
-    transform: translateY(-6px);
     border-color: var(--line-strong);
     box-shadow: var(--shadow-card);
 }

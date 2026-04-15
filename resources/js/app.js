@@ -1,12 +1,12 @@
 import './bootstrap';
 import 'bootstrap';
-import { createIcons, icons } from 'lucide';
 import './modules/auth/register';
 import './modules/auth/login';
 import './modules/auth/logout';
 import './modules/student/profile';
 import './modules/email/sendVerification';
 import './modules/public/scholarships';
+import { createIcons, icons } from 'lucide';
 
 createIcons({ icons });
 

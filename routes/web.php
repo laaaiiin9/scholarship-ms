@@ -35,7 +35,16 @@ Route::get('/', function () {
     return view('public.home');
 })->name('home');
 
-Route::get('/public/scholarships', [PublicPagesController::class, 'scholarshipsPage'])->name('public.scholarships');
-Route::get('/public/scholarships/list', [PublicPagesController::class, 'scholarships'])->name('public.scholarships.list');
+Route::get('/scholarships', [PublicPagesController::class, 'scholarshipsPage'])->name('scholarships');
+Route::get('/scholarships/list', [PublicPagesController::class, 'scholarships'])->name('scholarships.list');
 
 /* End Public Pages */
+
+/* Test */
+Route::get('/test', function () {
+    $start = microtime(true);
+
+    \App\Models\Scholarship::paginate(6);
+
+    return microtime(true) - $start;
+});

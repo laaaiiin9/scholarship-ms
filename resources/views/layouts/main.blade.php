@@ -76,7 +76,7 @@
                             <div class="site-footer-column">
                                 <span class="site-footer-heading">Resources</span>
                                 <ul class="site-footer-links">
-                                    <li><a href="{{ route('public.scholarships') }}">Scholarships</a></li>
+                                    <li><a href="{{ route('scholarships') }}">Scholarships</a></li>
                                     <li><a href="#">Eligibility</a></li>
                                     <li><a href="#">FAQs</a></li>
                                 </ul>
