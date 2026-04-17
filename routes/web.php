@@ -26,9 +26,14 @@ Route::middleware(['auth'])->prefix('email')->group(function () {
 /* End Email Verification */
 
 /* Student */
+// Authenticated Student Routes
 Route::middleware(['auth'])->prefix('student')->name('student.')->group(function () {
+    Route::get('scholarships', [\App\Http\Controllers\Student\ScholarshipController::class, 'index'])->name('scholarships');
+    Route::get('dashboard', [\App\Http\Controllers\Student\DashboardController::class, 'index'])->name('dashboard');
     Route::get('profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    
+    Route::post('scholarships/apply', [\App\Http\Controllers\Student\ScholarshipController::class, 'apply'])->name('scholarships.apply');
 });
 /* End Student */
 

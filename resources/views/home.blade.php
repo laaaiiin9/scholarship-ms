@@ -51,7 +51,7 @@
                 <div class="col">
                     <div class="stat-card p-4">
                         <div class="stat-icon mb-3">
-                            <i data-lucide="graduation-cap" class="text-primary"></i>
+                            <i data-lucide="graduation-cap" class="text-eskoylar-primary"></i>
                         </div>
                         <h2 class="fw-bold mb-1">25+</h2>
                         <p class="text-secondary fw-medium mb-0">Active Scholarships</p>
@@ -61,7 +61,7 @@
                 <div class="col">
                     <div class="stat-card p-4">
                         <div class="stat-icon mb-3">
-                            <i data-lucide="users" class="text-primary"></i>
+                            <i data-lucide="users" class="text-eskoylar-primary"></i>
                         </div>
                         <h2 class="fw-bold mb-1">1,200+</h2>
                         <p class="text-secondary fw-medium mb-0">Registered Students</p>
@@ -71,7 +71,7 @@
                 <div class="col">
                     <div class="stat-card p-4">
                         <div class="stat-icon mb-3">
-                            <i data-lucide="file-text" class="text-primary"></i>
+                            <i data-lucide="file-text" class="text-eskoylar-primary"></i>
                         </div>
                         <h2 class="fw-bold mb-1">3,500+</h2>
                         <p class="text-secondary fw-medium mb-0">Applications Submitted</p>
@@ -81,7 +81,7 @@
                 <div class="col">
                     <div class="stat-card p-4">
                         <div class="stat-icon mb-3">
-                            <i data-lucide="check-circle" class="text-primary"></i>
+                            <i data-lucide="check-circle" class="text-eskoylar-primary"></i>
                         </div>
                         <h2 class="fw-bold mb-1">800+</h2>
                         <p class="text-secondary fw-medium mb-0">Scholars Approved</p>
@@ -95,7 +95,7 @@
     <section id="features-section" class="py-5">
         <div class="container py-lg-5">
             <div class="text-center mb-5 mx-auto" style="max-width: 600px;">
-                <h6 class="text-primary fw-bold text-uppercase tracking-wider">Features</h6>
+                <h6 class="text-eskoylar-primary fw-bold text-uppercase tracking-wider">Features</h6>
                 <h2 class="display-5 fw-bold">Everything you need to succeed</h2>
                 <p class="text-secondary">We've simplified the scholarship process so you can focus on your studies,
                     not the paperwork.</p>
@@ -104,7 +104,7 @@
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card h-100 border-0 p-4 shadow-sm">
-                        <div class="feature-icon-small bg-primary-subtle text-primary rounded-3 mb-4 d-flex align-items-center justify-content-center"
+                        <div class="feature-icon-small bg-primary-subtle text-eskoylar-primary rounded-3 mb-4 d-flex align-items-center justify-content-center"
                             style="width: 50px; height: 50px;">
                             <i data-lucide="search"></i>
                         </div>
@@ -163,11 +163,11 @@
                     </div>
 
                     <div class="col-lg-2 col-md-4 timeline-item">
-                        <div class="timeline-icon bg-light text-primary border border-primary">
+                        <div class="timeline-icon bg-light text-eskoylar-primary border border-primary">
                             <i data-lucide="eye"></i>
                         </div>
                         <div class="timeline-content">
-                            <h5 class="fw-bold mt-3 text-primary">Under Review</h5>
+                            <h5 class="fw-bold mt-3 text-eskoylar-primary">Under Review</h5>
                             <p class="text-muted fs-7">Initial screening</p>
                         </div>
                     </div>

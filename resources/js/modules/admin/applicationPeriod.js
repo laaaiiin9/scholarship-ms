@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <tr>
                     <td class="ps-4">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="avatar-circle sm bg-primary-subtle text-primary">
+                            <div class="avatar-circle sm bg-primary-subtle text-eskoylar-primary">
                                 <i data-lucide="calendar" style="width: 18px;"></i>
                             </div>
                             <div>

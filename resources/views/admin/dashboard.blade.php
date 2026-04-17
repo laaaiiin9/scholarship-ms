@@ -15,14 +15,14 @@
         <div class="col-sm-6 col-xl-3">
             <div class="card stat-card h-100 p-4 rounded-4">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <div class="stat-icon bg-primary-subtle text-primary">
+                    <div class="stat-icon bg-primary-subtle text-eskoylar-primary">
                         <i data-lucide="inbox"></i>
                     </div>
                 </div>
                 <h3 class="fw-bold mb-1">1,248</h3>
                 <p class="text-muted fw-medium mb-1">Open Applications</p>
                 <small class="text-muted d-block mt-2">
-                    <span class="text-primary fw-medium"><i data-lucide="trending-up" style="width: 14px; height: 14px;" class="me-1"></i></span>
+                    <span class="text-eskoylar-primary fw-medium"><i data-lucide="trending-up" style="width: 14px; height: 14px;" class="me-1"></i></span>
                     submitted this term
                 </small>
             </div>

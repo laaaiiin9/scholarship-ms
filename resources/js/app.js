@@ -11,3 +11,6 @@ createIcons({ icons });
 import './modules/admin/scholarships';
 import './modules/admin/applicationPeriod';
 import './modules/admin/requirement';
+
+// Student Modules
+import './modules/student/scholarships';
