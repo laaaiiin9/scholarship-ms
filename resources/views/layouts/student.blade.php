@@ -47,8 +47,13 @@
                         </a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a href="{{ route('student.applications.index') }}" class="nav-link {{ Route::is('student.applications.*') ? 'active' : '' }} d-flex align-items-center">
+                        <a href="{{ route('student.applications.index') }}" class="nav-link {{ Route::is('student.applications.*') && !Route::is('student.renewals.*') ? 'active' : '' }} d-flex align-items-center">
                             <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="file-text" style="width: 20px;"></i></span> My Applications
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a href="{{ route('student.renewals.index') }}" class="nav-link {{ Route::is('student.renewals.*') ? 'active' : '' }} d-flex align-items-center">
+                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="refresh-cw" style="width: 20px;"></i></span> Renew Scholarship
                         </a>
                     </li>
                     <li class="nav-item mb-2">

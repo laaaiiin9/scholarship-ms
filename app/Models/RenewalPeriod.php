@@ -11,7 +11,8 @@ class RenewalPeriod extends Model
     protected $fillable = [
         'scholarship_id',
         'start_date',
-        'end_date'
+        'end_date',
+        'status'
     ];
 
     protected function casts(): array

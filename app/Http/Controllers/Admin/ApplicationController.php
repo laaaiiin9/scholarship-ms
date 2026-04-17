@@ -68,9 +68,16 @@ class ApplicationController extends Controller
                     [
                         'decided_by' => auth()->id(),
                         'result' => $request->result,
-                        // If remarks module exists in db: 'remarks' => $request->remarks
                     ]
                 );
+
+                // Auto-create disbursement if approved
+                if ($request->result === Decision::RESULT_APPROVED) {
+                    \App\Models\Disbursement::updateOrCreate(
+                        ['application_id' => $application->id, 'renewal_id' => null],
+                        ['amount' => 0, 'status' => 'PENDING']
+                    );
+                }
             }
 
             DB::commit();

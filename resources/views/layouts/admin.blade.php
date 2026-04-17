@@ -62,8 +62,23 @@
                         </a>
                     </li>
                     <li class="nav-item mb-2">
+                        <a href="{{ route('admin.renewals.periods.index') }}" class="nav-link {{ Route::is('admin.renewals.periods.*') ? 'active' : '' }} d-flex align-items-center">
+                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="refresh-cw" style="width: 20px;"></i></span> Renewal Periods
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2">
                         <a href="{{ route('admin.applications.index') }}" class="nav-link {{ Route::is('admin.applications.*') ? 'active' : '' }} d-flex align-items-center">
                             <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="file-text" style="width: 20px;"></i></span> Applications
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a href="{{ route('admin.renewals.index') }}" class="nav-link {{ Route::is('admin.renewals.index') ? 'active' : '' }} d-flex align-items-center">
+                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="refresh-cw" style="width: 20px;"></i></span> Renewal Submissions
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a href="{{ route('admin.disbursements.index') }}" class="nav-link {{ Route::is('admin.disbursements.*') ? 'active' : '' }} d-flex align-items-center">
+                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="dollar-sign" style="width: 20px;"></i></span> Disbursements
                         </a>
                     </li>
                     <li class="nav-item mb-2">
