@@ -1,0 +1,62 @@
+@extends('layouts.main')
+@section('title', 'Register')
+@section('content')
+
+    <section class="form-section d-flex align-items-center justify-content-center min-vh-100">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-lg rounded-4 p-4">
+                        <div class="card-body">
+                            <div class="text-center mb-4">
+                                <h2 class="fw-bold">{{ config('app.name') }}</h2>
+                                <p class="text-secondary small">Create your account to continue.</p>
+                            </div>
+
+                            <form data-ajax-form method="POST" action="{{ route('auth.signup') }}">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control shadow-none" id="username" name="username"
+                                        placeholder="Username" required>
+                                    <label for="username">Username</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control shadow-none" id="email" name="email"
+                                        placeholder="email@example.com" required>
+                                    <label for="email">Email</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control shadow-none" id="password" name="password"
+                                        placeholder="Password" required>
+                                    <label for="password">Password</label>
+                                </div>
+                                
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control shadow-none" id="password_confirmation" name="password_confirmation"
+                                        placeholder="Confirm Password" required>
+                                    <label for="password_confirmation">Confirm Password</label>
+                                </div>
+
+                                <button type="submit" class="btn-gradient w-100 py-2 fw-bold mb-3">Register</button>
+
+                                <p class="text-center small mb-0">
+                                    Already have an account?
+                                    <a href="{{ route('auth.login') }}" class="text-decoration-none fw-bold">Sign In</a>
+                                </p>
+                            </form>
+
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a href="{{ route('home') }}" class="text-secondary text-decoration-none small">
+                            <i data-lucide="arrow-left" class="me-1" style="width: 14px;"></i> Back to Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+@endsection

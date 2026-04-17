@@ -8,7 +8,15 @@ class Role extends Model
 {
     protected $table = "roles";
 
+    public const ADMIN = 'admin';
+    public const STUDENT = 'student';
+
     protected $fillable = [
         'name'
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_roles');
+    }
 }

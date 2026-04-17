@@ -1,0 +1,32 @@
+.form-section {
+    padding: 2rem 0;
+
+    .card {
+        background-color: var(--card-bg);
+    }
+
+    .form-control {
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 0.75rem;
+        background-color: var(--bg);
+
+        &:focus {
+            border: 1px solid #0c6588;
+            background-color: var(--form-control-focus);
+        }
+    }
+
+    .form-floating>label {
+        color: #b0b6bb;
+    }
+}
+
+.btn-gradient {
+    border: none;
+    transition: opacity 0.3s ease;
+    border-radius: 0.75rem;
+
+    &:hover {
+        opacity: 0.9;
+    }
+}

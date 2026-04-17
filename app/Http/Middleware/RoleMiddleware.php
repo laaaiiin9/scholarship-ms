@@ -15,8 +15,8 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next, $role): Response
     {
-        if (!auth()->user()->hasRole('student')) {
-            abort(503, "Forbidden");
+        if (!auth()->check() || !auth()->user()->hasRole($role)) {
+            abort(403, 'Forbidden');
         }
 
         return $next($request);

@@ -1,0 +1,127 @@
+.hero-section {
+    min-height: calc(100vh - 90px);
+    padding: 10vh 0;
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 991.98px) {
+        padding: 80px 0;
+        min-height: auto;
+    }
+}
+
+.hero-description {
+    max-width: 500px;
+
+    @media (max-width: 991.98px) {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.stat-card {
+    background: transparent;
+    transition: all 0.3s ease-in-out;
+    border-radius: 1rem;
+
+    // Optional: Add a subtle border or background on hover
+    &:hover {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transform: translateY(-5px);
+        cursor: pointer;
+    }
+
+    h2 {
+        color: var(--text);
+        font-size: 2.5rem; // Equivalent to fs-1
+        letter-spacing: -1px;
+    }
+
+    .stat-icon {
+        svg {
+            width: 32px;
+            height: 32px;
+            stroke-width: 1.5px;
+        }
+    }
+}
+
+// Ensure the section has a nice separation from the hero
+#stats-section {
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.feature-icon-small {
+    i {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+#features-section {
+    .card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        border: 1px solid rgba(0, 0, 0, 0.05) !important; // Subtle border
+
+        &:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1) !important;
+        }
+    }
+}
+
+// Custom letter spacing for that premium look
+.tracking-wider {
+    letter-spacing: 0.1rem;
+}
+
+.timeline-container {
+    position: relative;
+    padding: 2rem 0;
+
+    .timeline-item {
+        position: relative;
+        text-align: center;
+        padding-bottom: 2rem;
+
+        // The connecting line
+        @media (min-width: 992px) {
+            &::before {
+                content: '';
+                position: absolute;
+                top: 25px; // Half of icon height
+                left: 50%;
+                width: 100%;
+                height: 2px;
+                background-color: #e9ecef;
+                z-index: 1;
+            }
+
+            &:last-child::before {
+                display: none;
+            }
+        }
+    }
+
+    .timeline-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2; // Above the line
+
+        i {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    .fs-7 {
+        font-size: 0.85rem;
+    }
+}

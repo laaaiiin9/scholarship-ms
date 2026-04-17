@@ -1,0 +1,21 @@
+:root {
+    --bg: #fff;
+    --text: #000000;
+    --card: #fff;
+
+    --nav-bg: rgba(255,255,255,0.6);
+    --card-bg: #fff;
+    --button-color: #fff;
+    --form-control-focus: #d8d8d8;
+}
+
+[data-bs-theme="dark"] {
+    --bg: #121D23;
+    --text: #fff;
+    --card: #161616;
+
+    --nav-bg: rgba(25,25,25,0.2);
+    --card-bg: #182730;
+    --button-color: #fff;
+    --form-control-focus: #0e171d;
+}

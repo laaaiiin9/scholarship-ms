@@ -1,0 +1,235 @@
+// Variables
+$sidebar-width: 280px;
+
+.dashboard-wrapper {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--bg);
+}
+
+.logo-icon {
+    width: 120px;
+    height: 40px;
+    background-color: var(--text); // It will now automatically follow your theme color!
+    mask: url("../../../public/assets/images/logo2.svg") no-repeat center;
+    mask-size: contain;
+    -webkit-mask: url("../../../public/assets/images/logo2.svg") no-repeat center;
+    -webkit-mask-size: contain;
+}
+
+// Sidebar Logic
+.sidebar {
+    width: $sidebar-width;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+
+    .nav-link {
+        color: rgba(255, 255, 255, 0.7);
+        transition: all 0.2s;
+
+        &.active {
+            background-color: $primary !important;
+            color: #fff !important;
+        }
+
+        &:hover:not(.active) {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+    }
+}
+
+// Main Content Logic
+.main-content {
+    flex: 1;
+    margin-left: $sidebar-width; // Push content to the right of sidebar
+    min-width: 0; // Prevent flex item from overflowing
+
+    @media (max-width: 991.98px) {
+        margin-left: 0; // No margin on mobile
+    }
+}
+
+// Offcanvas-lg override (Bootstrap 5.2+)
+@media (max-width: 991.98px) {
+    .sidebar.offcanvas-lg {
+        width: 300px;
+        position: fixed;
+        transform: translateX(-100%);
+        visibility: hidden;
+
+        &.show {
+            transform: none;
+            visibility: visible;
+        }
+    }
+}
+
+// Dashboard Cards
+.card {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-logo {
+    height: 32px; // Adjust this based on your logo's aspect ratio
+    width: auto;
+    object-fit: contain;
+}
+
+.dashboard-nav {
+    background-color: var(--bg) !important;
+    border-bottom: 1px solid rgba(var(--text-rgb), 0.08);
+    height: 72px; // Match your sidebar header height
+    z-index: 1030;
+
+    .form-control {
+        border-radius: 10px;
+        background-color: rgba(var(--text-rgb), 0.05);
+        color: var(--text);
+
+        &::placeholder {
+            color: #888;
+        }
+    }
+
+    .btn-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+
+        &:hover {
+            background-color: rgba(var(--text-rgb), 0.05);
+        }
+    }
+}
+
+.avatar-circle {
+    width: 38px;
+    height: 38px;
+    background: $primary;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.x-small {
+    font-size: 0.7rem;
+}
+
+// Remove the default arrow from the user dropdown if you prefer
+.hide-caret::after {
+    display: none !important;
+}
+
+.stat-card {
+    background-color: var(--card-bg) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid rgba(var(--text-rgb), 0.05) !important;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .stat-icon {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+
+        i {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    // Colors for the icon boxes in light/dark mode
+    .bg-primary-subtle {
+        background-color: rgba($primary, 0.1) !important;
+    }
+
+    .bg-warning-subtle {
+        background-color: rgba($warning, 0.1) !important;
+    }
+
+    .bg-success-subtle {
+        background-color: rgba($success, 0.1) !important;
+    }
+
+    .bg-danger-subtle {
+        background-color: rgba($danger, 0.1) !important;
+    }
+}
+
+[data-bs-theme="dark"] {
+    .stat-card {
+        box-shadow: none !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .text-muted {
+        color: rgba(255, 255, 255, 0.5) !important;
+    }
+}
+
+.table {
+    thead th {
+        background-color: rgba(var(--text-rgb), 0.02);
+        padding-top: 15px;
+        padding-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    tbody td {
+        padding-top: 16px;
+        padding-bottom: 16px;
+        border-color: rgba(var(--text-rgb), 0.05);
+    }
+}
+
+.bg-light-subtle {
+    background-color: rgba(var(--text-rgb), 0.03) !important;
+}
+
+.avatar-circle.sm {
+    width: 32px;
+    height: 32px;
+    font-size: 0.75rem;
+}
+
+// Pagination Styling
+.pagination {
+    .page-link {
+        background-color: rgba(var(--text-rgb), 0.05);
+        color: var(--text);
+        &:hover { background-color: $primary; color: #fff; }
+    }
+    
+    .page-item.active .page-link {
+        background-color: $primary;
+        color: #fff;
+    }
+}
+
+[data-bs-theme="dark"] {
+    .card-header, .card-footer {
+        background-color: transparent !important;
+    }
+    .table-hover tbody tr:hover {
+        background-color: rgba(255, 255, 255, 0.02);
+    }
+}

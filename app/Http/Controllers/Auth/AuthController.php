@@ -6,21 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Services\RegisterService;
-use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
     public function login()
     {
-        if (Auth::check()) {
-            return redirect()->route('home');
-        }
-
-        return view('public.auth.login');
+        return view('auth.login');
     }
 
-    public function signIn(LoginRequest $request)
+    public function authenticate(LoginRequest $request)
     {
         $data = $request->validated();
 
@@ -30,7 +26,7 @@ class AuthController extends Controller
             $user = auth()->user();
 
             return response()->json([
-                'msg' => 'Login successful',
+                'message' => 'Login successful',
                 'redirect' => $user->hasVerifiedEmail() ? route('home') : route('verification.notice'),
             ]);
         }
@@ -44,11 +40,7 @@ class AuthController extends Controller
 
     public function register()
     {
-        if (Auth::check()) {
-            return redirect()->route('home');
-        }
-
-        return view('public.auth.register');
+        return view('auth.register');
     }
 
     public function signUp(RegisterRequest $request, RegisterService $service)
@@ -56,10 +48,9 @@ class AuthController extends Controller
         $service->store($request->validated());
 
         return response()->json([
-            'ok' => true,
-            'msg' => 'Registration successful',
-            'redirect' => route('auth.login'),
-        ], 201);
+            'success' => true,
+            'message' => 'Registered successfully'
+        ]);
     }
 
     public function logout(Request $request)
@@ -70,7 +61,7 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return response()->json([
-            'msg' => 'Logout successful',
+            'message' => 'Logout successful',
             'redirect' => route('auth.login'),
         ]);
     }

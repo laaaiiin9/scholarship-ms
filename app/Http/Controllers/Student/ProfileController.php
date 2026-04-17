@@ -3,40 +3,29 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Student\ProfileRequest;
-use App\Services\Student\ProfileService;
-use Auth;
+use App\Http\Requests\Student\ProfileUpdateRequest;
+use App\Services\Student\ProfileUpdateService;
+use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
     public function index()
     {
-        if (!Auth::user()->hasRole('student')) {
-            return redirect()->route('home');
-        }
-
-        $profile = Auth::user()->profile;
+        $profile = auth()->user()->profile;
 
         return view('student.profile', compact('profile'));
     }
 
-    public function createOrSave(ProfileRequest $request, ProfileService $service)
+    public function update(ProfileUpdateRequest $request, ProfileUpdateService $service)
     {
-        $result = $service->createOrSave($request->validated());
+        $service->update($request->user(), $request->validated());
 
-        return response()->json([
-            'msg' => $result['type'] === 'create'
-                ? 'Profile created successfully.'
-                : 'Profile updated successfully.',
-            'redirect' => $result['type'] === 'create'
-                ? route('student.profile')
-                : ''
-        ]);
-
-        // return redirect()
-        //     ->route('student.profile')
-        //     ->with('status', $result['type'] === 'create'
-        //         ? 'Profile created successfully.'
-        //         : 'Profile updated successfully.');
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'Profile updated successfully'
+            ]
+        );
     }
+
 }
