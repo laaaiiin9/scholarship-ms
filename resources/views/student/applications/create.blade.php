@@ -5,7 +5,7 @@
 @section('content')
 <div class="container-fluid p-0">
     <div class="mb-4 d-flex align-items-center gap-3">
-        <a href="{{ route('student.scholarships') }}" class="btn btn-icon btn-light rounded-circle shadow-sm">
+        <a href="{{ route('student.scholarships') }}" class="btn btn-icon shadow-sm">
             <i data-lucide="arrow-left" style="width: 20px;"></i>
         </a>
         <div>

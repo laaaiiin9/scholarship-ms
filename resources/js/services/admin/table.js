@@ -132,7 +132,7 @@ export default class TableService {
 
             linksHtml += `
                 <li class="page-item ${activeClass} ${disabledClass}">
-                    <a class="page-link border-0 ${link.active ? 'rounded' : 'text-muted'}" 
+                    <a class="page-link shadow-sm transition-all ${link.active ? 'fw-bold' : ''}" 
                        href="#" 
                        ${link.url === null ? 'tabindex="-1" aria-disabled="true"' : `data-page="${pageNum}"`}>
                        ${label}

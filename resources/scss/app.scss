@@ -4,6 +4,7 @@ $primary: #013549;
 $success: #1c8a25;
 $danger: #922525;
 $warning: #dfcd32;
+$eskoylar-primary: rgb(77, 154, 183);
 
 $nav-dropdown-bg: #121D23;
 
@@ -24,7 +25,7 @@ $theme-colors: (
     "light": $light,
     "dark": $dark,
     "custom-light": #d629b1,
-    "eskoylar-primary": rgb(77, 154, 183),
+    "eskoylar-primary": $eskoylar-primary,
 );
 
 @import 'bootstrap/scss/bootstrap';

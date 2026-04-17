@@ -27,7 +27,7 @@ Route::middleware(['auth'])->prefix('email')->group(function () {
 
 /* Student */
 // Authenticated Student Routes
-Route::middleware(['auth'])->prefix('student')->name('student.')->group(function () {
+Route::middleware(['auth', 'role:STUDENT,Student,student'])->prefix('student')->name('student.')->group(function () {
     Route::get('scholarships', [\App\Http\Controllers\Student\ScholarshipController::class, 'index'])->name('scholarships');
     Route::get('dashboard', [\App\Http\Controllers\Student\DashboardController::class, 'index'])->name('dashboard');
     Route::get('profile', [ProfileController::class, 'index'])->name('profile');
@@ -40,7 +40,7 @@ Route::middleware(['auth'])->prefix('student')->name('student.')->group(function
 /* End Student */
 
 /* Admin */
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'role:ADMIN,Admin,admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('scholarships', [ScholarshipController::class, 'index'])->name('scholarships');
     Route::get('requirements', [RequirementController::class, 'index'])->name('requirements');

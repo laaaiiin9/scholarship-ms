@@ -37,38 +37,38 @@
                 
                 <ul class="nav nav-pills flex-column mb-auto px-3 mt-4 mt-lg-2">
                     <li class="nav-item mb-2">
-                        <a href="{{ route('admin.dashboard', [], false) ?? '#' }}" class="nav-link {{ Route::is('admin.dashboard') ? 'active' : '' }} d-flex align-items-center gap-3" aria-current="page">
-                            <i data-lucide="layout-dashboard" style="width: 20px;"></i> Dashboard
+                        <a href="{{ route('admin.dashboard', [], false) ?? '#' }}" class="nav-link {{ Route::is('admin.dashboard') ? 'active' : '' }} d-flex align-items-center" aria-current="page">
+                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="layout-dashboard" style="width: 20px;"></i></span> Dashboard
                         </a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a href="#" class="nav-link d-flex align-items-center gap-3">
-                            <i data-lucide="users" style="width: 20px;"></i> Manage Users
+                        <a href="#" class="nav-link d-flex align-items-center">
+                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="users" style="width: 20px;"></i></span> Manage Users
                         </a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a href="{{ route('admin.scholarships') }}" class="nav-link {{ Route::is('admin.scholarships') ? 'active' : '' }} d-flex align-items-center gap-3">
-                            <i data-lucide="book-open" style="width: 20px;"></i> Scholarships
+                        <a href="{{ route('admin.scholarships') }}" class="nav-link {{ Route::is('admin.scholarships') ? 'active' : '' }} d-flex align-items-center">
+                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="book-open" style="width: 20px;"></i></span> Scholarships
                         </a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a href="{{ route('admin.requirements') }}" class="nav-link {{ Route::is('admin.requirements') ? 'active' : '' }} d-flex align-items-center gap-3">
-                            <i data-lucide="check-square" style="width: 20px;"></i> Requirements
+                        <a href="{{ route('admin.requirements') }}" class="nav-link {{ Route::is('admin.requirements') ? 'active' : '' }} d-flex align-items-center">
+                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="check-square" style="width: 20px;"></i></span> Requirements
                         </a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a href="{{ route('admin.application-periods') }}" class="nav-link {{ Route::is('admin.application-periods') ? 'active' : '' }} d-flex align-items-center gap-3">
-                            <i data-lucide="calendar" style="width: 20px;"></i> Application Periods
+                        <a href="{{ route('admin.application-periods') }}" class="nav-link {{ Route::is('admin.application-periods') ? 'active' : '' }} d-flex align-items-center">
+                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="calendar" style="width: 20px;"></i></span> Application Periods
                         </a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a href="#" class="nav-link d-flex align-items-center gap-3">
-                            <i data-lucide="file-text" style="width: 20px;"></i> Applications
+                        <a href="#" class="nav-link d-flex align-items-center">
+                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="file-text" style="width: 20px;"></i></span> Applications
                         </a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a href="#" class="nav-link d-flex align-items-center gap-3">
-                            <i data-lucide="settings" style="width: 20px;"></i> Settings
+                        <a href="#" class="nav-link d-flex align-items-center">
+                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="settings" style="width: 20px;"></i></span> Settings
                         </a>
                     </li>
                 </ul>
@@ -76,8 +76,8 @@
                 <hr class="text-white-50 mx-3 my-2">
                 
                 <div class="px-3 pb-4">
-                    <a href="#" class="nav-link text-danger d-flex align-items-center gap-3 mt-2">
-                        <i data-lucide="log-out" style="width: 20px;"></i> Logout
+                    <a href="#" class="nav-link text-danger d-flex align-items-center mt-2">
+                        <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="log-out" style="width: 20px;"></i></span> Logout
                     </a>
                 </div>
             </div>

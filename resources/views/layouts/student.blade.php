@@ -37,23 +37,23 @@
                 
                 <ul class="nav nav-pills flex-column mb-auto px-3 mt-4 mt-lg-2">
                     <li class="nav-item mb-2">
-                        <a href="{{ route('student.dashboard') }}" class="nav-link {{ Route::is('student.dashboard') ? 'active' : '' }} d-flex align-items-center gap-3" aria-current="page">
-                            <i data-lucide="layout-dashboard" style="width: 20px;"></i> Dashboard
+                        <a href="{{ route('student.dashboard') }}" class="nav-link {{ Route::is('student.dashboard') ? 'active' : '' }} d-flex align-items-center" aria-current="page">
+                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="layout-dashboard" style="width: 20px;"></i></span> Dashboard
                         </a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a href="{{ route('student.scholarships') }}" class="nav-link {{ Route::is('student.scholarships') ? 'active' : '' }} d-flex align-items-center gap-3">
-                            <i data-lucide="search" style="width: 20px;"></i> Find Scholarships
+                        <a href="{{ route('student.scholarships') }}" class="nav-link {{ Route::is('student.scholarships') ? 'active' : '' }} d-flex align-items-center">
+                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="search" style="width: 20px;"></i></span> Find Scholarships
                         </a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a href="#" class="nav-link d-flex align-items-center gap-3">
-                            <i data-lucide="file-text" style="width: 20px;"></i> My Applications
+                        <a href="#" class="nav-link d-flex align-items-center">
+                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="file-text" style="width: 20px;"></i></span> My Applications
                         </a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a href="{{ route('student.profile') }}" class="nav-link {{ Route::is('student.profile') ? 'active' : '' }} d-flex align-items-center gap-3">
-                            <i data-lucide="user" style="width: 20px;"></i> My Profile
+                        <a href="{{ route('student.profile') }}" class="nav-link {{ Route::is('student.profile') ? 'active' : '' }} d-flex align-items-center">
+                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="user" style="width: 20px;"></i></span> My Profile
                         </a>
                     </li>
                 </ul>
@@ -63,8 +63,8 @@
                 <div class="px-3 pb-4">
                     <form action="{{ route('auth.logout') }}" method="POST" class="d-inline w-100">
                         @csrf
-                        <button type="submit" class="btn nav-link text-danger d-flex align-items-center gap-3 mt-2 w-100 text-start shadow-none">
-                            <i data-lucide="log-out" style="width: 20px;"></i> Logout
+                        <button type="submit" class="btn nav-link text-danger d-flex align-items-center w-100 text-start shadow-none mt-2">
+                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="log-out" style="width: 20px;"></i></span> Logout
                         </button>
                     </form>
                 </div>
