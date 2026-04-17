@@ -12,6 +12,37 @@ use Illuminate\Http\Request;
 class ApplicationController extends Controller
 {
     /**
+     * Display a listing of the student's applications.
+     */
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $query = Application::with(['scholarship'])
+                ->where('user_id', auth()->id())
+                ->latest();
+
+            return response()->json($query->paginate(10));
+        }
+
+        return view('student.applications.index');
+    }
+
+    /**
+     * Display the specific tracking details of an application.
+     */
+    public function show(Application $application)
+    {
+        // Security check
+        if ($application->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized access to application.');
+        }
+
+        $application->load(['scholarship', 'applicationPeriod', 'documents.requirement', 'decision.decider']);
+        
+        return view('student.applications.show', compact('application'));
+    }
+
+    /**
      * Display the application form for a specific scholarship.
      */
     public function create(Scholarship $scholarship)

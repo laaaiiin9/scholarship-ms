@@ -40,7 +40,7 @@
                         {{ $scholarship->description ?? 'No description provided.' }}
                     </p>
                     
-                    <div class="mb-3 bg-dark-subtle rounded p-3">
+                    <div class="mb-3 border border-secondary p-3 rounded">
                         <div class="text-body text-uppercase fw-bold mb-1" style="font-size: 0.7rem; letter-spacing: 0.5px;">Active Application Period</div>
                         <div class="d-flex align-items-center gap-2 text-sm pt-1">
                             <i data-lucide="calendar" style="width: 14px;" class="text-eskoylar-primary"></i>
@@ -69,7 +69,7 @@
                             <div class="row g-4 mb-4">
                                 @foreach($scholarship->requirements as $index => $req)
                                     <div class="col-12">
-                                        <div class="requirement-box p-4 rounded-3 border border-secondary-subtle bg-light-subtle transition-all">
+                                        <div class="requirement-box p-4 rounded-3 border border-secondary-subtle bg-body-tertiary transition-all">
                                             <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
                                                 <div>
                                                     <h6 class="fw-bold mb-1">
@@ -100,7 +100,7 @@
                         <hr class="text-secondary opacity-25">
 
                         <div class="d-flex justify-content-end gap-3 mt-4">
-                            <a href="{{ route('student.scholarships') }}" class="btn btn-light fw-medium px-4">Cancel</a>
+                            <a href="{{ route('student.scholarships') }}" class="btn btn-outline-secondary fw-medium px-4">Cancel</a>
                             <button type="submit" class="btn btn-eskoylar-primary text-white fw-bold shadow-sm px-5" id="submitBtn">
                                 Submit Application <i data-lucide="send" style="width: 16px;" class="ms-2"></i>
                             </button>

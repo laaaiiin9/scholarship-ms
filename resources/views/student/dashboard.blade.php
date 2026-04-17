@@ -70,28 +70,37 @@
                         <tbody>
                             @forelse($activeApplications as $app)
                                 <tr>
-                                    <td class="ps-4 py-3 fw-medium text-body">
-                                        {{ $app->scholarship->name ?? 'Unknown Scholarship' }}
+                                    <td class="ps-4 py-3">
+                                        <h6 class="mb-0 fw-bold text-body">{{ $app->scholarship->name ?? 'Unknown' }}</h6>
                                     </td>
                                     <td class="text-muted py-3">
                                         {{ $app->created_at->format('M d, Y') }}
                                     </td>
                                     <td class="py-3">
-                                        @if($app->status === 'APPROVED')
-                                            <span class="badge bg-success-subtle text-success border border-success px-3 py-2 rounded-pill">Approved</span>
-                                        @elseif(in_array($app->status, ['DRAFT', 'SUBMITTED', 'UNDER_REVIEW']))
-                                            <span class="badge bg-warning-subtle text-warning border border-warning px-3 py-2 rounded-pill">In Progress</span>
+                                        @if($app->status === 'DECIDED')
+                                            <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill">Decision Issued</span>
+                                        @elseif($app->status === 'SUBMITTED')
+                                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 rounded-pill">Submitted</span>
+                                        @elseif($app->status === 'UNDER_REVIEW')
+                                            <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-2 rounded-pill">Under Review</span>
+                                        @elseif($app->status === 'REVISION_REQUIRED')
+                                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-2 rounded-pill">Revision Required</span>
                                         @else
-                                            <span class="badge bg-secondary-subtle text-secondary border border-secondary px-3 py-2 rounded-pill">{{ ucfirst(strtolower(str_replace('_', ' ', $app->status))) }}</span>
+                                            <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-2 rounded-pill">{{ str_replace('_', ' ', $app->status) }}</span>
                                         @endif
+                                    </td>
+                                    <td class="pe-4 text-end">
+                                        <a href="{{ route('student.applications.show', $app->id) }}" class="btn btn-sm btn-outline-eskoylar-primary rounded-pill px-3 shadow-none">
+                                            Track
+                                        </a>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="3" class="text-center py-5 text-muted">
+                                    <td colspan="4" class="text-center py-5 text-muted">
                                         <i data-lucide="inbox" style="width:32px;height:32px;" class="mb-2 opacity-50"></i>
                                         <p class="mb-0">You haven't submitted any applications yet.</p>
-                                        <a href="{{ route('student.scholarships') }}" class="btn btn-sm btn-eskoylar-primary text-white mt-3 shadow-none">Find Scholarships</a>
+                                        <a href="{{ route('student.scholarships') }}" class="btn btn-sm btn-eskoylar-primary text-white mt-3 shadow-none px-4 rounded-3">Explore Scholarships</a>
                                     </td>
                                 </tr>
                             @endforelse

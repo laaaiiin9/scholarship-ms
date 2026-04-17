@@ -34,6 +34,8 @@ Route::middleware(['auth', 'role:STUDENT,Student,student'])->prefix('student')->
     Route::post('profile/update', [ProfileController::class, 'update'])->name('profile.update');
     
     // Application Flow
+    Route::get('applications', [\App\Http\Controllers\Student\ApplicationController::class, 'index'])->name('applications.index');
+    Route::get('applications/show/{application}', [\App\Http\Controllers\Student\ApplicationController::class, 'show'])->name('applications.show');
     Route::get('applications/create/{scholarship}', [\App\Http\Controllers\Student\ApplicationController::class, 'create'])->name('applications.create');
     Route::post('applications', [\App\Http\Controllers\Student\ApplicationController::class, 'store'])->name('applications.store');
 });
@@ -58,5 +60,13 @@ Route::middleware(['auth', 'role:ADMIN,Admin,admin'])->prefix('admin')->name('ad
     Route::get('application-periods/{applicationPeriod}/edit', [\App\Http\Controllers\Admin\ApplicationPeriodController::class, 'edit'])->name('application-periods.edit');
     Route::put('application-periods/{applicationPeriod}', [\App\Http\Controllers\Admin\ApplicationPeriodController::class, 'update'])->name('application-periods.update');
     Route::delete('application-periods/{applicationPeriod}', [\App\Http\Controllers\Admin\ApplicationPeriodController::class, 'destroy'])->name('application-periods.destroy');
+
+    Route::get('applications', [\App\Http\Controllers\Admin\ApplicationController::class, 'index'])->name('applications.index');
+    Route::get('applications/{application}', [\App\Http\Controllers\Admin\ApplicationController::class, 'show'])->name('applications.show');
+    Route::post('applications/{application}/status', [\App\Http\Controllers\Admin\ApplicationController::class, 'updateStatus'])->name('applications.status');
+
+    Route::get('users', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
+    Route::post('users/store', [\App\Http\Controllers\Admin\UserController::class, 'store'])->name('users.store');
+    Route::post('users/{user}/toggle-status', [\App\Http\Controllers\Admin\UserController::class, 'toggleStatus'])->name('users.toggle-status');
 });
 /* End Admin */

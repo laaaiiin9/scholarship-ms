@@ -2,11 +2,9 @@ import { createIcons, icons } from 'lucide';
 import { showToast } from '../../utils/toast';
 
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // Initialize icons if any were dynamically added
-    if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
-    }
+
+    // Initialize icons
+    createIcons({ icons });
 
     const form = document.getElementById('applicationForm');
     if (!form) return;
@@ -16,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const btn = document.getElementById('submitBtn');
         const originalHtml = btn.innerHTML;
-        
+
         // Locking state
         btn.disabled = true;
         btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Uploading...';
@@ -51,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             showToast(data.msg || "Successfully submitted framework documents!", 'success');
-            
+
             // Redirect smoothly to dashboard instead of grid
             setTimeout(() => {
                 window.location.href = '/student/dashboard';

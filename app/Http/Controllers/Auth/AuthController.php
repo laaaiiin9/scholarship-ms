@@ -21,9 +21,18 @@ class AuthController extends Controller
         $data = $request->validated();
 
         if (Auth::attempt($data)) {
-            $request->session()->regenerate();
-
             $user = auth()->user();
+
+            if (!$user->is_active) {
+                Auth::logout();
+                return response()->json([
+                    'errors' => [
+                        'email' => ['Your account has been deactivated. Please contact support.']
+                    ]
+                ], 423); // 423 Locked
+            }
+
+            $request->session()->regenerate();
 
             return response()->json([
                 'message' => 'Login successful',

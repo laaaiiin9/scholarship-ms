@@ -23,7 +23,7 @@
                         <div class="col-lg-6 ps-lg-5">
                             <div class="hero-card-wrapper">
                                 <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
-                                    <div class="card-header bg-light border-0 py-3 px-4">
+                                    <div class="card-header bg-body-tertiary border-0 py-3 px-4">
                                         <div class="d-flex gap-2">
                                             <div class="bg-danger rounded-circle" style="width: 12px; height: 12px;"></div>
                                             <div class="bg-warning rounded-circle" style="width: 12px; height: 12px;"></div>
@@ -31,7 +31,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body p-0">
-                                        <img src="https://www.upskwela.com/_astro/new-hero-section-image-dark.DsEOUqmO.webp"
+                                        <img src="{{ asset('assets/images/overview-hero.png') }}"
                                             alt="Dashboard Preview" class="img-fluid">
                                     </div>
                                 </div>
@@ -163,7 +163,7 @@
                     </div>
 
                     <div class="col-lg-2 col-md-4 timeline-item">
-                        <div class="timeline-icon bg-light text-eskoylar-primary border border-primary">
+                        <div class="timeline-icon bg-body text-eskoylar-primary border border-primary">
                             <i data-lucide="eye"></i>
                         </div>
                         <div class="timeline-content">
@@ -173,7 +173,7 @@
                     </div>
 
                     <div class="col-lg-2 col-md-4 timeline-item">
-                        <div class="timeline-icon bg-light text-secondary border">
+                        <div class="timeline-icon bg-body text-secondary border">
                             <i data-lucide="file-search"></i>
                         </div>
                         <div class="timeline-content">
@@ -183,7 +183,7 @@
                     </div>
 
                     <div class="col-lg-2 col-md-4 timeline-item">
-                        <div class="timeline-icon bg-light text-secondary border">
+                        <div class="timeline-icon bg-body text-secondary border">
                             <i data-lucide="check-circle"></i>
                         </div>
                         <div class="timeline-content">
@@ -193,7 +193,7 @@
                     </div>
 
                     <div class="col-lg-2 col-md-4 timeline-item">
-                        <div class="timeline-icon bg-light text-secondary border">
+                        <div class="timeline-icon bg-body text-secondary border">
                             <i data-lucide="banknote"></i>
                         </div>
                         <div class="timeline-content">

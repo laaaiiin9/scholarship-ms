@@ -62,8 +62,13 @@
                         </a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a href="#" class="nav-link d-flex align-items-center">
+                        <a href="{{ route('admin.applications.index') }}" class="nav-link {{ Route::is('admin.applications.*') ? 'active' : '' }} d-flex align-items-center">
                             <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="file-text" style="width: 20px;"></i></span> Applications
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a href="{{ route('admin.users.index') }}" class="nav-link {{ Route::is('admin.users.*') ? 'active' : '' }} d-flex align-items-center">
+                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="users" style="width: 20px;"></i></span> User Management
                         </a>
                     </li>
                     <li class="nav-item mb-2">

@@ -21,8 +21,9 @@ class DashboardController extends Controller
             ->whereIn('status', [Application::STATUS_DRAFT, Application::STATUS_SUBMITTED, Application::STATUS_UNDER_REVIEW])
             ->count();
 
-        $activeApplications = Application::with(['scholarship', 'applicationPeriod'])
+        $activeApplications = Application::with(['scholarship'])
             ->where('user_id', $userId)
+            ->where('status', '!=', Application::STATUS_DRAFT)
             ->latest()
             ->take(5)
             ->get();

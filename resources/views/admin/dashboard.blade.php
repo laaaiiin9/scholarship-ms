@@ -19,7 +19,7 @@
                         <i data-lucide="inbox"></i>
                     </div>
                 </div>
-                <h3 class="fw-bold mb-1">1,248</h3>
+                <h3 class="fw-bold mb-1">{{ number_format($totalApplications) }}</h3>
                 <p class="text-muted fw-medium mb-1">Open Applications</p>
                 <small class="text-muted d-block mt-2">
                     <span class="text-eskoylar-primary fw-medium"><i data-lucide="trending-up" style="width: 14px; height: 14px;" class="me-1"></i></span>
@@ -36,7 +36,7 @@
                         <i data-lucide="file-search"></i>
                     </div>
                 </div>
-                <h3 class="fw-bold mb-1">314</h3>
+                <h3 class="fw-bold mb-1">{{ number_format($forReviewCount) }}</h3>
                 <p class="text-muted fw-medium mb-1">For Review</p>
                 <small class="text-muted d-block mt-2">
                     <span class="text-warning fw-medium"><i data-lucide="clock" style="width: 14px; height: 14px;" class="me-1"></i></span>
@@ -53,7 +53,7 @@
                         <i data-lucide="check-circle-2"></i>
                     </div>
                 </div>
-                <h3 class="fw-bold mb-1">820</h3>
+                <h3 class="fw-bold mb-1">{{ number_format($approvedCount) }}</h3>
                 <p class="text-muted fw-medium mb-1">Approved</p>
             </div>
         </div>
@@ -66,7 +66,7 @@
                         <i data-lucide="x-circle"></i>
                     </div>
                 </div>
-                <h3 class="fw-bold mb-1">114</h3>
+                <h3 class="fw-bold mb-1">{{ number_format($rejectedCount) }}</h3>
                 <p class="text-muted fw-medium mb-1">Rejected</p>
             </div>
         </div>
