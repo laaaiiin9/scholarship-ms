@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <tr>
                     <td class="ps-4">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="avatar-circle sm bg-info-subtle text-info">
+                            <div class="avatar-circle sm bg-eskoylar-primary bg-opacity-10 text-eskoylar-primary">
                                 <i data-lucide="file-check" style="width: 18px;"></i>
                             </div>
                             <div>
@@ -29,11 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     </td>
                     <td class="pe-4 text-end">
                         <div class="d-flex gap-2 justify-content-end">
-                            <button class="btn btn-sm btn-primary btn-icon text-white" title="Edit" onclick="window.editRequirement(${item.id})">
-                                <i data-lucide="edit-2" style="width: 16px;"></i>
+                            <button class="btn btn-sm btn-outline-eskoylar-primary btn-icon shadow-sm" title="Edit" onclick="window.editRequirement(${item.id})">
+                                <i data-lucide="pencil" style="width: 16px;"></i>
                             </button>
-                            <button class="btn btn-sm btn-danger btn-icon text-white" title="Delete" onclick="window.deleteRequirement(${item.id})">
-                                <i data-lucide="trash-2" style="width: 16px;"></i>
+                            <button class="btn btn-sm btn-outline-danger btn-icon shadow-sm" title="Delete" onclick="window.deleteRequirement(${item.id})">
+                                <i data-lucide="trash" style="width: 16px;"></i>
                             </button>
                         </div>
                     </td>

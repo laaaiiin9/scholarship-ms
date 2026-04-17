@@ -41,8 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     </td>
                     <td class="text-muted">${date}</td>
                     <td class="pe-4 text-end">
-                        <button class="btn btn-sm btn-outline-eskoylar-primary rounded-3 px-3 shadow-sm edit-user-btn" data-id="${item.id}">
-                            Edit <i data-lucide="edit-3" style="width: 14px;"></i>
+                        <button class="btn btn-sm btn-icon btn-outline-eskoylar-primary rounded-3 shadow-sm edit-user-btn" data-id="${item.id}" title="Edit User">
+                            <i data-lucide="pencil" style="width: 16px;"></i>
                         </button>
                     </td>
                 </tr>

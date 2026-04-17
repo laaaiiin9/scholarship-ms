@@ -17,6 +17,10 @@ class ProfileUpdateService
                 [
                     'first_name' => $data['first_name'],
                     'last_name' => $data['last_name'],
+                    'contact_number' => $data['contact_number'] ?? null,
+                    'address' => $data['address'] ?? null,
+                    'birth_date' => $data['birth_date'] ?? null,
+                    'gender' => $data['gender'] ?? null,
                     'school' => $data['school'],
                     'course' => $data['course'],
                 ]

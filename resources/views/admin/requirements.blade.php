@@ -9,9 +9,9 @@
             <h4 class="fw-bold mb-1">Manage Requirements</h4>
             <p class="text-muted mb-0">View, edit, and manage all scholarship requirements.</p>
         </div>
-        <button class="btn btn-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#requirementModal" id="btnNewRequirement">
-            <i data-lucide="plus" style="width: 18px; height: 18px;"></i>
-            New Requirement
+        <button class="btn btn-eskoylar-primary text-white d-flex align-items-center gap-2 rounded-3 shadow-sm px-4 py-2" data-bs-toggle="modal" data-bs-target="#requirementModal" id="btnNewRequirement">
+            <i data-lucide="plus-circle" style="width: 18px;"></i>
+            New Document Requirement
         </button>
     </div>
 
@@ -67,55 +67,58 @@
 </div>
 
 <!-- Requirement Form Modal -->
-<div class="modal fade" id="requirementModal" tabindex="-1" aria-labelledby="requirementModalLabel" aria-hidden="true" data-bs-theme="dark">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header border-bottom border-dark-subtle">
-                <h5 class="modal-title" id="requirementModalLabel">New Requirement</h5>
+<div class="modal fade" id="requirementModal" tabindex="-1" aria-labelledby="requirementModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header border-bottom-0 p-4 pb-0">
+                <h5 class="modal-title fw-bold" id="requirementModalLabel">New Document Requirement</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body p-4 pt-2">
                 <form id="requirementForm">
                     <input type="hidden" id="requirement_id" name="id">
                     <div class="mb-3">
-                        <label for="scholarship_id" class="form-label text-sm fw-medium">Scholarship Program</label>
+                        <label for="scholarship_id" class="form-label text-sm fw-medium">Scholarship Program Assignment</label>
                         <select class="form-select" id="scholarship_id" name="scholarship_id" required>
-                            <option value="" disabled selected>Select Scholarship...</option>
+                            <option value="" disabled selected>-- Select target scholarship --</option>
                             @foreach($scholarships as $scholarship)
                                 <option value="{{ $scholarship->id }}">{{ $scholarship->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="name" class="form-label text-sm fw-medium">Requirement Name</label>
-                        <input type="text" class="form-control" id="name" name="name" required placeholder="e.g. Birth Certificate">
+                        <label for="name" class="form-label text-sm fw-medium">Document Name / Label</label>
+                        <input type="text" class="form-control" id="name" name="name" required placeholder="e.g. PSA Birth Certificate">
+                        <small class="text-muted">This is what students will see when uploading files.</small>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer border-top border-dark-subtle">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveRequirementBtn">Save changes</button>
+            <div class="modal-footer border-top-0 p-4">
+                <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-eskoylar-primary text-white px-4" id="saveRequirementBtn">Save Requirement</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Delete Modal -->
-<div class="modal fade" id="deleteRequirementModal" tabindex="-1" aria-labelledby="deleteRequirementModalLabel" aria-hidden="true" data-bs-theme="dark">
-    <div class="modal-dialog modal-sm modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header border-0 pb-0">
+<div class="modal fade" id="deleteRequirementModal" tabindex="-1" aria-labelledby="deleteRequirementModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4 text-center p-4">
+            <div class="modal-header border-bottom-0 pb-0">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body text-center pb-4">
-                <div class="text-danger mb-3 d-flex justify-content-center">
-                    <i data-lucide="alert-triangle" style="width: 48px; height: 48px;"></i>
+            <div class="modal-body p-4 pb-5">
+                <div class="text-danger mb-4 d-flex justify-content-center">
+                    <div class="bg-danger-subtle rounded-circle p-3">
+                        <i data-lucide="alert-triangle" style="width: 48px; height: 48px;"></i>
+                    </div>
                 </div>
-                <h5 class="mb-2">Delete Requirement?</h5>
-                <p class="text-muted text-sm mb-4">You are about to delete this requirement. This action cannot be undone.</p>
-                <div class="d-flex justify-content-center gap-2">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes, Delete</button>
+                <h4 class="fw-bold mb-2">Delete Requirement?</h4>
+                <p class="text-muted mb-4">Deleting this document requirement will remove it from all linked scholarship programs. Students will no longer be prompted for this file.</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <button type="button" class="btn btn-outline-secondary px-5" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger px-5" id="confirmDeleteBtn">Yes, Delete</button>
                 </div>
             </div>
         </div>

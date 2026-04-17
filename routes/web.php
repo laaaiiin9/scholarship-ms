@@ -36,8 +36,11 @@ Route::middleware(['auth', 'role:STUDENT,Student,student'])->prefix('student')->
     // Application Flow
     Route::get('applications', [\App\Http\Controllers\Student\ApplicationController::class, 'index'])->name('applications.index');
     Route::get('applications/show/{application}', [\App\Http\Controllers\Student\ApplicationController::class, 'show'])->name('applications.show');
-    Route::get('applications/create/{scholarship}', [\App\Http\Controllers\Student\ApplicationController::class, 'create'])->name('applications.create');
-    Route::post('applications', [\App\Http\Controllers\Student\ApplicationController::class, 'store'])->name('applications.store');
+    
+    Route::middleware(['verified'])->group(function () {
+        Route::get('applications/create/{scholarship}', [\App\Http\Controllers\Student\ApplicationController::class, 'create'])->name('applications.create');
+        Route::post('applications', [\App\Http\Controllers\Student\ApplicationController::class, 'store'])->name('applications.store');
+    });
 });
 /* End Student */
 
@@ -68,5 +71,18 @@ Route::middleware(['auth', 'role:ADMIN,Admin,admin'])->prefix('admin')->name('ad
     Route::get('users', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
     Route::post('users/store', [\App\Http\Controllers\Admin\UserController::class, 'store'])->name('users.store');
     Route::post('users/{user}/toggle-status', [\App\Http\Controllers\Admin\UserController::class, 'toggleStatus'])->name('users.toggle-status');
+
+    // Reports & Analytics
+    Route::prefix('reports')->name('reports.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Admin\ReportController::class, 'index'])->name('index');
+        Route::get('/applications', [\App\Http\Controllers\Admin\ReportController::class, 'applications'])->name('applications');
+        Route::get('/export/applications', [\App\Http\Controllers\Admin\ReportController::class, 'exportApplications'])->name('export.applications');
+    });
+
+    // System Settings
+    Route::prefix('settings')->name('settings.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Admin\SettingController::class, 'index'])->name('index');
+        Route::post('/update', [\App\Http\Controllers\Admin\SettingController::class, 'update'])->name('update');
+    });
 });
 /* End Admin */

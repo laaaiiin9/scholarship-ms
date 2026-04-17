@@ -22,6 +22,13 @@
     <x-navbar></x-navbar>
 
     <main class="min-vh-100">
+        @if(auth()->check() && auth()->user()->hasRole('STUDENT') && !auth()->user()->hasVerifiedEmail())
+        <div class="alert alert-warning border-0 rounded-0 shadow-sm mb-0 p-2 text-center small fw-medium">
+            <i data-lucide="mail-warning" style="width: 14px;" class="me-2"></i>
+            Your email is unverified. Please check your inbox.
+            <button id="resendVerificationBtnMain" class="btn btn-link btn-sm p-0 ms-2 text-warning fw-bold text-decoration-none">Resend Email</button>
+        </div>
+        @endif
         @yield('content')
     </main>
 

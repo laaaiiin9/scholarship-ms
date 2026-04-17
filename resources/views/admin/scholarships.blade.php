@@ -9,8 +9,8 @@
             <h4 class="fw-bold mb-1">Manage Scholarships</h4>
             <p class="text-muted mb-0">View, edit, and manage all scholarship programs.</p>
         </div>
-        <button class="btn btn-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#scholarshipModal" id="btnNewScholarship">
-            <i data-lucide="plus" style="width: 18px; height: 18px;"></i>
+        <button class="btn btn-eskoylar-primary text-white d-flex align-items-center gap-2 rounded-3 shadow-sm px-4 py-2" data-bs-toggle="modal" data-bs-target="#scholarshipModal" id="btnNewScholarship">
+            <i data-lucide="plus-circle" style="width: 18px;"></i>
             New Scholarship
         </button>
     </div>
@@ -73,54 +73,59 @@
 </div>
 
 <!-- Scholarship Form Modal -->
-<div class="modal fade" id="scholarshipModal" tabindex="-1" aria-labelledby="scholarshipModalLabel" aria-hidden="true" data-bs-theme="dark">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header border-bottom border-dark-subtle">
-                <h5 class="modal-title" id="scholarshipModalLabel">New Scholarship</h5>
+<div class="modal fade" id="scholarshipModal" tabindex="-1" aria-labelledby="scholarshipModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header border-bottom-0 p-4 pb-0">
+                <h5 class="modal-title fw-bold" id="scholarshipModalLabel">New Scholarship</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body p-4 pt-2">
                 <form id="scholarshipForm">
                     <input type="hidden" id="scholarship_id" name="id">
                     <div class="mb-3">
-                        <label for="name" class="form-label text-sm fw-medium">Name</label>
+                        <label for="name" class="form-label text-sm fw-medium">Scholarship Program Name</label>
                         <input type="text" class="form-control" id="name" name="name" required placeholder="e.g. Merit Based 2026">
                     </div>
                     <div class="mb-3">
-                        <label for="description" class="form-label text-sm fw-medium">Description</label>
+                        <label for="description" class="form-label text-sm fw-medium">Short Description</label>
                         <textarea class="form-control" id="description" name="description" rows="3" required placeholder="Details about this scholarship..."></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="max_amount" class="form-label text-sm fw-medium">Max Amount</label>
-                        <input type="number" step="1" class="form-control" id="max_amount" name="max_amount" required placeholder="0.00">
+                        <label for="max_amount" class="form-label text-sm fw-medium">Maximum Grant Amount</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" step="1" class="form-control" id="max_amount" name="max_amount" required placeholder="0.00">
+                        </div>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer border-top border-dark-subtle">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveScholarshipBtn">Save changes</button>
+            <div class="modal-footer border-top-0 p-4">
+                <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-eskoylar-primary text-white px-4" id="saveScholarshipBtn">Save Changes</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Delete Modal -->
-<div class="modal fade" id="deleteScholarshipModal" tabindex="-1" aria-labelledby="deleteScholarshipModalLabel" aria-hidden="true" data-bs-theme="dark">
-    <div class="modal-dialog modal-sm modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header border-0 pb-0">
+<div class="modal fade" id="deleteScholarshipModal" tabindex="-1" aria-labelledby="deleteScholarshipModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header border-bottom-0 p-4 pb-0">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body text-center pb-4">
-                <div class="text-danger mb-3 d-flex justify-content-center">
-                    <i data-lucide="alert-triangle" style="width: 48px; height: 48px;"></i>
+            <div class="modal-body text-center p-4 pb-5">
+                <div class="text-danger mb-4 d-flex justify-content-center">
+                    <div class="bg-danger-subtle rounded-circle p-3">
+                        <i data-lucide="alert-triangle" style="width: 48px; height: 48px;"></i>
+                    </div>
                 </div>
-                <h5 class="mb-2">Delete Scholarship?</h5>
-                <p class="text-muted text-sm mb-4">You are about to delete this scholarship. This action cannot be undone.</p>
-                <div class="d-flex justify-content-center gap-2">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes, Delete</button>
+                <h4 class="fw-bold mb-2">Delete Scholarship?</h4>
+                <p class="text-muted mb-4">You are about to delete this scholarship program. All associated records will be permanently removed. This action cannot be undone.</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <button type="button" class="btn btn-outline-secondary px-5" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger px-5" id="confirmDeleteBtn">Yes, Delete</button>
                 </div>
             </div>
         </div>

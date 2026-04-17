@@ -9,9 +9,9 @@
             <h4 class="fw-bold mb-1">Application Periods</h4>
             <p class="text-muted mb-0">Schedule and manage enrollment phases for your scholarships.</p>
         </div>
-        <button class="btn btn-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#periodModal" id="btnNewPeriod">
-            <i data-lucide="plus" style="width: 18px; height: 18px;"></i>
-            New Period
+        <button class="btn btn-eskoylar-primary text-white d-flex align-items-center gap-2 rounded-3 shadow-sm px-4 py-2" data-bs-toggle="modal" data-bs-target="#periodModal" id="btnNewPeriod">
+            <i data-lucide="plus-circle" style="width: 18px;"></i>
+            New Application Period
         </button>
     </div>
 
@@ -61,21 +61,21 @@
 </div>
 
 <!-- Form Modal -->
-<div class="modal fade" id="periodModal" tabindex="-1" aria-labelledby="periodModalLabel" aria-hidden="true" data-bs-theme="dark">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header border-bottom border-dark-subtle">
-                <h5 class="modal-title" id="periodModalLabel">New Application Period</h5>
+<div class="modal fade" id="periodModal" tabindex="-1" aria-labelledby="periodModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header border-bottom-0 p-4 pb-0">
+                <h5 class="modal-title fw-bold" id="periodModalLabel">New Application Period</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body p-4 pt-2">
                 <form id="periodForm">
                     <input type="hidden" id="period_id" name="id">
                     
                     <div class="mb-3">
-                        <label for="scholarship_id" class="form-label text-sm fw-medium">Scholarship Program</label>
+                        <label for="scholarship_id" class="form-label text-sm fw-medium">Scholarship Program Assignment</label>
                         <select class="form-select" id="scholarship_id" name="scholarship_id" required>
-                            <option value="">-- Choose Scholarship --</option>
+                            <option value="">-- Choose scholarship program --</option>
                             @foreach($scholarships as $scholarship)
                                 <option value="{{ $scholarship->id }}">{{ $scholarship->name }}</option>
                             @endforeach
@@ -83,52 +83,53 @@
                         <div class="invalid-feedback">Please select a scholarship.</div>
                     </div>
 
-                    <div class="row">
+                    <div class="row g-3">
                         <div class="col-md-6 mb-3">
-                            <label for="start_date" class="form-label text-sm fw-medium">Start Date</label>
+                            <label for="start_date" class="form-label text-sm fw-medium">Opening Date</label>
                             <input type="date" class="form-control" id="start_date" name="start_date" required>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="end_date" class="form-label text-sm fw-medium">End Date</label>
+                            <label for="end_date" class="form-label text-sm fw-medium">Closing Date</label>
                             <input type="date" class="form-control" id="end_date" name="end_date" required>
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label for="status" class="form-label text-sm fw-medium">Phase Status</label>
+                        <label for="status" class="form-label text-sm fw-medium">Operational Status</label>
                         <select class="form-select" id="status" name="status" required>
-                            <option value="DRAFT">DRAFT</option>
-                            <option value="OPEN">OPEN</option>
-                            <option value="CLOSED">CLOSED</option>
+                            <option value="DRAFT">DRAFT (Hidden from students)</option>
+                            <option value="OPEN">OPEN (Accepting applications)</option>
+                            <option value="CLOSED">CLOSED (Viewing only)</option>
                         </select>
                     </div>
-
                 </form>
             </div>
-            <div class="modal-footer border-top border-dark-subtle">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="savePeriodBtn">Save changes</button>
+            <div class="modal-footer border-top-0 p-4">
+                <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-eskoylar-primary text-white px-4" id="savePeriodBtn">Save Period Settings</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Delete Modal -->
-<div class="modal fade" id="deletePeriodModal" tabindex="-1" aria-labelledby="deletePeriodModalLabel" aria-hidden="true" data-bs-theme="dark">
-    <div class="modal-dialog modal-sm modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header border-0 pb-0">
+<div class="modal fade" id="deletePeriodModal" tabindex="-1" aria-labelledby="deletePeriodModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4 text-center p-4">
+            <div class="modal-header border-bottom-0 pb-0">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body text-center pb-4">
-                <div class="text-danger mb-3 d-flex justify-content-center">
-                    <i data-lucide="alert-triangle" style="width: 48px; height: 48px;"></i>
+            <div class="modal-body p-4 pb-5">
+                <div class="text-danger mb-4 d-flex justify-content-center">
+                    <div class="bg-danger-subtle rounded-circle p-3">
+                        <i data-lucide="alert-triangle" style="width: 48px; height: 48px;"></i>
+                    </div>
                 </div>
-                <h5 class="mb-2">Delete Period?</h5>
-                <p class="text-muted text-sm mb-4">You are about to delete this enrollment period. This action cannot be undone.</p>
-                <div class="d-flex justify-content-center gap-2">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes, Delete</button>
+                <h4 class="fw-bold mb-2">Delete Period?</h4>
+                <p class="text-muted mb-4">Deleting this application period will affect all active enrollments linked to it. This action cannot be undone.</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <button type="button" class="btn btn-outline-secondary px-5" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger px-5" id="confirmDeleteBtn">Yes, Delete</button>
                 </div>
             </div>
         </div>

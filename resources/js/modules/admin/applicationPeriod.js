@@ -16,13 +16,13 @@ document.addEventListener('DOMContentLoaded', () => {
             let statusBadge = '';
             switch(item.status) {
                 case 'OPEN':
-                    statusBadge = `<span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill">Open</span>`;
+                    statusBadge = `<span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill">Open Phase</span>`;
                     break;
                 case 'CLOSED':
-                    statusBadge = `<span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle rounded-pill">Closed</span>`;
+                    statusBadge = `<span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-2 rounded-pill">Closed Phase</span>`;
                     break;
                 default:
-                    statusBadge = `<span class="badge bg-warning-subtle text-warning border border-warning-subtle rounded-pill">Draft</span>`;
+                    statusBadge = `<span class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-2 rounded-pill">Draft Mode</span>`;
             }
 
             return `
@@ -42,11 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td>${statusBadge}</td>
                     <td class="pe-4 text-end">
                         <div class="d-flex gap-2 justify-content-end">
-                            <button class="btn btn-sm btn-primary btn-icon text-white" title="Edit" onclick="window.editPeriod(${item.id})">
-                                <i data-lucide="edit-2" style="width: 16px;"></i>
+                            <button class="btn btn-sm btn-outline-eskoylar-primary btn-icon shadow-sm" title="Edit" onclick="window.editPeriod(${item.id})">
+                                <i data-lucide="pencil" style="width: 16px;"></i>
                             </button>
-                            <button class="btn btn-sm btn-danger btn-icon text-white" title="Delete" onclick="window.deletePeriod(${item.id})">
-                                <i data-lucide="trash-2" style="width: 16px;"></i>
+                            <button class="btn btn-sm btn-outline-danger btn-icon shadow-sm" title="Delete" onclick="window.deletePeriod(${item.id})">
+                                <i data-lucide="trash" style="width: 16px;"></i>
                             </button>
                         </div>
                     </td>

@@ -71,5 +71,80 @@
             </div>
         </div>
     </div>
+
+    <!-- Tables Row -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-transparent border-bottom-0 p-4">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h5 class="fw-bold mb-0">Recent Candidate Submissions</h5>
+                        <a href="{{ route('admin.applications.index') }}" class="btn btn-sm btn-outline-eskoylar-primary rounded-pill px-3">View All</a>
+                    </div>
+                </div>
+                <div class="card-body p-0 pb-2">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="text-muted" style="font-size: 0.8rem;">
+                                <tr>
+                                    <th class="ps-4 fw-medium border-bottom-0 pb-3">Applicant Name</th>
+                                    <th class="fw-medium border-bottom-0 pb-3">Scholarship</th>
+                                    <th class="fw-medium border-bottom-0 pb-3">Status</th>
+                                    <th class="fw-medium border-bottom-0 pb-3">Applied</th>
+                                    <th class="pe-4 fw-medium border-bottom-0 pb-3 text-end">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($recentApplications as $app)
+                                    <tr>
+                                        <td class="ps-4">
+                                            <div class="d-flex align-items-center gap-3">
+                                                <div class="avatar-circle sm bg-eskoylar-primary bg-opacity-10 text-eskoylar-primary">
+                                                    {{ strtoupper(substr($app->user->profile->first_name ?? $app->user->name, 0, 1)) }}
+                                                </div>
+                                                <div>
+                                                    <h6 class="mb-0 fw-bold text-body">{{ ($app->user->profile->first_name ?? '') . ' ' . ($app->user->profile->last_name ?? $app->user->name) }}</h6>
+                                                    <small class="text-muted">{{ $app->user->email }}</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="text-body fw-medium">{{ $app->scholarship->name }}</span>
+                                        </td>
+                                        <td>
+                                            @php
+                                                $color = 'secondary';
+                                                switch($app->status) {
+                                                    case 'SUBMITTED': $color = 'primary'; break;
+                                                    case 'UNDER_REVIEW': $color = 'warning'; break;
+                                                    case 'DECIDED': $color = 'success'; break;
+                                                    case 'REVISION_REQUIRED': $color = 'danger'; break;
+                                                }
+                                            @endphp
+                                            <span class="badge bg-{{ $color }}-subtle text-{{ $color }} border border-{{ $color }}-subtle px-3 py-2 rounded-pill">
+                                                {{ str_replace('_', ' ', $app->status) }}
+                                            </span>
+                                        </td>
+                                        <td class="text-muted small">
+                                            {{ $app->created_at->diffForHumans() }}
+                                        </td>
+                                        <td class="pe-4 text-end">
+                                            <a href="{{ route('admin.applications.show', $app->id) }}" class="btn btn-sm btn-icon btn-outline-eskoylar-primary rounded-3 shadow-sm" title="View Submission">
+                                                <i data-lucide="eye" style="width: 14px;"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center py-5 text-muted">No recent applications found.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

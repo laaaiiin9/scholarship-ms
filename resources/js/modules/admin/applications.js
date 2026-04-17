@@ -53,8 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         <td class="text-muted">${date}</td>
                         <td>${statusBadge}</td>
                         <td class="pe-4 text-end">
-                            <a href="/admin/applications/${item.id}" class="btn btn-sm btn-outline-eskoylar-primary rounded-3 d-inline-flex align-items-center gap-2 px-3 shadow-sm">
-                                View Details <i data-lucide="arrow-right" style="width: 14px;"></i>
+                            <a href="/admin/applications/${item.id}" class="btn btn-sm btn-icon btn-outline-eskoylar-primary rounded-3 shadow-sm" title="View Submission">
+                                <i data-lucide="eye" style="width: 16px;"></i>
                             </a>
                         </td>
                     </tr>

@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Application;
 use App\Models\Decision;
+use App\Mail\ApplicationStatusUpdated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class ApplicationController extends Controller
 {
@@ -72,6 +74,10 @@ class ApplicationController extends Controller
             }
 
             DB::commit();
+
+            // Notify Student via Email
+            $application->load('user', 'scholarship');
+            Mail::to($application->user->email)->send(new ApplicationStatusUpdated($application));
 
             return response()->json([
                 'success' => true,

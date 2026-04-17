@@ -7,7 +7,9 @@ use App\Models\Scholarship;
 use App\Models\Application;
 use App\Http\Requests\Student\StoreApplicationRequest;
 use App\Services\Student\ApplicationService;
+use App\Mail\ApplicationSubmitted;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ApplicationController extends Controller
 {
@@ -47,6 +49,10 @@ class ApplicationController extends Controller
      */
     public function create(Scholarship $scholarship)
     {
+        if (!auth()->user()->hasVerifiedEmail()) {
+            return redirect()->route('student.scholarships')->with('error', 'You must verify your email before applying for scholarships.');
+        }
+
         $userId = auth()->id();
 
         // Validate active period
@@ -75,13 +81,20 @@ class ApplicationController extends Controller
      */
     public function store(StoreApplicationRequest $request, ApplicationService $service)
     {
+        if (!auth()->user()->hasVerifiedEmail()) {
+            return response()->json(['message' => 'Please verify your email first.'], 403);
+        }
+
         try {
             $data = $request->validated();
             // Assign the raw uploaded files from request exactly as validated
             $data['requirements'] = $request->file('requirements', []);
             
-            $service->submitApplication($data, auth()->id());
+            $application = $service->submitApplication($data, auth()->id());
             
+            // Notify Student via Email
+            Mail::to(auth()->user()->email)->send(new ApplicationSubmitted($application->load('scholarship', 'user')));
+
             return response()->json([
                 'msg' => 'Application submitted successfully with all documents!'
             ]);

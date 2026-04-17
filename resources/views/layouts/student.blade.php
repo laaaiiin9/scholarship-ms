@@ -112,6 +112,25 @@
 
             <!-- Content Section -->
             <section class="p-3 p-md-4">
+                @if(auth()->check() && !auth()->user()->hasVerifiedEmail())
+                <div class="alert alert-warning border-warning-subtle rounded-4 shadow-sm mb-4 p-3 d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="avatar-circle sm bg-warning text-white">
+                            <i data-lucide="mail-warning" style="width: 18px;"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold">Email Verification Required</h6>
+                            <p class="mb-0 small text-muted">Please check your inbox to verify your account. You cannot apply for scholarships until verified.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <button id="resendVerificationBtn" class="btn btn-warning btn-sm px-3 rounded-3 text-white fw-bold shadow-sm">
+                            Resend Email
+                        </button>
+                    </div>
+                </div>
+                @endif
+                
                 @yield('content')
             </section>
         </main>

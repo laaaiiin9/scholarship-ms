@@ -18,6 +18,17 @@ class DashboardController extends Controller
             $q->where('result', \App\Models\Decision::RESULT_REJECTED);
         })->count();
 
-        return view('admin.dashboard', compact('totalApplications', 'forReviewCount', 'approvedCount', 'rejectedCount'));
+        $recentApplications = Application::with(['scholarship', 'user.profile'])
+            ->latest()
+            ->take(5)
+            ->get();
+
+        return view('admin.dashboard', compact(
+            'totalApplications', 
+            'forReviewCount', 
+            'approvedCount', 
+            'rejectedCount',
+            'recentApplications'
+        ));
     }
 }

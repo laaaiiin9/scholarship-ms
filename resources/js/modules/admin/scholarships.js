@@ -34,14 +34,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     </td>
                     <td class="pe-4 text-end">
                         <div class="d-flex gap-2 justify-content-end">
-                            <button class="btn btn-sm btn-light btn-icon text-muted" title="View Details" onclick="window.viewScholarship(${item.id})">
+                            <button class="btn btn-sm btn-outline-secondary btn-icon shadow-sm" title="View Details" onclick="window.viewScholarship(${item.id})">
                                 <i data-lucide="eye" style="width: 16px;"></i>
                             </button>
-                            <button class="btn btn-sm btn-primary btn-icon text-white" title="Edit" onclick="window.editScholarship(${item.id})">
-                                <i data-lucide="edit-2" style="width: 16px;"></i>
+                            <button class="btn btn-sm btn-outline-eskoylar-primary btn-icon shadow-sm" title="Edit" onclick="window.editScholarship(${item.id})">
+                                <i data-lucide="pencil" style="width: 16px;"></i>
                             </button>
-                            <button class="btn btn-sm btn-danger btn-icon text-white" title="Delete" onclick="window.deleteScholarship(${item.id})">
-                                <i data-lucide="trash-2" style="width: 16px;"></i>
+                            <button class="btn btn-sm btn-outline-danger btn-icon shadow-sm" title="Delete" onclick="window.deleteScholarship(${item.id})">
+                                <i data-lucide="trash" style="width: 16px;"></i>
                             </button>
                         </div>
                     </td>
