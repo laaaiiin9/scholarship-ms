@@ -14,3 +14,4 @@ import './modules/admin/requirement';
 
 // Student Modules
 import './modules/student/scholarships';
+import './modules/student/application';

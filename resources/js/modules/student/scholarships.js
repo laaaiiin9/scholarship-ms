@@ -43,7 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (item.has_applied) {
                 actionBtnHtml = `<button class="btn btn-secondary w-100 fw-medium" disabled><i data-lucide="check" class="me-2" style="width: 16px;"></i>Applied via Application</button>`;
             } else if (item.has_open_period) {
-                actionBtnHtml = `<button class="btn btn-primary w-100 fw-medium shadow-sm transition-all hover-lift" onclick="window.applyForScholarship(event, ${item.id})">Apply Now</button>`;
+                // Change from AJAX onclick to normal link
+                actionBtnHtml = `<a href="/student/applications/create/${item.id}" class="btn btn-eskoylar-primary w-100 fw-medium shadow-sm transition-all text-white hover-lift">Apply Now</a>`;
             } else {
                 actionBtnHtml = `<button class="btn btn-outline-secondary w-100 fw-medium" disabled>Closed / No Active Period</button>`;
             }
@@ -88,53 +89,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    window.applyForScholarship = async (event, id) => {
-        const btn = event.currentTarget;
-        const originalHtml = btn.innerHTML;
-        btn.disabled = true;
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Securing slot...';
-
-        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-
-        try {
-            const formData = new FormData();
-            formData.append('scholarship_id', id);
-
-            const response = await fetch('/student/scholarships/apply', {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: formData
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                if (response.status === 401 || response.status === 403) {
-                    window.location.href = '/login';
-                    return;
-                }
-
-                let errorMessage = data.message || "Failed to submit external framework application.";
-                if (response.status === 422 && data.errors) {
-                    errorMessage = Object.values(data.errors)[0][0] || errorMessage;
-                }
-                throw new Error(errorMessage);
-            }
-
-            showToast(data.msg || "Successfully generated Application document! Kindly review statuses later.", 'success');
-            
-            // Refresh grid seamlessly
-            gridService.fetchData();
-
-        } catch (error) {
-            console.error("Error applying framework lock", error);
-            showToast(error.message || "A constraint error occurred. Ensure you meet prerequisites.", 'error');
-            btn.disabled = false;
-            btn.innerHTML = originalHtml;
-        }
-    };
+    // Removed window.applyForScholarship as this has been migrated to a dedicated page
 });

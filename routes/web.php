@@ -33,7 +33,9 @@ Route::middleware(['auth'])->prefix('student')->name('student.')->group(function
     Route::get('profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('profile/update', [ProfileController::class, 'update'])->name('profile.update');
     
-    Route::post('scholarships/apply', [\App\Http\Controllers\Student\ScholarshipController::class, 'apply'])->name('scholarships.apply');
+    // Application Flow
+    Route::get('applications/create/{scholarship}', [\App\Http\Controllers\Student\ApplicationController::class, 'create'])->name('applications.create');
+    Route::post('applications', [\App\Http\Controllers\Student\ApplicationController::class, 'store'])->name('applications.store');
 });
 /* End Student */
 
