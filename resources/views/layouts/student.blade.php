@@ -57,6 +57,11 @@
                         </a>
                     </li>
                     <li class="nav-item mb-2">
+                        <a href="{{ route('student.notifications.index') }}" class="nav-link {{ Route::is('student.notifications.index') ? 'active' : '' }} d-flex align-items-center">
+                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="bell" style="width: 20px;"></i></span> Notifications
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2">
                         <a href="{{ route('student.profile') }}" class="nav-link {{ Route::is('student.profile') ? 'active' : '' }} d-flex align-items-center">
                             <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="user" style="width: 20px;"></i></span> My Profile
                         </a>
@@ -141,6 +146,7 @@
         </main>
     </div>
 
+    @stack('scripts')
 </body>
 
 </html>

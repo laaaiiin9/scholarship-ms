@@ -23,7 +23,8 @@ class RequirementRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'scholarship_id' => 'required|exists:scholarships,id'
+            'scholarship_id' => 'required|exists:scholarships,id',
+            'type' => 'required|string|in:APPLICATION,RENEWAL'
         ];
     }
 }

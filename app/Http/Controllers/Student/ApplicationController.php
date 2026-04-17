@@ -87,8 +87,20 @@ class ApplicationController extends Controller
 
         try {
             $data = $request->validated();
-            // Assign the raw uploaded files from request exactly as validated
-            $data['requirements'] = $request->file('requirements', []);
+            // Assign the raw uploaded files
+            $reqFiles = $request->file('requirements', []);
+            
+            // If empty, extract manually from all files based on FormData behavior
+            if (empty($reqFiles)) {
+                $allFiles = $request->allFiles();
+                foreach ($allFiles as $key => $file) {
+                    if (preg_match('/^requirements\[(\d+)\]$/', $key, $matches)) {
+                        $reqFiles[$matches[1]] = $file;
+                    }
+                }
+            }
+
+            $data['requirements'] = $reqFiles;
             
             $application = $service->submitApplication($data, auth()->id());
             

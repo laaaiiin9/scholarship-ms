@@ -8,13 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
         tableBodyId: 'renewal-periods-table-body',
         paginationContainerId: 'pagination-container',
         searchInputId: 'searchInput',
-        endpoint: '/admin/renewals/periods',
+        endpoint: '/admin/renewal-periods/list',
         renderRow: (item) => {
             const scholarshipName = item.scholarship ? item.scholarship.name : 'Unknown Scholarship';
-            
+
             // Format Badge colors
             let statusBadge = '';
-            switch(item.status) {
+            switch (item.status) {
                 case 'OPEN':
                     statusBadge = `<span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill">Open Phase</span>`;
                     break;
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <tr>
                     <td class="ps-4">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="avatar-circle sm bg-purple-subtle text-purple" style="background-color: #f3e8ff; color: #7e22ce;">
+                            <div class="avatar-circle sm bg-primary-subtle text-eskoylar-primary border border-primary-subtle">
                                 <i data-lucide="refresh-cw" style="width: 18px;"></i>
                             </div>
                             <div>
@@ -37,8 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                     </td>
-                    <td class="text-muted">${item.start_date}</td>
-                    <td class="text-muted">${item.end_date}</td>
+                    <td class="text-muted small">${new Date(item.start_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
+                    <td class="text-muted small">${new Date(item.end_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
                     <td>${statusBadge}</td>
                     <td class="pe-4 text-end">
                         <div class="d-flex gap-2 justify-content-end">
@@ -63,9 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
         buildUrl: (formData) => {
             const id = formData.get('id');
             if (id) {
-                return { url: `/admin/renewals/periods/${id}`, isEdit: true };
+                return { url: `/admin/renewal-periods/update/${id}`, isEdit: true };
             }
-            return { url: '/admin/renewals/periods', isEdit: false };
+            return { url: '/admin/renewal-periods/store', isEdit: false };
         },
         onSaved: () => {
             tableService.fetchData();
@@ -84,19 +84,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Expose Global Edit & Delete Handlers
     window.editPeriod = async (id) => {
-        const data = await FormService.fetchForEdit(`/admin/renewals/periods/${id}/edit`);
+        const data = await FormService.fetchForEdit(`/admin/renewal-periods/fetch/${id}`);
         if (data) {
             document.getElementById('period_id').value = data.id;
             document.getElementById('scholarship_id').value = data.scholarship_id;
-            
+
             // Format dates simply for html5 date input (YYYY-MM-DD): The API may return ISO strings
             const startDate = data.start_date ? data.start_date.split('T')[0] : '';
             const endDate = data.end_date ? data.end_date.split('T')[0] : '';
-            
+
             document.getElementById('start_date').value = startDate;
             document.getElementById('end_date').value = endDate;
             document.getElementById('status').value = data.status;
-            
+
             document.getElementById('periodModalLabel').innerText = 'Edit Renewal Period';
             const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('periodModal'));
             modal.show();
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
             confirmDeleteBtn.disabled = true;
             confirmDeleteBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Deleting...';
 
-            const success = await FormService.deleteRecord(`/admin/renewals/periods/${deleteId}`, () => {
+            const success = await FormService.deleteRecord(`/admin/renewal-periods/delete/${deleteId}`, () => {
                 const modal = bootstrap.Modal.getInstance(document.getElementById('deletePeriodModal'));
                 if (modal) modal.hide();
                 tableService.fetchData();

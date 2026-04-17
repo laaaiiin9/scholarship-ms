@@ -14,13 +14,18 @@ class RenewalReviewController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = Renewal::with(['user.profile', 'scholarship', 'application.decision'])
+            $query = Renewal::with(['user.profile', 'scholarship', 'application.user.profile', 'application.decision'])
                 ->latest();
 
             if ($request->filled('search')) {
                 $search = $request->search;
                 $query->whereHas('user', function($q) use ($search) {
-                    $q->where('name', 'like', "%{$search}%");
+                    $q->where('username', 'like', "%{$search}%")
+                      ->orWhere('email', 'like', "%{$search}%")
+                      ->orWhereHas('profile', function($pq) use ($search) {
+                          $pq->where('first_name', 'like', "%{$search}%")
+                            ->orWhere('last_name', 'like', "%{$search}%");
+                      });
                 });
             }
 
@@ -36,7 +41,7 @@ class RenewalReviewController extends Controller
 
     public function show(Renewal $renewal)
     {
-        $renewal->load(['user.profile', 'scholarship', 'application.documents', 'application.decision']);
+        $renewal->load(['user.profile', 'scholarship', 'documents.requirement', 'application.user.profile', 'application.decision']);
         return response()->json($renewal);
     }
 
@@ -54,7 +59,7 @@ class RenewalReviewController extends Controller
             $renewal->remarks = $request->remarks;
             $renewal->save();
 
-            // Auto-create disbursement if approved
+            // Handle disbursement based on status
             if ($request->status === Renewal::STATUS_APPROVED) {
                 Disbursement::updateOrCreate(
                     [
@@ -66,6 +71,11 @@ class RenewalReviewController extends Controller
                         'status' => 'PENDING'
                     ]
                 );
+            } else {
+                // If not approved, find any existing PENDING disbursement for this renewal and mark as CANCELLED
+                Disbursement::where('renewal_id', $renewal->id)
+                    ->where('status', 'PENDING')
+                    ->update(['status' => 'CANCELLED']);
             }
 
             DB::commit();

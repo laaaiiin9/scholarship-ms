@@ -12,9 +12,14 @@ class RenewalController extends Controller
 {
     public function index(RenewalService $service)
     {
-        $eligibleApplications = $service->getEligibleScholarships(auth()->id());
+        $userId = auth()->id();
+        $eligibleApplications = $service->getEligibleScholarships($userId);
+        $renewalHistory = \App\Models\Renewal::where('user_id', $userId)
+            ->with(['scholarship', 'application'])
+            ->latest()
+            ->get();
         
-        return view('student.renewals.index', compact('eligibleApplications'));
+        return view('student.renewals.index', compact('eligibleApplications', 'renewalHistory'));
     }
 
     public function create(Application $application)
@@ -36,23 +41,54 @@ class RenewalController extends Controller
 
     public function store(Request $request, RenewalService $service)
     {
-        $data = $request->validate([
-            'application_id' => 'required|exists:applications,id',
-            'renewal_period_id' => 'required|exists:renewal_periods,id',
-        ]);
+        try {
+            $request->validate([
+                'application_id'    => 'required|exists:applications,id',
+                'renewal_period_id' => 'required|exists:renewal_periods,id',
+            ]);
 
-        // Security check
-        $application = Application::findOrFail($data['application_id']);
-        if ($application->user_id !== auth()->id()) {
-            return response()->json(['message' => 'Unauthorized'], 403);
+            // Security check
+            $application = Application::findOrFail($request->input('application_id'));
+            if ($application->user_id !== auth()->id()) {
+                return response()->json(['message' => 'Unauthorized'], 403);
+            }
+
+            // ---------------------------------------------------------------------------
+            // File Extraction — handles both correctly-parsed PHP arrays AND literal
+            // bracket-notation keys (e.g. 'requirements[3]') that can occur with
+            // some JS FormData implementations.
+            // ---------------------------------------------------------------------------
+            $reqFiles = $request->file('requirements') ?? [];
+
+            if (empty($reqFiles)) {
+                foreach ($request->allFiles() as $key => $file) {
+                    if (preg_match('/^requirements\[(\d+)\]$/', $key, $matches)) {
+                        $reqFiles[(int)$matches[1]] = $file;
+                    }
+                }
+            }
+
+            $service->submitRenewal(
+                applicationId:   (int) $request->input('application_id'),
+                renewalPeriodId: (int) $request->input('renewal_period_id'),
+                userId:          auth()->id(),
+                requirementFiles: $reqFiles
+            );
+
+            return response()->json([
+                'success'  => true,
+                'message'  => 'Renewal submitted successfully!',
+                'redirect' => route('student.renewals.index'),
+            ]);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json(['message' => $e->getMessage(), 'errors' => $e->errors()], 422);
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('RenewalController@store: ' . $e->getMessage(), [
+                'user_id' => auth()->id(),
+                'trace'   => $e->getTraceAsString(),
+            ]);
+            return response()->json(['message' => 'Failed to submit renewal: ' . $e->getMessage()], 500);
         }
-
-        $service->submitRenewal($data, auth()->id());
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Renewal request submitted successfully!',
-            'redirect' => route('student.applications.index')
-        ]);
     }
 }

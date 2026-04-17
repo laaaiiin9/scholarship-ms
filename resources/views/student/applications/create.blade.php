@@ -67,7 +67,7 @@
                         
                         @if($scholarship->requirements->count() > 0)
                             <div class="row g-4 mb-4">
-                                @foreach($scholarship->requirements as $index => $req)
+                                @foreach($scholarship->requirements->where('type', 'APPLICATION') as $index => $req)
                                     <div class="col-12">
                                         <div class="requirement-box p-4 rounded-3 border border-secondary-subtle bg-body-tertiary transition-all">
                                             <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">

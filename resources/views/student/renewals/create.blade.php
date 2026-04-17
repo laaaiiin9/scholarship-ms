@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="card-body p-4 p-md-5">
-                    <form id="renewalForm">
+                    <form id="renewalForm" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="application_id" value="{{ $application->id }}">
                         <input type="hidden" name="renewal_period_id" value="{{ $activeRenewalPeriod->id }}">
@@ -64,6 +64,45 @@
                             </div>
                         </div>
 
+                        <!-- Renewal Requirements Section -->
+                        <div class="mb-5">
+                            <h6 class="fw-bold text-uppercase text-muted small mb-3" style="letter-spacing: 1px;">Renewal Requirements</h6>
+                            
+                            @php
+                                $renewalReqs = $scholarship->requirements->where('type', 'RENEWAL');
+                            @endphp
+
+                            @if($renewalReqs->count() > 0)
+                                <div class="row g-3">
+                                    @foreach($renewalReqs as $index => $req)
+                                        <div class="col-12">
+                                            <div class="requirement-box p-3 rounded-4 border bg-body-tertiary">
+                                                <div class="row align-items-center">
+                                                    <div class="col-md-6 mb-2 mb-md-0">
+                                                        <label class="fw-bold mb-1 d-block">{{ $req->name }}</label>
+                                                        <small class="text-muted d-block" style="font-size: 0.7rem;">Please upload proof for renewal (PDF/Image).</small>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="file" 
+                                                               class="form-control form-control-sm rounded-3" 
+                                                               name="requirements[{{ $req->id }}]" 
+                                                               id="req_{{ $req->id }}" 
+                                                               accept=".pdf,.jpg,.jpeg,.png"
+                                                               required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <div class="p-4 rounded-4 border border-dashed text-center bg-body-tertiary">
+                                    <i data-lucide="info" class="text-muted mb-2" style="width: 20px;"></i>
+                                    <p class="text-muted small mb-0">No specific documents are required for this scholarship's renewal phase.</p>
+                                </div>
+                            @endif
+                        </div>
+
                         <div class="d-flex align-items-center justify-content-between pt-4 border-top">
                             <a href="{{ route('student.renewals.index') }}" class="btn btn-outline-secondary px-4 py-2 rounded-3">Cancel</a>
                             <button type="submit" id="submitRenewalBtn" class="btn btn-eskoylar-primary text-white px-5 py-2 rounded-3 shadow-sm d-flex align-items-center gap-2">
@@ -89,6 +128,79 @@
 
 @push('scripts')
 <script>
-    // Simple inline logic for now, or move to module
+    document.addEventListener('DOMContentLoaded', function() {
+        const renewalForm = document.getElementById('renewalForm');
+        const submitBtn = document.getElementById('submitRenewalBtn');
+
+        if (!renewalForm) return;
+
+        renewalForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const originalHtml = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span> Submitting...';
+
+            try {
+                // Build FormData manually to guarantee files are included correctly
+                const formData = new FormData();
+
+                // 1. CSRF Token from meta tag
+                const csrfMeta = document.querySelector('meta[name="csrf-token"]');
+                if (csrfMeta) {
+                    formData.append('_token', csrfMeta.getAttribute('content'));
+                }
+
+                // 2. Hidden fields
+                const appId = renewalForm.querySelector('[name="application_id"]');
+                const periodId = renewalForm.querySelector('[name="renewal_period_id"]');
+                if (appId) formData.append('application_id', appId.value);
+                if (periodId) formData.append('renewal_period_id', periodId.value);
+
+                // 3. Explicitly append each file input with its requirement ID
+                const fileInputs = renewalForm.querySelectorAll('input[type="file"]');
+                let hasFiles = false;
+                fileInputs.forEach(function(input) {
+                    if (input.files && input.files.length > 0) {
+                        // Extract ID from name like "requirements[3]"
+                        const match = input.name.match(/requirements\[(\d+)\]/);
+                        if (match) {
+                            formData.append('requirements[' + match[1] + ']', input.files[0], input.files[0].name);
+                            hasFiles = true;
+                        }
+                    }
+                });
+
+                const response = await fetch("{{ route('student.renewals.store') }}", {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json'
+                        // DO NOT set Content-Type — browser must set it with multipart boundary
+                    }
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    if (window.Toast) window.Toast.success(data.message || 'Renewal submitted successfully!');
+                    setTimeout(function() {
+                        window.location.href = data.redirect || '/student/renewals';
+                    }, 1500);
+                } else {
+                    if (window.Toast) window.Toast.error(data.message || 'Submission failed. Please try again.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalHtml;
+                }
+
+            } catch (error) {
+                console.error('Renewal submission error:', error);
+                if (window.Toast) window.Toast.error('Network error. Please try again.');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalHtml;
+            }
+        });
+    });
 </script>
 @endpush

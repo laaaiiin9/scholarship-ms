@@ -9,11 +9,79 @@
         <p class="text-muted mb-0">Here are your quick insights for this term.</p>
     </div>
 
-    <!-- Stats Row -->
+    <!-- Financials Row -->
+    <div class="row g-4 mb-4">
+        <!-- Total Funds Released -->
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm p-4 rounded-4 bg-primary text-white overflow-hidden position-relative">
+                <div class="position-absolute opacity-10" style="right: -10px; bottom: -10px;">
+                    <i data-lucide="banknote" style="width: 120px; height: 120px;"></i>
+                </div>
+                <div class="position-relative z-index-1">
+                    <p class="text-white-50 fw-medium mb-1">Total Funds Released</p>
+                    <h2 class="fw-bold mb-2">₱{{ number_format($totalReleased, 2) }}</h2>
+                    <div class="d-flex align-items-center gap-2 small">
+                        <span class="badge bg-white bg-opacity-20 text-white rounded-pill px-2">Actual Payouts</span>
+                        <span class="text-white-50">across all scholarships</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Potential Commitment -->
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm p-4 rounded-4 bg-dark text-white overflow-hidden position-relative">
+                <div class="position-absolute opacity-10" style="right: -10px; bottom: -10px;">
+                    <i data-lucide="trending-up" style="width: 120px; height: 120px;"></i>
+                </div>
+                <div class="position-relative z-index-1">
+                    <p class="text-white-50 fw-medium mb-1">Calculated Potential</p>
+                    <h2 class="fw-bold mb-2">₱{{ number_format($potentialFunds, 2) }}</h2>
+                    <div class="d-flex align-items-center gap-2 small">
+                        <span class="badge bg-white bg-opacity-10 text-white rounded-pill px-2">Pending Approval</span>
+                        <span class="text-white-50">estimated commitment</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row g-4 mb-4">
+        <!-- Application Trends -->
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-header bg-transparent border-bottom-0 p-4">
+                    <h5 class="fw-bold mb-0">Application Trends</h5>
+                    <p class="text-muted small mb-0">Monthly submission volume for the last 6 months</p>
+                </div>
+                <div class="card-body p-4 pt-0">
+                    <div style="height: 300px;">
+                        <canvas id="trendsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Status Distribution -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-header bg-transparent border-bottom-0 p-4">
+                    <h5 class="fw-bold mb-0">Program Popularity</h5>
+                    <p class="text-muted small mb-0">Applications per scholarship</p>
+                </div>
+                <div class="card-body p-4 pt-0 d-flex flex-column justify-content-center">
+                    <div style="height: 250px;">
+                        <canvas id="distributionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Stats Summary -->
     <div class="row g-4 mb-4">
         <!-- Open Applications -->
         <div class="col-sm-6 col-xl-3">
-            <div class="card stat-card h-100 p-4 rounded-4">
+            <div class="card stat-card border-0 shadow-sm h-100 p-4 rounded-4">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <div class="stat-icon bg-primary-subtle text-eskoylar-primary">
                         <i data-lucide="inbox"></i>
@@ -21,16 +89,12 @@
                 </div>
                 <h3 class="fw-bold mb-1">{{ number_format($totalApplications) }}</h3>
                 <p class="text-muted fw-medium mb-1">Open Applications</p>
-                <small class="text-muted d-block mt-2">
-                    <span class="text-eskoylar-primary fw-medium"><i data-lucide="trending-up" style="width: 14px; height: 14px;" class="me-1"></i></span>
-                    submitted this term
-                </small>
             </div>
         </div>
 
         <!-- For Review -->
         <div class="col-sm-6 col-xl-3">
-            <div class="card stat-card h-100 p-4 rounded-4">
+            <div class="card stat-card border-0 shadow-sm h-100 p-4 rounded-4">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <div class="stat-icon bg-warning-subtle text-warning">
                         <i data-lucide="file-search"></i>
@@ -38,16 +102,12 @@
                 </div>
                 <h3 class="fw-bold mb-1">{{ number_format($forReviewCount) }}</h3>
                 <p class="text-muted fw-medium mb-1">For Review</p>
-                <small class="text-muted d-block mt-2">
-                    <span class="text-warning fw-medium"><i data-lucide="clock" style="width: 14px; height: 14px;" class="me-1"></i></span>
-                    ready for validation
-                </small>
             </div>
         </div>
 
         <!-- Approved -->
         <div class="col-sm-6 col-xl-3">
-            <div class="card stat-card h-100 p-4 rounded-4">
+            <div class="card stat-card border-0 shadow-sm h-100 p-4 rounded-4">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <div class="stat-icon bg-success-subtle text-success">
                         <i data-lucide="check-circle-2"></i>
@@ -60,7 +120,7 @@
 
         <!-- Rejected -->
         <div class="col-sm-6 col-xl-3">
-            <div class="card stat-card h-100 p-4 rounded-4">
+            <div class="card stat-card border-0 shadow-sm h-100 p-4 rounded-4">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <div class="stat-icon bg-danger-subtle text-danger">
                         <i data-lucide="x-circle"></i>
@@ -70,6 +130,14 @@
                 <p class="text-muted fw-medium mb-1">Rejected</p>
             </div>
         </div>
+    </div>
+
+    <!-- Hidden Data for Analytics -->
+    <div id="analytics-data" 
+         data-months='@json($months)' 
+         data-trend='@json($trendData)'
+         data-distribution='@json($scholarshipStats)'
+         class="d-none">
     </div>
 
     <!-- Tables Row -->
@@ -146,5 +214,8 @@
             </div>
         </div>
     </div>
-</div>
 @endsection
+
+@push('scripts')
+@vite(['resources/js/modules/admin/analytics.js'])
+@endpush

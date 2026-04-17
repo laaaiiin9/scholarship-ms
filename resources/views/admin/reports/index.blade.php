@@ -1,147 +1,122 @@
 @extends('layouts.admin')
-@section('title', 'Reports & Analytics')
-@section('header_title', 'Reports & Analytics')
+@section('header_title', 'System Reports')
+@section('title', 'Analytics & Reports')
 
 @section('content')
-<div class="container-fluid p-0">
-    <!-- Filters Row -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h4 class="fw-bold mb-1">Analytics Overview</h4>
-            <p class="text-muted small mb-0">Visualizing platform performance and application trends.</p>
-        </div>
-        <div class="d-flex gap-2">
-            <a href="{{ route('admin.reports.applications') }}" class="btn btn-outline-eskoylar-primary btn-sm px-3 rounded-3 shadow-sm d-flex align-items-center gap-2">
-                <i data-lucide="file-text" style="width: 16px;"></i> Detailed Reports
-            </a>
-            <button class="btn btn-eskoylar-primary btn-sm px-3 rounded-3 shadow-sm text-white d-flex align-items-center gap-2">
-                <i data-lucide="download" style="width: 16px;"></i> Download PDF
-            </button>
-        </div>
-    </div>
-
-    <!-- Stats Grid -->
-    <div class="row g-4 mb-4">
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="avatar-circle sm bg-primary-subtle text-primary">
-                            <i data-lucide="users" style="width: 20px;"></i>
-                        </div>
-                        <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill">+12%</span>
-                    </div>
-                    <h3 class="fw-bold mb-1">{{ number_format($totalApps) }}</h3>
-                    <p class="text-muted small mb-0">Total Applications</p>
+<div class="row g-4 mb-4">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm rounded-4 p-4 text-white" style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%);">
+            <div class="d-flex align-items-center gap-3">
+                <div class="bg-white bg-opacity-10 rounded-circle p-3">
+                    <i data-lucide="bar-chart-3" style="width: 32px; height: 32px;"></i>
                 </div>
-            </div>
-        </div>
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="avatar-circle sm bg-success-subtle text-success">
-                            <i data-lucide="dollar-sign" style="width: 20px;"></i>
-                        </div>
-                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill">Total Paid</span>
-                    </div>
-                    <h3 class="fw-bold mb-1">₱{{ number_format($totalDisbursed, 2) }}</h3>
-                    <p class="text-muted small mb-0">Total Funds Disbursed</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="avatar-circle sm bg-warning-subtle text-warning">
-                            <i data-lucide="check-circle" style="width: 20px;"></i>
-                        </div>
-                        <span class="badge bg-warning-subtle text-warning border border-warning-subtle rounded-pill">{{ number_format($approvalRate, 1) }}%</span>
-                    </div>
-                    <h3 class="fw-bold mb-1">{{ number_format($approvalRate, 1) }}%</h3>
-                    <p class="text-muted small mb-0">Overall Approval Rate</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="avatar-circle sm bg-info-subtle text-info">
-                            <i data-lucide="award" style="width: 20px;"></i>
-                        </div>
-                        <span class="badge bg-info-subtle text-info border border-info-subtle rounded-pill">Active</span>
-                    </div>
-                    <h3 class="fw-bold mb-1">{{ \App\Models\Scholarship::count() }}</h3>
-                    <p class="text-muted small mb-0">Scholarship Programs</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Charts Row -->
-    <div class="row g-4">
-        <!-- Application Trend -->
-        <div class="col-lg-8">
-            <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
-                <div class="card-header bg-transparent border-0 p-0 mb-4 d-flex justify-content-between align-items-start">
-                    <div>
-                        <h5 class="fw-bold mb-1">Monthly Application Volume</h5>
-                        <p class="text-muted small mb-0">Number of submissions over the last 6 months.</p>
-                    </div>
-                    <div class="dropdown">
-                        <button class="btn btn-light btn-sm rounded-3 border dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                            Last 6 Months
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Year to Date</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card-body p-0">
-                    <div style="height: 350px;">
-                        <canvas id="trendChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Outcome Distribution -->
-        <div class="col-lg-4">
-            <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
-                <div class="card-header bg-transparent border-0 p-0 mb-4">
-                    <h5 class="fw-bold mb-1">Outcome Distribution</h5>
-                    <p class="text-muted small mb-0">Current status of all applications.</p>
-                </div>
-                <div class="card-body p-0 d-flex flex-column align-items-center justify-content-center">
-                    <div style="height: 250px; width: 250px;" class="mb-4">
-                        <canvas id="outcomeChart"></canvas>
-                    </div>
-                    <div class="w-100">
-                        @foreach($outcomes as $label => $count)
-                        <div class="d-flex justify-content-between align-items-center mb-2 small">
-                            <span class="text-muted">
-                                <span class="d-inline-block rounded-circle me-2" style="width: 10px; height: 10px; background-color: {{ 
-                                    $label == 'Approved' ? '#10b981' : ($label == 'Rejected' ? '#ef4444' : ($label == 'Waitlisted' ? '#f59e0b' : '#3b82f6')) 
-                                }}"></span>
-                                {{ $label }}
-                            </span>
-                            <span class="fw-bold text-body">{{ $count }}</span>
-                        </div>
-                        @endforeach
-                    </div>
+                <div>
+                    <h4 class="fw-bold mb-1">Reporting Engine</h4>
+                    <p class="mb-0 text-white-50">Generate detailed data summaries and export CSV logs for system auditing.</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Prepare Data for JS -->
-<script>
-    window.ReportData = {
-        outcomes: @json($outcomes),
-        trends: @json($trendData)
-    };
-</script>
+<div class="row g-4">
+    <!-- Applications Report Card -->
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
+            <div class="card-header bg-transparent border-bottom-0 p-4">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="avatar-circle sm bg-primary-subtle text-eskoylar-primary">
+                        <i data-lucide="file-text"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-0">Applications Report</h5>
+                        <p class="text-muted small mb-0">Export applicant data and status logs</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-4 pt-0">
+                <form action="{{ route('admin.reports.export.applications') }}" method="GET">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted text-uppercase">Scholarship Program</label>
+                        <select name="scholarship_id" class="form-select rounded-3">
+                            <option value="">All Programs</option>
+                            @foreach($scholarships as $s)
+                                <option value="{{ $s->id }}">{{ $s->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted text-uppercase">Application Status</label>
+                        <select name="status" class="form-select rounded-3">
+                            <option value="">All Statuses</option>
+                            <option value="SUBMITTED">Submitted</option>
+                            <option value="UNDER_REVIEW">Under Review</option>
+                            <option value="DECIDED">Decided / Closed</option>
+                        </select>
+                    </div>
+                    <div class="row g-2 mb-4">
+                        <div class="col-6">
+                            <label class="form-label small fw-bold text-muted text-uppercase">Start Date</label>
+                            <input type="date" name="start_date" class="form-control rounded-3 text-sm">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small fw-bold text-muted text-uppercase">End Date</label>
+                            <input type="date" name="end_date" class="form-control rounded-3 text-sm">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-eskoylar-primary w-100 py-3 rounded-3 text-white shadow-sm fw-bold">
+                        <i data-lucide="download" class="me-2" style="width: 18px;"></i> Build Application CSV
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Financial Reports Card -->
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
+            <div class="card-header bg-transparent border-bottom-0 p-4">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="avatar-circle sm bg-success-subtle text-success">
+                        <i data-lucide="dollar-sign"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-0">Financial Summaries</h5>
+                        <p class="text-muted small mb-0">Payer history and disbursement trends</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-4 pt-0">
+                <form action="{{ route('admin.reports.export.disbursements') }}" method="GET">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted text-uppercase">Payment Status</label>
+                        <select name="status" class="form-select rounded-3">
+                            <option value="">All Statuses</option>
+                            <option value="PENDING">Pending Payout</option>
+                            <option value="PAID">Released / Paid</option>
+                            <option value="CANCELLED">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="row g-2 mb-4">
+                        <div class="col-6">
+                            <label class="form-label small fw-bold text-muted text-uppercase">Start Date</label>
+                            <input type="date" name="start_date" class="form-control rounded-3 text-sm">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small fw-bold text-muted text-uppercase">End Date</label>
+                            <input type="date" name="end_date" class="form-control rounded-3 text-sm">
+                        </div>
+                    </div>
+                    <div class="alert bg-success-subtle border-0 text-success rounded-4 d-flex gap-3 mb-4 p-3 shadow-none">
+                        <i data-lucide="shield-check" style="width: 24px; min-width: 24px;"></i>
+                        <p class="mb-0 small fw-medium">Sensitive Data Protection: Financial exports include payout methods and reference IDs. Restricted personnel only.</p>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100 py-3 rounded-3 text-white shadow-sm fw-bold">
+                        <i data-lucide="download-cloud" class="me-2" style="width: 18px;"></i> Build Financial Log
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

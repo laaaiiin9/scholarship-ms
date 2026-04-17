@@ -4,125 +4,110 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Application;
-use App\Models\Decision;
 use App\Models\Disbursement;
 use App\Models\Scholarship;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ReportController extends Controller
 {
     public function index()
     {
-        // 1. High-level Summary Metrics
-        $totalApps = Application::count();
-        $totalDisbursed = Disbursement::where('status', Disbursement::STATUS_PAID)->sum('amount');
-        
-        $approvalRate = 0;
-        if ($totalApps > 0) {
-            $approved = Application::whereHas('decision', function($q) {
-                $q->where('result', Decision::RESULT_APPROVED);
-            })->count();
-            $approvalRate = ($approved / $totalApps) * 100;
-        }
-
-        // 2. Outcome Distribution (for Pie Chart)
-        $outcomes = [
-            'Approved' => Application::whereHas('decision', function($q) { $q->where('result', Decision::RESULT_APPROVED); })->count(),
-            'Rejected' => Application::whereHas('decision', function($q) { $q->where('result', Decision::RESULT_REJECTED); })->count(),
-            'Waitlisted' => Application::whereHas('decision', function($q) { $q->where('result', Decision::RESULT_WAITLISTED); })->count(),
-            'Pending' => Application::whereIn('status', [Application::STATUS_SUBMITTED, Application::STATUS_UNDER_REVIEW])->count(),
-        ];
-
-        // 3. Monthly Trends (last 6 months)
-        $trendData = Application::select(
-            DB::raw('COUNT(*) as count'),
-            DB::raw("DATE_FORMAT(created_at, '%Y-%m') as month")
-        )
-        ->groupBy('month')
-        ->orderBy('month', 'desc')
-        ->take(6)
-        ->get()
-        ->reverse()
-        ->values();
-
-        return view('admin.reports.index', compact(
-            'totalApps', 
-            'totalDisbursed', 
-            'approvalRate', 
-            'outcomes', 
-            'trendData'
-        ));
-    }
-
-    public function applications(Request $request)
-    {
         $scholarships = Scholarship::all();
-        
-        $query = Application::with(['scholarship', 'user.profile', 'decision'])
-            ->latest();
-
-        // Filtering
-        if ($request->filled('scholarship_id')) {
-            $query->where('scholarship_id', $request->scholarship_id);
-        }
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
-        }
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->whereHas('user', function($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%")
-                  ->orWhereHas('profile', function($pq) use ($search) {
-                      $pq->where('first_name', 'like', "%{$search}%")
-                        ->orWhere('last_name', 'like', "%{$search}%");
-                  });
-            });
-        }
-
-        if ($request->wantsJson()) {
-            return response()->json($query->paginate(10));
-        }
-
-        return view('admin.reports.applications', compact('scholarships'));
+        return view('admin.reports.index', compact('scholarships'));
     }
 
     public function exportApplications(Request $request)
     {
-        $query = Application::with(['scholarship', 'user.profile', 'decision']);
+        $headers = [
+            'Content-type'        => 'text/csv',
+            'Content-Disposition' => 'attachment; filename=applications_report_' . now()->format('Y-m-d') . '.csv',
+            'Pragma'              => 'no-cache',
+            'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires'             => '0'
+        ];
+
+        $query = Application::with(['user.profile', 'scholarship', 'decision']);
 
         if ($request->filled('scholarship_id')) {
             $query->where('scholarship_id', $request->scholarship_id);
         }
 
-        $applications = $query->get();
-
-        $filename = "applications_report_" . date('Y-m-d') . ".csv";
-        $handle = fopen('php://output', 'w');
-        
-        header('Content-Type: text/csv');
-        header('Content-Disposition: attachment; filename="' . $filename . '"');
-
-        // Headers
-        fputcsv($handle, ['Applicant Name', 'Email', 'Scholarship', 'Applied On', 'Status', 'Decision']);
-
-        foreach ($applications as $app) {
-            $fullName = $app->user->profile 
-                ? $app->user->profile->first_name . ' ' . $app->user->profile->last_name 
-                : $app->user->name;
-
-            fputcsv($handle, [
-                $fullName,
-                $app->user->email,
-                $app->scholarship->name,
-                $app->created_at->format('Y-m-d'),
-                $app->status,
-                $app->decision->result ?? 'N/A'
-            ]);
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
         }
 
-        fclose($handle);
-        return exit;
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            $query->whereBetween('created_at', [$request->start_date, $request->end_date]);
+        }
+
+        $callback = function() use ($query) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, ['ID', 'Student Name', 'Email', 'Scholarship', 'Status', 'Applied On', 'Decision Result']);
+
+            $query->chunk(100, function($applications) use ($file) {
+                foreach ($applications as $app) {
+                    $profile = $app->user->profile;
+                    fputcsv($file, [
+                        $app->id,
+                        ($profile->first_name ?? '') . ' ' . ($profile->last_name ?? ''),
+                        $app->user->email,
+                        $app->scholarship->name,
+                        $app->status,
+                        $app->created_at->toDateTimeString(),
+                        $app->decision->result ?? 'N/A'
+                    ]);
+                }
+            });
+
+            fclose($file);
+        };
+
+        return new StreamedResponse($callback, 200, $headers);
+    }
+
+    public function exportDisbursements(Request $request)
+    {
+        $headers = [
+            'Content-type'        => 'text/csv',
+            'Content-Disposition' => 'attachment; filename=disbursements_report_' . now()->format('Y-m-d') . '.csv',
+            'Pragma'              => 'no-cache',
+            'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires'             => '0'
+        ];
+
+        $query = Disbursement::with(['application.user.profile', 'application.scholarship']);
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            $query->whereBetween('created_at', [$request->start_date, $request->end_date]);
+        }
+
+        $callback = function() use ($query) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, ['ID', 'Reference', 'Student Name', 'Scholarship', 'Amount', 'Status', 'Payout Date']);
+
+            $query->chunk(100, function($disbursements) use ($file) {
+                foreach ($disbursements as $d) {
+                    $profile = $d->application->user->profile;
+                    fputcsv($file, [
+                        $d->id,
+                        $d->renewal_id ? "Renewal #{$d->renewal_id}" : "Initial #{$d->application_id}",
+                        ($profile->first_name ?? '') . ' ' . ($profile->last_name ?? ''),
+                        $d->application->scholarship->name,
+                        $d->amount,
+                        $d->status,
+                        $d->payout_date ?? 'N/A'
+                    ]);
+                }
+            });
+
+            fclose($file);
+        };
+
+        return new StreamedResponse($callback, 200, $headers);
     }
 }

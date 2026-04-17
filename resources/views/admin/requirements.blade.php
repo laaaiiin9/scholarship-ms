@@ -43,14 +43,15 @@
                 <table class="table table-hover align-middle mb-0">
                     <thead class="text-muted" style="font-size: 0.8rem;">
                         <tr>
-                            <th class="ps-4 fw-medium border-bottom-0">Name</th>
-                            <th class="fw-medium border-bottom-0">Scholarship</th>
-                            <th class="pe-4 fw-medium border-bottom-0 text-end">Actions</th>
+                            <th class="ps-4 fw-medium border-bottom-0 pb-3">Requirement Name</th>
+                            <th class="fw-medium border-bottom-0 pb-3">Scholarship</th>
+                            <th class="fw-medium border-bottom-0 pb-3">Type</th>
+                            <th class="pe-4 fw-medium border-bottom-0 pb-3 text-end">Action</th>
                         </tr>
                     </thead>
                     <tbody class="border-top-0" id="requirements-table-body">
                         <tr>
-                            <td colspan="3" class="text-center py-4 text-muted">
+                            <td colspan="4" class="text-center py-4 text-muted">
                                 <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Loading...
                             </td>
                         </tr>
@@ -78,14 +79,24 @@
                 <form id="requirementForm">
                     <input type="hidden" id="requirement_id" name="id">
                     <div class="mb-3">
-                        <label for="scholarship_id" class="form-label text-sm fw-medium">Scholarship Program Assignment</label>
-                        <select class="form-select" id="scholarship_id" name="scholarship_id" required>
-                            <option value="" disabled selected>-- Select target scholarship --</option>
+                        <label for="scholarship_id" class="form-label small fw-bold text-muted">Scholarship Program</label>
+                        <select class="form-select rounded-3 shadow-none border-secondary-subtle" id="scholarship_id" name="scholarship_id" required>
+                            <option value="" selected disabled>Select Scholarship</option>
                             @foreach($scholarships as $scholarship)
                                 <option value="{{ $scholarship->id }}">{{ $scholarship->name }}</option>
                             @endforeach
                         </select>
                     </div>
+
+                    <div class="mb-3">
+                        <label for="type" class="form-label small fw-bold text-muted">Requirement Type</label>
+                        <select class="form-select rounded-3 shadow-none border-secondary-subtle" id="type" name="type" required>
+                            <option value="APPLICATION">Application (Initial)</option>
+                            <option value="RENEWAL">Renewal (Subsequent)</option>
+                        </select>
+                        <div class="form-text small">Application requirements are shown during the first submission. Renewal requirements are shown for existing scholars.</div>
+                    </div>
+
                     <div class="mb-3">
                         <label for="name" class="form-label text-sm fw-medium">Document Name / Label</label>
                         <input type="text" class="form-control" id="name" name="name" required placeholder="e.g. PSA Birth Certificate">

@@ -78,7 +78,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4 pt-0">
-                <div id="disbursementSummary" class="p-3 bg-light rounded-4 border mb-4 text-sm">
+                <div id="disbursementSummary" class="p-3 bg-body-tertiary rounded-4 border mb-4 text-sm">
                     <!-- Dynamic summary -->
                 </div>
 

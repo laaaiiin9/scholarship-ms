@@ -57,6 +57,12 @@ Route::middleware(['auth', 'role:STUDENT,Student,student'])->prefix('student')->
         Route::get('renewals', [StudentRenewalController::class, 'index'])->name('renewals.index');
         Route::get('renewals/create/{application}', [StudentRenewalController::class, 'create'])->name('renewals.create');
         Route::post('renewals', [StudentRenewalController::class, 'store'])->name('renewals.store');
+
+        // Notifications
+        Route::prefix('notifications')->name('notifications.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\Student\NotificationController::class, 'index'])->name('index');
+            Route::post('/{notification}/read', [\App\Http\Controllers\Student\NotificationController::class, 'markAsRead'])->name('read');
+        });
     });
 });
 /* End Student */
@@ -89,13 +95,6 @@ Route::middleware(['auth', 'role:ADMIN,Admin,admin'])->prefix('admin')->name('ad
     Route::post('users/store', [UserController::class, 'store'])->name('users.store');
     Route::post('users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggle-status');
 
-    // Reports & Analytics
-    Route::prefix('reports')->name('reports.')->group(function () {
-        Route::get('/', [ReportController::class, 'index'])->name('index');
-        Route::get('/applications', [ReportController::class, 'applications'])->name('applications');
-        Route::get('/export/applications', [ReportController::class, 'exportApplications'])->name('export.applications');
-    });
-
     // System Settings
     Route::prefix('settings')->name('settings.')->group(function () {
         Route::get('/', [SettingController::class, 'index'])->name('index');
@@ -103,21 +102,35 @@ Route::middleware(['auth', 'role:ADMIN,Admin,admin'])->prefix('admin')->name('ad
     });
 
     // Renewals & Disbursements
-    Route::prefix('renewals')->name('renewals.')->group(function () {
-        Route::get('/', [RenewalReviewController::class, 'index'])->name('index');
-        Route::get('/{renewal}', [RenewalReviewController::class, 'show'])->name('show');
-        Route::post('/{renewal}/status', [RenewalReviewController::class, 'update'])->name('status');
-        
-        Route::get('/periods', [RenewalPeriodController::class, 'index'])->name('periods.index');
-        Route::post('/periods/store', [RenewalPeriodController::class, 'store'])->name('periods.store');
-        Route::get('/periods/{renewalPeriod}/edit', [RenewalPeriodController::class, 'edit'])->name('periods.edit');
-        Route::put('/periods/{renewalPeriod}', [RenewalPeriodController::class, 'update'])->name('periods.update');
-        Route::delete('/periods/{renewalPeriod}', [RenewalPeriodController::class, 'destroy'])->name('periods.destroy');
+    Route::prefix('renewal-submissions')->name('renewals.')->group(function () {
+        Route::get('/list', [RenewalReviewController::class, 'index'])->name('list');
+        Route::get('/view/{renewal}', [RenewalReviewController::class, 'show'])->name('view');
+        Route::put('/status/{renewal}', [RenewalReviewController::class, 'update'])->name('status');
+    });
+
+    Route::prefix('renewal-periods')->name('renewal-periods.')->group(function () {
+        Route::get('/list', [RenewalPeriodController::class, 'index'])->name('list');
+        Route::post('/store', [RenewalPeriodController::class, 'store'])->name('store');
+        Route::get('/fetch/{renewalPeriod}', [RenewalPeriodController::class, 'edit'])->name('fetch');
+        Route::put('/update/{renewalPeriod}', [RenewalPeriodController::class, 'update'])->name('update');
+        Route::delete('/delete/{renewalPeriod}', [RenewalPeriodController::class, 'destroy'])->name('delete');
     });
 
     Route::prefix('disbursements')->name('disbursements.')->group(function () {
-        Route::get('/', [DisbursementController::class, 'index'])->name('index');
-        Route::post('/{disbursement}', [DisbursementController::class, 'update'])->name('update');
+        Route::get('/list', [DisbursementController::class, 'index'])->name('list');
+        Route::put('/process/{disbursement}', [DisbursementController::class, 'update'])->name('process');
+    });
+
+    Route::prefix('reports')->name('reports.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Admin\ReportController::class, 'index'])->name('index');
+        Route::get('/export/applications', [\App\Http\Controllers\Admin\ReportController::class, 'exportApplications'])->name('export.applications');
+        Route::get('/export/disbursements', [\App\Http\Controllers\Admin\ReportController::class, 'exportDisbursements'])->name('export.disbursements');
+    });
+
+    Route::prefix('notifications')->name('notifications.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Admin\NotificationController::class, 'index'])->name('index');
+        Route::post('/store', [\App\Http\Controllers\Admin\NotificationController::class, 'store'])->name('store');
+        Route::delete('/{notification}', [\App\Http\Controllers\Admin\NotificationController::class, 'destroy'])->name('destroy');
     });
 });
 /* End Admin */

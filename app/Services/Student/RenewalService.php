@@ -41,15 +41,34 @@ class RenewalService
             });
     }
 
-    public function submitRenewal(array $data, int $userId)
+    public function submitRenewal(int $applicationId, int $renewalPeriodId, int $userId, array $requirementFiles = [])
     {
-        return DB::transaction(function() use ($data, $userId) {
-            return Renewal::create([
-                'application_id' => $data['application_id'],
-                'renewal_period_id' => $data['renewal_period_id'],
-                'user_id' => $userId,
-                'status' => Renewal::STATUS_SUBMITTED
+        return DB::transaction(function () use ($applicationId, $renewalPeriodId, $userId, $requirementFiles) {
+
+            $renewal = Renewal::create([
+                'application_id'    => $applicationId,
+                'renewal_period_id' => $renewalPeriodId,
+                'user_id'           => $userId,
+                'status'            => Renewal::STATUS_SUBMITTED,
             ]);
+
+            foreach ($requirementFiles as $requirementId => $file) {
+                if (!($file instanceof \Illuminate\Http\UploadedFile)) {
+                    continue;
+                }
+
+                $path = $file->store("renewals/{$renewal->id}", 'public');
+
+                \App\Models\ApplicationDocument::create([
+                    'application_id'      => $renewal->application_id,
+                    'requirement_id'      => (int) $requirementId,
+                    'renewal_id'          => $renewal->id,
+                    'file_path'           => $path,
+                    'verification_status' => \App\Models\ApplicationDocument::STATUS_PENDING,
+                ]);
+            }
+
+            return $renewal;
         });
     }
 }

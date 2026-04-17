@@ -10,7 +10,8 @@ class RequirementService
     {
         return Requirement::create([
             'name' => $data['name'],
-            'scholarship_id' => $data['scholarship_id']
+            'scholarship_id' => $data['scholarship_id'],
+            'type' => $data['type']
         ]);
     }
 
@@ -18,7 +19,8 @@ class RequirementService
     {
         $requirement->update([
             'name' => $data['name'],
-            'scholarship_id' => $data['scholarship_id']
+            'scholarship_id' => $data['scholarship_id'],
+            'type' => $data['type']
         ]);
 
         return $requirement;

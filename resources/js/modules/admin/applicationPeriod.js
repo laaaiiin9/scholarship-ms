@@ -37,8 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                     </td>
-                    <td class="text-muted">${item.start_date}</td>
-                    <td class="text-muted">${item.end_date}</td>
+                    <td class="text-muted small">${new Date(item.start_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
+                    <td class="text-muted small">${new Date(item.end_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
                     <td>${statusBadge}</td>
                     <td class="pe-4 text-end">
                         <div class="d-flex gap-2 justify-content-end">

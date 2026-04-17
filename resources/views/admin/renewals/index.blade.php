@@ -89,20 +89,14 @@
 
                 <form id="reviewForm">
                     <div class="mb-4">
-                        <label class="form-label fw-bold small text-uppercase">Decision</label>
-                        <div class="row g-3">
-                            <div class="col-md-4">
-                                <input type="radio" class="btn-check" name="status" id="statusUnderReview" value="UNDER_REVIEW">
-                                <label class="btn btn-outline-warning w-100 py-2" for="statusUnderReview">Under Review</label>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="radio" class="btn-check" name="status" id="statusApproved" value="APPROVED">
-                                <label class="btn btn-outline-success w-100 py-2" for="statusApproved">Approve</label>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="radio" class="btn-check" name="status" id="statusRejected" value="REJECTED">
-                                <label class="btn btn-outline-danger w-100 py-2" for="statusRejected">Reject</label>
-                            </div>
+                        <label for="statusSelect" class="form-label fw-bold small text-muted text-uppercase">Decision Status</label>
+                        <select class="form-select rounded-3 shadow-sm border-eskoylar-primary-subtle" id="statusSelect" name="status" required>
+                            <option value="UNDER_REVIEW">Under Review</option>
+                            <option value="APPROVED">Approve (Create Disbursement)</option>
+                            <option value="REJECTED">Reject (Cancel Pending Disbursement)</option>
+                        </select>
+                        <div class="form-text small text-muted mt-2">
+                             <i data-lucide="info" style="width: 12px;"></i> Approving will automatically queue a financial disbursement. Rejecting will cancel any existing pending records.
                         </div>
                     </div>
 

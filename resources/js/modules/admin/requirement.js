@@ -27,6 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td class="text-muted">
                         ${scholarshipName}
                     </td>
+                    <td>
+                        <span class="badge ${item.type === 'RENEWAL' ? 'bg-info-subtle text-info border border-info-subtle' : 'bg-primary-subtle text-primary border border-primary-subtle'} px-3 py-2 rounded-pill">
+                            ${item.type}
+                        </span>
+                    </td>
                     <td class="pe-4 text-end">
                         <div class="d-flex gap-2 justify-content-end">
                             <button class="btn btn-sm btn-outline-eskoylar-primary btn-icon shadow-sm" title="Edit" onclick="window.editRequirement(${item.id})">
@@ -84,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('requirement_id').value = data.id;
             document.getElementById('name').value = data.name;
             document.getElementById('scholarship_id').value = data.scholarship_id;
+            document.getElementById('type').value = data.type || 'APPLICATION';
             
             document.getElementById('requirementModalLabel').innerText = 'Edit Requirement';
             const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('requirementModal'));

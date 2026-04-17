@@ -17,8 +17,17 @@ class DisbursementController extends Controller
             if ($request->filled('search')) {
                 $search = $request->search;
                 $query->whereHas('application.user', function($q) use ($search) {
-                    $q->where('name', 'like', "%{$search}%");
+                    $q->where('username', 'like', "%{$search}%")
+                      ->orWhere('email', 'like', "%{$search}%")
+                      ->orWhereHas('profile', function($pq) use ($search) {
+                          $pq->where('first_name', 'like', "%{$search}%")
+                            ->orWhere('last_name', 'like', "%{$search}%");
+                      });
                 });
+            }
+
+            if ($request->filled('id')) {
+                $query->where('id', $request->id);
             }
 
             if ($request->filled('status')) {
@@ -33,8 +42,20 @@ class DisbursementController extends Controller
 
     public function update(Request $request, Disbursement $disbursement)
     {
+        $disbursement->load('application.scholarship');
+        $maxAmount = $disbursement->application->scholarship->max_amount;
+
         $request->validate([
-            'amount' => 'required|numeric|min:0',
+            'amount' => [
+                'required',
+                'numeric',
+                'min:0',
+                function ($attribute, $value, $fail) use ($maxAmount) {
+                    if ($maxAmount > 0 && $value > $maxAmount) {
+                        $fail("The amount cannot exceed the scholarship's maximum allowance of ₱" . number_format($maxAmount, 2));
+                    }
+                },
+            ],
             'status' => 'required|string|in:PENDING,PAID,CANCELLED',
             'payout_date' => 'required_if:status,PAID|nullable|date',
         ]);

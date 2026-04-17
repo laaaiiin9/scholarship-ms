@@ -15,9 +15,15 @@ class ApplicationDocument extends Model
     protected $fillable = [
         'application_id',
         'requirement_id',
+        'renewal_id',
         'file_path',
         'verification_status'
     ];
+
+    public function renewal()
+    {
+        return $this->belongsTo(Renewal::class, 'renewal_id');
+    }
 
     public function application()
     {

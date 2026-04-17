@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         searchInputId: 'searchInput',
         endpoint: '/admin/users',
         renderRow: (item) => {
-            const date = new Date(item.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            const date = new Date(item.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
             const role = item.roles?.[0]?.name || 'N/A';
             const fullName = item.profile ? `${item.profile.first_name} ${item.profile.last_name}` : item.username;
             const initials = fullName.charAt(0).toUpperCase();
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </td>
                     <td>
-                        <span class="badge bg-light text-dark border px-2 py-1">${role.toUpperCase()}</span>
+                        <span class="badge bg-body-tertiary text-muted border px-2 py-1">${role.toUpperCase()}</span>
                     </td>
                     <td>
                         <div class="form-check form-switch">

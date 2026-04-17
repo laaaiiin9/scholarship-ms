@@ -10,7 +10,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $userId = auth()->id();
+        $user = auth()->user();
+        $userId = $user->id;
 
         $totalApplications = Application::where('user_id', $userId)->count();
         $approvedApplications = Application::where('user_id', $userId)
@@ -21,6 +22,13 @@ class DashboardController extends Controller
             ->whereIn('status', [Application::STATUS_DRAFT, Application::STATUS_SUBMITTED, Application::STATUS_UNDER_REVIEW])
             ->count();
 
+        // Financials
+        $totalReceived = \App\Models\Disbursement::whereHas('application', function($q) use ($userId) {
+                $q->where('user_id', $userId);
+            })
+            ->where('status', 'PAID')
+            ->sum('amount');
+
         $activeApplications = Application::with(['scholarship'])
             ->where('user_id', $userId)
             ->where('status', '!=', Application::STATUS_DRAFT)
@@ -28,11 +36,22 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+        // Recent Notifications
+        $recentNotifications = \App\Models\Notification::where(function($q) use ($userId) {
+                $q->where('user_id', $userId)
+                  ->orWhereNull('user_id');
+            })
+            ->latest()
+            ->take(3)
+            ->get();
+
         return view('student.dashboard', compact(
             'totalApplications',
             'approvedApplications',
             'pendingApplications',
-            'activeApplications'
+            'totalReceived',
+            'activeApplications',
+            'recentNotifications'
         ));
     }
 }
