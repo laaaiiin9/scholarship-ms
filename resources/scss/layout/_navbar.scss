@@ -12,10 +12,13 @@
     z-index: -1;
 }
 
+.offcanvas-body {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
 @media (max-width: 991.98px) {
     .offcanvas-body {
-        overflow: visible !important;
-
         .nav-link {
             width: 100%;
             padding: 0.75rem 0;

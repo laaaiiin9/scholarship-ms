@@ -45,13 +45,20 @@ class DashboardController extends Controller
             ->take(3)
             ->get();
 
+        $statusCounts = Application::where('user_id', $userId)
+            ->select('status', \Illuminate\Support\Facades\DB::raw('count(*) as total'))
+            ->groupBy('status')
+            ->pluck('total', 'status')
+            ->toArray();
+
         return view('student.dashboard', compact(
             'totalApplications',
             'approvedApplications',
             'pendingApplications',
             'totalReceived',
             'activeApplications',
-            'recentNotifications'
+            'recentNotifications',
+            'statusCounts'
         ));
     }
 }

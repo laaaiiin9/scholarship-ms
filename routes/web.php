@@ -7,7 +7,6 @@ use App\Http\Controllers\Admin\ApplicationPeriodController;
 use App\Http\Controllers\Admin\ApplicationController as AdminApplicationController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ReportController;
-use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\RenewalReviewController;
 use App\Http\Controllers\Admin\RenewalPeriodController;
 use App\Http\Controllers\Admin\DisbursementController;
@@ -95,11 +94,6 @@ Route::middleware(['auth', 'role:ADMIN,Admin,admin'])->prefix('admin')->name('ad
     Route::post('users/store', [UserController::class, 'store'])->name('users.store');
     Route::post('users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggle-status');
 
-    // System Settings
-    Route::prefix('settings')->name('settings.')->group(function () {
-        Route::get('/', [SettingController::class, 'index'])->name('index');
-        Route::post('/update', [SettingController::class, 'update'])->name('update');
-    });
 
     // Renewals & Disbursements
     Route::prefix('renewal-submissions')->name('renewals.')->group(function () {

@@ -42,10 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td>${statusBadge}</td>
                     <td class="pe-4 text-end">
                         <div class="d-flex gap-2 justify-content-end">
-                            <button class="btn btn-sm btn-outline-eskoylar-primary btn-icon shadow-sm" title="Edit" onclick="window.editPeriod(${item.id})">
+                            <button class="btn btn-sm btn-outline-eskoylar-primary btn-icon shadow-sm" title="Edit" onclick="window.editRenPeriod(${item.id})">
                                 <i data-lucide="pencil" style="width: 16px;"></i>
                             </button>
-                            <button class="btn btn-sm btn-outline-danger btn-icon shadow-sm" title="Delete" onclick="window.deletePeriod(${item.id})">
+                            <button class="btn btn-sm btn-outline-danger btn-icon shadow-sm" title="Delete" onclick="window.deleteRenPeriod(${item.id})">
                                 <i data-lucide="trash" style="width: 16px;"></i>
                             </button>
                         </div>
@@ -57,8 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Initialize Form Service
     const formService = new FormService({
-        formId: 'periodForm',
-        saveBtnId: 'savePeriodBtn',
+        formId: 'renPeriodForm',
+        saveBtnId: 'saveRenPeriodBtn',
         modalId: 'periodModal',
         buildUrl: (formData) => {
             const id = formData.get('id');
@@ -76,17 +76,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const periodModal = document.getElementById('periodModal');
     if (periodModal) {
         periodModal.addEventListener('hidden.bs.modal', () => {
-            document.getElementById('periodForm').reset();
-            document.getElementById('period_id').value = '';
+            document.getElementById('renPeriodForm').reset();
+            document.getElementById('renPeriod_id').value = '';
             document.getElementById('periodModalLabel').innerText = 'New Renewal Period';
         });
     }
 
     // 3. Expose Global Edit & Delete Handlers
-    window.editPeriod = async (id) => {
+    window.editRenPeriod = async (id) => {
         const data = await FormService.fetchForEdit(`/admin/renewal-periods/fetch/${id}`);
         if (data) {
-            document.getElementById('period_id').value = data.id;
+            document.getElementById('renPeriod_id').value = data.id;
             document.getElementById('scholarship_id').value = data.scholarship_id;
 
             // Format dates simply for html5 date input (YYYY-MM-DD): The API may return ISO strings
@@ -104,13 +104,13 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     let deleteId = null;
-    window.deletePeriod = (id) => {
+    window.deleteRenPeriod = (id) => {
         deleteId = id;
-        const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('deletePeriodModal'));
+        const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('deleteRenPeriodModal'));
         modal.show();
     };
 
-    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+    const confirmDeleteBtn = document.getElementById('confirmDeleteRenPeriodBtn');
     if (confirmDeleteBtn) {
         confirmDeleteBtn.addEventListener('click', async () => {
             if (!deleteId) return;
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
             confirmDeleteBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Deleting...';
 
             const success = await FormService.deleteRecord(`/admin/renewal-periods/delete/${deleteId}`, () => {
-                const modal = bootstrap.Modal.getInstance(document.getElementById('deletePeriodModal'));
+                const modal = bootstrap.Modal.getInstance(document.getElementById('deleteRenPeriodModal'));
                 if (modal) modal.hide();
                 tableService.fetchData();
             });

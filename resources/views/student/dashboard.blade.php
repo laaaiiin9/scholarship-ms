@@ -100,52 +100,16 @@
                 <div class="card-header bg-transparent border-bottom-0 p-4 pb-0">
                     <h5 class="fw-bold mb-0 text-body">Application Progress</h5>
                 </div>
-                <div class="card-body p-4">
-                    @if($activeApplications->first())
-                        @php $latest = $activeApplications->first(); @endphp
-                        <div class="p-3 bg-body-tertiary rounded-4 mb-4 border border-dashed">
-                            <h6 class="mb-1 fw-bold text-truncate">{{ $latest->scholarship->name }}</h6>
-                            <span class="badge bg-primary-subtle text-primary small rounded-pill px-3">Currently: {{ str_replace('_', ' ', $latest->status) }}</span>
-                        </div>
-                        
-                        <div class="position-relative mt-4 px-3">
-                            <div class="progress" style="height: 6px;">
-                                @php
-                                    $progress = 10;
-                                    if ($latest->status === 'SUBMITTED') $progress = 40;
-                                    if ($latest->status === 'UNDER_REVIEW') $progress = 70;
-                                    if ($latest->status === 'DECIDED') $progress = 100;
-                                @endphp
-                                <div class="progress-bar bg-primary" style="width: {{ $progress }}%"></div>
-                            </div>
-                            <div class="d-flex justify-content-between mt-3 small text-muted">
-                                <div class="text-center">
-                                    <div class="mb-1 fw-bold {{ $progress >= 10 ? 'text-primary' : '' }}">Draft</div>
-                                    <div class="text-xs">Initial Prep</div>
-                                </div>
-                                <div class="text-center">
-                                    <div class="mb-1 fw-bold {{ $progress >= 40 ? 'text-primary' : '' }}">Submitted</div>
-                                    <div class="text-xs">Verification</div>
-                                </div>
-                                <div class="text-center">
-                                    <div class="mb-1 fw-bold {{ $progress >= 70 ? 'text-primary' : '' }}">Review</div>
-                                    <div class="text-xs">Final Audit</div>
-                                </div>
-                                <div class="text-center">
-                                    <div class="mb-1 fw-bold {{ $progress >= 100 ? 'text-primary' : '' }}">Result</div>
-                                    <div class="text-xs">Decision</div>
-                                </div>
-                            </div>
-                        </div>
-                    @else
-                        <div class="text-center py-5">
-                            <p class="text-muted small">Submit an application to track your progress here.</p>
-                        </div>
-                    @endif
+                <div class="card-body p-4 d-flex flex-column justify-content-center">
+                    <div style="height: 220px;" class="position-relative w-100">
+                        <canvas id="statusChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    
+    <div id="student-analytics-data" data-distribution='@json($statusCounts)' class="d-none"></div>
     
     <div class="mb-4">
         <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
@@ -153,14 +117,21 @@
         </h5>
         
         <div class="card border-0 shadow-sm rounded-4">
-            <div class="card-body p-0">
+            <div class="card-header bg-transparent border-bottom-0 p-4">
+                <div class="d-flex align-items-center justify-content-between">
+                    <h5 class="fw-bold mb-0">Recent Activity</h5>
+                    <a href="{{ route('student.applications.index') }}" class="btn btn-sm btn-outline-eskoylar-primary rounded-pill px-3">View All</a>
+                </div>
+            </div>
+            <div class="card-body p-0 pb-2">
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0">
-                        <thead class="bg-body-tertiary text-muted small text-uppercase">
+                        <thead class="text-muted" style="font-size: 0.8rem;">
                             <tr>
-                                <th class="ps-4 py-3">Scholarship</th>
-                                <th class="py-3">Applied On</th>
-                                <th class="py-3">Status</th>
+                                <th class="ps-4 fw-medium border-bottom-0 pb-3">Scholarship</th>
+                                <th class="fw-medium border-bottom-0 pb-3">Applied On</th>
+                                <th class="fw-medium border-bottom-0 pb-3">Status</th>
+                                <th class="pe-4 fw-medium border-bottom-0 pb-3 text-end">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -169,7 +140,7 @@
                                     <td class="ps-4 py-3">
                                         <h6 class="mb-0 fw-bold text-body">{{ $app->scholarship->name ?? 'Unknown' }}</h6>
                                     </td>
-                                    <td class="text-muted py-3">
+                                    <td class="text-muted small py-3">
                                         {{ $app->created_at->format('M d, Y') }}
                                     </td>
                                     <td class="py-3">
@@ -185,18 +156,18 @@
                                             <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-2 rounded-pill">{{ str_replace('_', ' ', $app->status) }}</span>
                                         @endif
                                     </td>
-                                    <td class="pe-4 text-end">
-                                        <a href="{{ route('student.applications.show', $app->id) }}" class="btn btn-sm btn-outline-eskoylar-primary rounded-pill px-3 shadow-none">
-                                            Track
+                                    <td class="pe-4 py-3 text-end">
+                                        <a href="{{ route('student.applications.show', $app->id) }}" class="btn btn-sm btn-icon btn-outline-eskoylar-primary rounded-3 shadow-sm" title="Track">
+                                            <i data-lucide="eye" style="width: 14px;"></i>
                                         </a>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
                                     <td colspan="4" class="text-center py-5 text-muted">
-                                        <i data-lucide="inbox" style="width:32px;height:32px;" class="mb-2 opacity-50"></i>
+                                        <div class="mb-2 opacity-50"><i data-lucide="inbox" style="width:32px;height:32px;"></i></div>
                                         <p class="mb-0">You haven't submitted any applications yet.</p>
-                                        <a href="{{ route('student.scholarships') }}" class="btn btn-sm btn-eskoylar-primary text-white mt-3 shadow-none px-4 rounded-3">Explore Scholarships</a>
+                                        <a href="{{ route('student.scholarships') }}" class="btn btn-sm btn-eskoylar-primary text-white mt-3 px-4 rounded-3">Explore Scholarships</a>
                                     </td>
                                 </tr>
                             @endforelse

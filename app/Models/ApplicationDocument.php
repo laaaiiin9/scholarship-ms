@@ -9,6 +9,9 @@ class ApplicationDocument extends Model
     public const STATUS_PENDING = 'PENDING';
     public const STATUS_VALID = 'VALID';
     public const STATUS_INVALID = 'INVALID';
+    
+    public const TYPE_APPLICATION = 'APPLICATION';
+    public const TYPE_RENEWAL = 'RENEWAL';
 
     protected $table = 'application_documents';
 
@@ -17,7 +20,8 @@ class ApplicationDocument extends Model
         'requirement_id',
         'renewal_id',
         'file_path',
-        'verification_status'
+        'verification_status',
+        'type'
     ];
 
     public function renewal()

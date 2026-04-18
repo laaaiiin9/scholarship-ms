@@ -69,8 +69,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4 pt-2">
-                <form id="periodForm">
-                    <input type="hidden" id="period_id" name="id">
+                <form id="appPeriodForm">
+                    <input type="hidden" id="appPeriod_id" name="id">
                     
                     <div class="mb-3">
                         <label for="scholarship_id" class="form-label text-sm fw-medium">Scholarship Program Assignment</label>
@@ -106,14 +106,14 @@
             </div>
             <div class="modal-footer border-top-0 p-4">
                 <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-eskoylar-primary text-white px-4" id="savePeriodBtn">Save Period Settings</button>
+                <button type="button" class="btn btn-eskoylar-primary text-white px-4" id="saveAppPeriodBtn">Save Period Settings</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Delete Modal -->
-<div class="modal fade" id="deletePeriodModal" tabindex="-1" aria-labelledby="deletePeriodModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteAppPeriodModal" tabindex="-1" aria-labelledby="deletePeriodModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg rounded-4 text-center p-4">
             <div class="modal-header border-bottom-0 pb-0">
@@ -129,7 +129,7 @@
                 <p class="text-muted mb-4">Deleting this application period will affect all active enrollments linked to it. This action cannot be undone.</p>
                 <div class="d-flex justify-content-center gap-3">
                     <button type="button" class="btn btn-outline-secondary px-5" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger px-5" id="confirmDeleteBtn">Yes, Delete</button>
+                    <button type="button" class="btn btn-danger px-5" id="confirmDeleteAppPeriodBtn">Yes, Delete</button>
                 </div>
             </div>
         </div>

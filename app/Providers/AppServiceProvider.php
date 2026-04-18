@@ -24,12 +24,5 @@ class AppServiceProvider extends ServiceProvider
     {
         Gate::policy(Application::class, ApplicationPolicy::class);
 
-        // Share System Settings with all views
-        \Illuminate\Support\Facades\View::composer('*', function ($view) {
-            $settings = \Illuminate\Support\Facades\Cache::remember('system_settings', 3600, function () {
-                return \App\Models\SystemSetting::all()->pluck('value', 'key');
-            });
-            $view->with('systemSettings', $settings);
-        });
     }
 }

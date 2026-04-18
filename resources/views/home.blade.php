@@ -205,6 +205,22 @@
                 </div>
             </div>
         </div>
-    </section>
+    <footer class="bg-dark py-5 border-top border-dark-subtle mt-5">
+        <div class="container py-4">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <img src="{{ asset('assets/images/logo1.png') }}" height="35" class="mb-3" style="filter: brightness(0) invert(1);">
+                    <p class="text-secondary small mb-0">&copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <ul class="list-inline mb-0 text-secondary">
+                        <li class="list-inline-item me-3"><a href="#" class="text-secondary text-decoration-none small">Terms of Service</a></li>
+                        <li class="list-inline-item me-3"><a href="#" class="text-secondary text-decoration-none small">Privacy Policy</a></li>
+                        <li class="list-inline-item"><a href="#" class="text-secondary text-decoration-none small">Contact Support</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 @endsection

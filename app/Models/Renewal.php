@@ -25,7 +25,8 @@ class Renewal extends Model
 
     public function documents()
     {
-        return $this->hasMany(ApplicationDocument::class, 'renewal_id');
+        return $this->hasMany(ApplicationDocument::class, 'renewal_id')
+            ->where('type', ApplicationDocument::TYPE_RENEWAL);
     }
 
     public function renewalPeriod()

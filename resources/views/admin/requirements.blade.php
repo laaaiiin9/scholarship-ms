@@ -129,7 +129,7 @@
                 <p class="text-muted mb-4">Deleting this document requirement will remove it from all linked scholarship programs. Students will no longer be prompted for this file.</p>
                 <div class="d-flex justify-content-center gap-3">
                     <button type="button" class="btn btn-outline-secondary px-5" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger px-5" id="confirmDeleteBtn">Yes, Delete</button>
+                    <button type="button" class="btn btn-danger px-5" id="confirmDeleteRequirementBtn">Yes, Delete</button>
                 </div>
             </div>
         </div>

@@ -125,7 +125,7 @@
                 <p class="text-muted mb-4">You are about to delete this scholarship program. All associated records will be permanently removed. This action cannot be undone.</p>
                 <div class="d-flex justify-content-center gap-3">
                     <button type="button" class="btn btn-outline-secondary px-5" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger px-5" id="confirmDeleteBtn">Yes, Delete</button>
+                    <button type="button" class="btn btn-danger px-5" id="confirmDeleteScholarshipBtn">Yes, Delete</button>
                 </div>
             </div>
         </div>

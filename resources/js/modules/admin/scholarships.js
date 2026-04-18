@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.show();
     };
 
-    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+    const confirmDeleteBtn = document.getElementById('confirmDeleteScholarshipBtn');
     if (confirmDeleteBtn) {
         confirmDeleteBtn.addEventListener('click', async () => {
             if (!deleteId) return;

@@ -38,7 +38,8 @@ class Application extends Model
 
     public function documents()
     {
-        return $this->hasMany(ApplicationDocument::class, 'application_id');
+        return $this->hasMany(ApplicationDocument::class, 'application_id')
+            ->where('type', ApplicationDocument::TYPE_APPLICATION);
     }
 
     public function reviews()

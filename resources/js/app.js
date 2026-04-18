@@ -1,7 +1,7 @@
 import './bootstrap';
 import 'bootstrap';
 
-import './services/api';
+import './services/form';
 
 import { createIcons, icons } from 'lucide';
 
@@ -26,3 +26,4 @@ import './modules/student/tracking';
 import './modules/student/profile';
 import './modules/student/verification';
 import './modules/student/renewals';
+import './modules/student/analytics';

@@ -41,11 +41,7 @@
                             <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="layout-dashboard" style="width: 20px;"></i></span> Dashboard
                         </a>
                     </li>
-                    <li class="nav-item mb-2">
-                        <a href="#" class="nav-link d-flex align-items-center">
-                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="users" style="width: 20px;"></i></span> Manage Users
-                        </a>
-                    </li>
+
                     <li class="nav-item mb-2">
                         <a href="{{ route('admin.scholarships') }}" class="nav-link {{ Route::is('admin.scholarships') ? 'active' : '' }} d-flex align-items-center">
                             <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="book-open" style="width: 20px;"></i></span> Scholarships
@@ -96,11 +92,7 @@
                             <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="bell" style="width: 20px;"></i></span> Communications
                         </a>
                     </li>
-                    <li class="nav-item mb-2">
-                        <a href="#" class="nav-link d-flex align-items-center">
-                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="settings" style="width: 20px;"></i></span> Settings
-                        </a>
-                    </li>
+
                 </ul>
 
                 <hr class="text-white-50 mx-3 my-2">

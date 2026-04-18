@@ -65,6 +65,7 @@ class RenewalService
                     'renewal_id'          => $renewal->id,
                     'file_path'           => $path,
                     'verification_status' => \App\Models\ApplicationDocument::STATUS_PENDING,
+                    'type'                => \App\Models\ApplicationDocument::TYPE_RENEWAL,
                 ]);
             }
 

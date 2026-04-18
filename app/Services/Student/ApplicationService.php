@@ -54,6 +54,7 @@ class ApplicationService
                     'requirement_id' => $requirementId,
                     'file_path' => $path,
                     'verification_status' => ApplicationDocument::STATUS_PENDING,
+                    'type' => ApplicationDocument::TYPE_APPLICATION,
                 ]);
             }
         }

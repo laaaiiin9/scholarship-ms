@@ -2,8 +2,8 @@
     <nav class="navbar navbar-expand-lg bg-body-transparent">
         <div class="container-fluid mx-0 mx-sm-5">
 
-            <a class="navbar-brand" href="#">
-                <img src="{{ asset('assets/images/logo1.png') }}" alt="Bootstrap" height="40">
+            <a class="navbar-brand" href="{{ route('home') }}">
+                <img src="{{ asset('assets/images/logo1.png') }}" alt="{{ config('app.name') }}" height="40" style="filter: brightness(0) invert(1);">
             </a>
 
             <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="offcanvas"
@@ -43,32 +43,28 @@
                     <ul class="navbar-nav ms-lg-auto gap-3 align-items-start align-items-lg-center">
                         @auth
                             <li class="nav-item dropdown w-100">
-                                <a class="btn-bordered d-block text-center d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown"
+                                <a class="btn-bordered d-flex align-items-center justify-content-center gap-2 px-3 py-2 rounded-pill" href="#" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false" style="text-decoration: none;">
-                                    <span>{{ auth()->user()->username }}</span>
-                                    <svg class="chevron-icon chevron-down" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <polyline points="6 9 12 15 18 9"></polyline>
-                                    </svg>
-                                    <svg class="chevron-icon chevron-up" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
-                                        <polyline points="18 15 12 9 6 15"></polyline>
-                                    </svg>
+                                    <div class="avatar-circle sm bg-secondary-subtle text-body m-0 p-0" style="width: 24px; height: 24px; font-size: 0.75rem;">
+                                        {{ strtoupper(substr(auth()->user()->username, 0, 1)) }}
+                                    </div>
+                                    <span class="fw-medium text-sm">{{ auth()->user()->username }}</span>
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="{{ route('student.profile') }}">Profile</a></li>
+                                <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 rounded-4">
+                                    <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="{{ route('student.profile') }}"><i data-lucide="user" style="width: 16px;"></i> Profile</a></li>
                                     @if(auth()->user()->hasRole('admin'))
-                                    <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">Admin Dashboard</a></li>
+                                    <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="{{ route('admin.dashboard') }}"><i data-lucide="layout-dashboard" style="width: 16px;"></i> Admin Dashboard</a></li>
                                     @elseif(auth()->user()->hasRole('student'))
-                                    <li><a class="dropdown-item" href="">Dashboard</a></li>
-                                    @else
+                                    <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="{{ route('student.dashboard') }}"><i data-lucide="layout-dashboard" style="width: 16px;"></i> Dashboard</a></li>
                                     @endif
                                     
+                                    <li><hr class="dropdown-divider"></li>
                                     <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <form data-ajax-form method="POST" action="{{ route('auth.logout') }}" class="d-inline">
+                                        <form data-ajax-form method="POST" action="{{ route('auth.logout') }}" class="d-inline p-0 m-0 w-100">
                                             @csrf
-                                            <button type="submit" class="dropdown-item">Logout</button>
+                                            <button type="submit" class="dropdown-item text-danger d-flex align-items-center gap-2 py-2 w-100 border-0 bg-transparent text-start">
+                                                <i data-lucide="log-out" style="width: 16px;"></i> Logout
+                                            </button>
                                         </form>
                                     </li>
                                 </ul>
