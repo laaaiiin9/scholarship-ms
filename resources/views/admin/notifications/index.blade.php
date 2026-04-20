@@ -129,7 +129,3 @@
     </div>
 </div>
 @endsection
-
-@push('scripts')
-@vite(['resources/js/modules/admin/notifications.js'])
-@endpush

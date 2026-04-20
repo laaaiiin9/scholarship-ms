@@ -70,39 +70,4 @@
         </div>
     </div>
 </div>
-
-@push('scripts')
-<script>
-    async function markAsRead(id) {
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        
-        try {
-            const response = await fetch(`/student/notifications/${id}/read`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (response.ok) {
-                const item = document.getElementById(`notification-${id}`);
-                item.classList.replace('border-primary', 'border-transparent');
-                item.classList.remove('bg-primary', 'bg-opacity-10');
-                
-                // Remove the "Mark as read" button
-                const btn = item.querySelector('button');
-                if (btn) btn.remove();
-                
-                // Hide the blue dot
-                const dot = item.querySelector('.badge.bg-primary');
-                if (dot) dot.remove();
-            }
-        } catch (error) {
-            console.error('Error marking as read:', error);
-        }
-    }
-</script>
-@endpush
 @endsection

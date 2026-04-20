@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <td class="text-muted">${date}</td>
                         <td>${statusBadge}</td>
                         <td class="pe-4 text-end">
-                            <a href="/student/applications/${item.id}" class="btn btn-sm btn-icon btn-outline-eskoylar-primary rounded-3 shadow-sm" title="Track Progress">
+                            <a href="/student/applications/show/${item.id}" class="btn btn-sm btn-icon btn-outline-eskoylar-primary rounded-3 shadow-sm" title="Track Progress">
                                 <i data-lucide="eye" style="width: 16px;"></i>
                             </a>
                         </td>

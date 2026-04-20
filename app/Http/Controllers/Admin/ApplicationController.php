@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Application;
 use App\Models\Decision;
+use App\Models\Review;
 use App\Mail\ApplicationStatusUpdated;
+use App\Services\NotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -43,7 +45,7 @@ class ApplicationController extends Controller
 
     public function show(Application $application)
     {
-        $application->load(['user.profile', 'scholarship', 'documents.requirement', 'decision.decider']);
+        $application->load(['user.profile', 'scholarship', 'documents.requirement', 'decision.decider', 'reviews.reviewer']);
         
         return view('admin.applications.show', compact('application'));
     }
@@ -80,11 +82,29 @@ class ApplicationController extends Controller
                 }
             }
 
+            if ($request->filled('remarks')) {
+                Review::create([
+                    'application_id' => $application->id,
+                    'reviewed_by' => auth()->id(),
+                    'remarks' => $request->remarks,
+                ]);
+            }
+
             DB::commit();
 
             // Notify Student via Email
             $application->load('user', 'scholarship');
             Mail::to($application->user->email)->send(new ApplicationStatusUpdated($application));
+
+            // Notify Student on Dashboard
+            $statusLabel = str_replace('_', ' ', $request->status);
+            $resultLabel = $request->result ? " — Result: {$request->result}" : '';
+            NotificationService::notifyStudent(
+                $application->user_id,
+                'Scholarship Application Update',
+                "Your application for {$application->scholarship->name} has been updated to: {$statusLabel}{$resultLabel}.",
+                'ALERT'
+            );
 
             return response()->json([
                 'success' => true,

@@ -168,6 +168,25 @@
                 </div>
             </div>
             @endif
+
+            <div class="card border-0 shadow-sm rounded-4 mt-4">
+                <div class="card-header bg-transparent border-bottom-0 p-4 pb-2">
+                    <h6 class="fw-bold mb-0">Internal Review Log</h6>
+                </div>
+                <div class="card-body p-4 pt-0">
+                    @forelse($application->reviews->sortByDesc('created_at') as $review)
+                        <div class="mb-3 pb-3 {{ !$loop->last ? 'border-bottom border-light-subtle' : '' }}">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="fw-bold small">{{ $review->reviewer->name ?? 'Unknown Admin' }}</span>
+                                <small class="text-muted">{{ $review->created_at->format('M d, Y H:i') }}</small>
+                            </div>
+                            <p class="mb-0 small text-body-secondary">{{ $review->remarks }}</p>
+                        </div>
+                    @empty
+                        <p class="text-center text-muted small py-3 mb-0">No internal remarks captured yet.</p>
+                    @endforelse
+                </div>
+            </div>
         </div>
     </div>
 </div>

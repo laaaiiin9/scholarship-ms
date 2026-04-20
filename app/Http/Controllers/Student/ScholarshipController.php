@@ -18,7 +18,9 @@ class ScholarshipController extends Controller
             $query = Scholarship::with([
                 'requirements',
                 'applicationPeriods' => function($q) {
-                    $q->where('status', 'OPEN');
+                    $q->where('status', 'OPEN')
+                      ->where('start_date', '<=', now()->toDateString())
+                      ->where('end_date', '>=', now()->toDateString());
                 }
             ])->latest();
 

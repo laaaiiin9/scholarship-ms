@@ -96,15 +96,35 @@
                 </div>
 
                 <div class="d-flex align-items-center gap-3">
+                    {{-- Notification Bell --}}
                     <div class="dropdown">
-                        <a href="#" class="d-flex align-items-center text-decoration-none hide-caret dropdown-toggle gap-2" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-icon position-relative" id="notifBellBtn" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-offset="0,12">
+                            <i data-lucide="bell" style="width: 20px; height: 20px;"></i>
+                            <span id="notif-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-flex align-items-center justify-content-center" style="font-size:0.6rem;min-width:18px;height:18px;display:none!important;">0</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end shadow border-0 p-0 rounded-4" style="min-width:280px; max-width: 320px; max-height:400px; overflow-y:auto;">
+                            <div class="d-flex align-items-center justify-content-between px-3 py-2 border-bottom">
+                                <span class="fw-bold small">Notifications</span>
+                                <button id="notif-mark-all-btn" class="btn btn-link btn-sm text-muted text-decoration-none shadow-none p-0" style="font-size:0.75rem;">Mark all read</button>
+                            </div>
+                            <ul id="notif-dropdown-list" class="list-unstyled mb-0">
+                                <li class="px-3 py-4 text-center text-muted small">Loading...</li>
+                            </ul>
+                            <div class="border-top text-center py-2">
+                                <a href="{{ route('student.notifications.index') }}" class="text-muted small text-decoration-none">View all notifications</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-decoration-none hide-caret dropdown-toggle gap-2" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="0,12">
                             <div class="text-end d-none d-md-block me-1">
                                 <p class="mb-0 text-sm fw-medium lh-1 text-body">{{ auth()->user()->name ?? 'Student' }}</p>
                                 <small class="text-muted" style="font-size: 0.75rem;">Scholar</small>
                             </div>
                             <div class="avatar-circle">{{ substr(auth()->user()->name ?? 'S', 0, 1) }}</div>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2" aria-labelledby="dropdownUser">
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4" aria-labelledby="dropdownUser">
                             <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="{{ route('student.profile') }}"><i data-lucide="user" style="width: 16px;"></i> My Profile</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>

@@ -14,20 +14,21 @@ class RenewalService
      */
     public function getEligibleScholarships(int $userId)
     {
-        // Eligible means:
-        // 1. Application status is APPROVED (via Decision)
-        // 2. Scholarship has an OPEN RenewalPeriod
-        // 3. User hasn't already submitted for this RenewalPeriod
-        
+        $today = now()->toDateString();
+
         return Application::where('user_id', $userId)
             ->whereHas('decision', function($q) {
                 $q->where('result', 'APPROVED');
             })
-            ->whereHas('scholarship.renewalPeriods', function($q) {
-                $q->where('status', 'OPEN');
+            ->whereHas('scholarship.renewalPeriods', function($q) use ($today) {
+                $q->where('status', 'OPEN')
+                  ->where('start_date', '<=', $today)
+                  ->where('end_date', '>=', $today);
             })
-            ->with(['scholarship.renewalPeriods' => function($q) {
-                $q->where('status', 'OPEN');
+            ->with(['scholarship.renewalPeriods' => function($q) use ($today) {
+                $q->where('status', 'OPEN')
+                  ->where('start_date', '<=', $today)
+                  ->where('end_date', '>=', $today);
             }])
             ->get()
             ->filter(function($app) use ($userId) {

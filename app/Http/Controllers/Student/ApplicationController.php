@@ -8,6 +8,7 @@ use App\Models\Application;
 use App\Http\Requests\Student\StoreApplicationRequest;
 use App\Services\Student\ApplicationService;
 use App\Mail\ApplicationSubmitted;
+use App\Services\NotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -55,8 +56,13 @@ class ApplicationController extends Controller
 
         $userId = auth()->id();
 
-        // Validate active period
-        $activePeriod = $scholarship->applicationPeriods()->where('status', 'OPEN')->first();
+        // Validate active period with date check
+        $today = now()->toDateString();
+        $activePeriod = $scholarship->applicationPeriods()
+            ->where('status', 'OPEN')
+            ->where('start_date', '<=', $today)
+            ->where('end_date', '>=', $today)
+            ->first();
         if (!$activePeriod) {
             return redirect()->route('student.scholarships')->with('error', 'This scholarship does not have an active application period.');
         }
@@ -106,6 +112,14 @@ class ApplicationController extends Controller
             
             // Notify Student via Email
             Mail::to(auth()->user()->email)->send(new ApplicationSubmitted($application->load('scholarship', 'user')));
+
+            // Notify Admins on Dashboard
+            $studentName = auth()->user()->name ?? auth()->user()->email;
+            NotificationService::notifyAdmins(
+                'New Scholarship Application',
+                "{$studentName} has submitted a new application for {$application->scholarship->name}.",
+                'SYSTEM'
+            );
 
             return response()->json([
                 'msg' => 'Application submitted successfully with all documents!'

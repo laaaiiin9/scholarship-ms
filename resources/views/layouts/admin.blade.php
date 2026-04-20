@@ -98,9 +98,12 @@
                 <hr class="text-white-50 mx-3 my-2">
                 
                 <div class="px-3 pb-4">
-                    <a href="#" class="nav-link text-danger d-flex align-items-center mt-2">
-                        <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="log-out" style="width: 20px;"></i></span> Logout
-                    </a>
+                    <form method="POST" action="{{ route('auth.logout') }}" data-ajax-form>
+                        @csrf
+                        <button type="submit" class="nav-link text-danger d-flex align-items-center mt-2 border-0 bg-transparent w-100 text-start px-0">
+                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="log-out" style="width: 20px;"></i></span> Logout
+                        </button>
+                    </form>
                 </div>
             </div>
         </aside>
@@ -127,19 +130,46 @@
                         </div>
                     </form>
 
+                    {{-- Notification Bell --}}
                     <div class="dropdown">
-                        <a href="#" class="d-flex align-items-center text-decoration-none hide-caret dropdown-toggle gap-2" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="text-end d-none d-md-block me-1">
-                                <p class="mb-0 text-sm fw-medium lh-1 text-body">Admin User</p>
-                                <small class="text-muted" style="font-size: 0.75rem;">Administrator</small>
+                        <button class="btn btn-icon position-relative" id="notifBellBtn" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-offset="0,12">
+                            <i data-lucide="bell" style="width: 20px; height: 20px;"></i>
+                            <span id="notif-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-flex align-items-center justify-content-center" style="font-size:0.6rem;min-width:18px;height:18px;display:none!important;">0</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end shadow border-0 p-0 rounded-4" style="min-width:280px; max-width: 320px; max-height:400px; overflow-y:auto;">
+                            <div class="d-flex align-items-center justify-content-between px-3 py-2 border-bottom">
+                                <span class="fw-bold small">Notifications</span>
+                                <button id="notif-mark-all-btn" class="btn btn-link btn-sm text-muted text-decoration-none shadow-none p-0" style="font-size:0.75rem;">Mark all read</button>
                             </div>
-                            <div class="avatar-circle">A</div>
+                            <ul id="notif-dropdown-list" class="list-unstyled mb-0">
+                                <li class="px-3 py-4 text-center text-muted small">Loading...</li>
+                            </ul>
+                            <div class="border-top text-center py-2">
+                                <a href="{{ route('admin.notifications.index') }}" class="text-muted small text-decoration-none">View all notifications</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-decoration-none hide-caret dropdown-toggle gap-2" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="0,12">
+                            <div class="text-end d-none d-md-block me-1">
+                                <p class="mb-0 text-sm fw-medium lh-1 text-body">{{ auth()->user()->username }}</p>
+                                <small class="text-muted" style="font-size: 0.75rem;">{{ auth()->user()->roles->first()->name ?? 'Administrator' }}</small>
+                            </div>
+                            <div class="avatar-circle">{{ strtoupper(substr(auth()->user()->username, 0, 1)) }}</div>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2" aria-labelledby="dropdownUser">
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4" aria-labelledby="dropdownUser">
                             <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#"><i data-lucide="user" style="width: 16px;"></i> My Profile</a></li>
                             <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#"><i data-lucide="settings" style="width: 16px;"></i> Account Settings</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger d-flex align-items-center gap-2 py-2" href="#"><i data-lucide="log-out" style="width: 16px;"></i> Logout</a></li>
+                            <li>
+                                <form method="POST" action="{{ route('auth.logout') }}" data-ajax-form>
+                                    @csrf
+                                    <button type="submit" class="dropdown-item text-danger d-flex align-items-center gap-2 py-2 border-0 bg-transparent w-100 text-start">
+                                        <i data-lucide="log-out" style="width: 16px;"></i> Logout
+                                    </button>
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 </div>

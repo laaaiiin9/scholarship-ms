@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\DisbursementController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Email\VerificationController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationBellController;
 use App\Http\Controllers\Student\ProfileController;
 use App\Http\Controllers\Student\ScholarshipController as StudentScholarshipController;
 use App\Http\Controllers\Student\DashboardController as StudentDashboardController;
@@ -21,6 +22,15 @@ use App\Http\Controllers\Student\RenewalController as StudentRenewalController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+/* Notification Bell — shared by both admin and student */
+Route::middleware(['auth'])->prefix('notifications')->name('notifications.bell.')->group(function () {
+    Route::get('/unread-count', [NotificationBellController::class, 'unreadCount'])->name('unread');
+    Route::get('/recent', [NotificationBellController::class, 'recent'])->name('recent');
+    Route::post('/{notification}/read', [NotificationBellController::class, 'markRead'])->name('read');
+    Route::post('/mark-all-read', [NotificationBellController::class, 'markAllRead'])->name('read-all');
+});
+/* End Notification Bell */
 
 Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/signIn', [AuthController::class, 'authenticate'])->name('auth.signin');

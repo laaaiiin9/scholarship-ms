@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\RenewalPeriod;
 use App\Models\Application;
 use App\Services\Student\RenewalService;
+use App\Services\NotificationService;
 use Illuminate\Http\Request;
 
 class RenewalController extends Controller
@@ -73,6 +74,15 @@ class RenewalController extends Controller
                 renewalPeriodId: (int) $request->input('renewal_period_id'),
                 userId:          auth()->id(),
                 requirementFiles: $reqFiles
+            );
+
+            // Notify Admins on Dashboard
+            $studentName = auth()->user()->name ?? auth()->user()->email;
+            $scholarship = $application->scholarship;
+            NotificationService::notifyAdmins(
+                'New Renewal Submission',
+                "{$studentName} has submitted a renewal for {$scholarship->name}.",
+                'SYSTEM'
             );
 
             return response()->json([

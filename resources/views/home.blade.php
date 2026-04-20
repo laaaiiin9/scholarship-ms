@@ -22,7 +22,7 @@
 
                         <div class="col-lg-6 ps-lg-5">
                             <div class="hero-card-wrapper">
-                                <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                                <div class="card shadow-lg border-0 rounded-4 overflow-hidden hero-album-frame">
                                     <div class="card-header bg-body-tertiary border-0 py-3 px-4">
                                         <div class="d-flex gap-2">
                                             <div class="bg-danger rounded-circle" style="width: 12px; height: 12px;"></div>
@@ -31,8 +31,8 @@
                                         </div>
                                     </div>
                                     <div class="card-body p-0">
-                                        <img src="{{ asset('assets/images/overview-hero.png') }}"
-                                            alt="Dashboard Preview" class="img-fluid">
+                                        <img src="{{ asset('assets/images/overview2.png') }}"
+                                            alt="Dashboard Overview" class="img-fluid">
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +53,7 @@
                         <div class="stat-icon mb-3">
                             <i data-lucide="graduation-cap" class="text-eskoylar-primary"></i>
                         </div>
-                        <h2 class="fw-bold mb-1">25+</h2>
+                        <h2 class="fw-bold mb-1">{{ number_format($stats['scholarships']) }}+</h2>
                         <p class="text-secondary fw-medium mb-0">Active Scholarships</p>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                         <div class="stat-icon mb-3">
                             <i data-lucide="users" class="text-eskoylar-primary"></i>
                         </div>
-                        <h2 class="fw-bold mb-1">1,200+</h2>
+                        <h2 class="fw-bold mb-1">{{ number_format($stats['students']) }}+</h2>
                         <p class="text-secondary fw-medium mb-0">Registered Students</p>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                         <div class="stat-icon mb-3">
                             <i data-lucide="file-text" class="text-eskoylar-primary"></i>
                         </div>
-                        <h2 class="fw-bold mb-1">3,500+</h2>
+                        <h2 class="fw-bold mb-1">{{ number_format($stats['applications']) }}+</h2>
                         <p class="text-secondary fw-medium mb-0">Applications Submitted</p>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                         <div class="stat-icon mb-3">
                             <i data-lucide="check-circle" class="text-eskoylar-primary"></i>
                         </div>
-                        <h2 class="fw-bold mb-1">800+</h2>
+                        <h2 class="fw-bold mb-1">{{ number_format($stats['approved']) }}+</h2>
                         <p class="text-secondary fw-medium mb-0">Scholars Approved</p>
                     </div>
                 </div>
@@ -205,18 +205,46 @@
                 </div>
             </div>
         </div>
-    <footer class="bg-dark py-5 border-top border-dark-subtle mt-5">
-        <div class="container py-4">
-            <div class="row align-items-center">
-                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    <img src="{{ asset('assets/images/logo1.png') }}" height="35" class="mb-3" style="filter: brightness(0) invert(1);">
-                    <p class="text-secondary small mb-0">&copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.</p>
+    <footer class="bg-dark text-white pt-5 pb-4 mt-5 border-top border-secondary border-opacity-10">
+        <div class="container text-center text-md-start">
+            <div class="row text-center text-md-start">
+                <!-- Brand & About -->
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <img src="{{ asset('assets/images/logo1.png') }}" alt="Logo" height="40" class="mb-3" style="filter: brightness(0) invert(1);">
+                    <p class="small text-secondary">
+                        Eskoylar is a centralized platform dedicated to empowering students by simplifying the search and application process for scholarships.
+                    </p>
                 </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <ul class="list-inline mb-0 text-secondary">
-                        <li class="list-inline-item me-3"><a href="#" class="text-secondary text-decoration-none small">Terms of Service</a></li>
-                        <li class="list-inline-item me-3"><a href="#" class="text-secondary text-decoration-none small">Privacy Policy</a></li>
-                        <li class="list-inline-item"><a href="#" class="text-secondary text-decoration-none small">Contact Support</a></li>
+
+                <!-- Quick Links -->
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h6 class="text-uppercase mb-4 font-weight-bold text-eskoylar-primary small">Quick Links</h6>
+                    <p><a href="#hero-section" class="text-secondary text-decoration-none small">Home</a></p>
+                    <p><a href="#features-section" class="text-secondary text-decoration-none small">Features</a></p>
+                    <p><a href="#process-timeline" class="text-secondary text-decoration-none small">Process</a></p>
+                    <p><a href="{{ route('auth.login') }}" class="text-secondary text-decoration-none small">Portal</a></p>
+                </div>
+
+                <!-- Contact -->
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h6 class="text-uppercase mb-4 font-weight-bold text-eskoylar-primary small">Contact Us</h6>
+                    <p class="small text-secondary"><i data-lucide="mail" style="width:14px;" class="me-2"></i> support@eskoylar.edu</p>
+                    <p class="small text-secondary"><i data-lucide="phone" style="width:14px;" class="me-2"></i> +63 (2) 123 4567</p>
+                    <p class="small text-secondary"><i data-lucide="map-pin" style="width:14px;" class="me-2"></i> Manila, Philippines</p>
+                </div>
+            </div>
+
+            <hr class="mb-4 mt-4 border-secondary border-opacity-25">
+
+            <div class="row align-items-center">
+                <div class="col-md-7 col-lg-8 text-center text-md-start">
+                    <p class="small text-secondary">&copy; {{ date('Y') }} <strong>{{ config('app.name') }}</strong>. All rights reserved.</p>
+                </div>
+                <div class="col-md-5 col-lg-4 text-center text-md-end">
+                    <ul class="list-unstyled list-inline mb-0">
+                        <li class="list-inline-item me-3"><a href="#" class="text-secondary small text-decoration-none">Terms</a></li>
+                        <li class="list-inline-item me-3"><a href="#" class="text-secondary small text-decoration-none">Privacy</a></li>
+                        <li class="list-inline-item"><a href="#" class="text-secondary small text-decoration-none">Cookies</a></li>
                     </ul>
                 </div>
             </div>

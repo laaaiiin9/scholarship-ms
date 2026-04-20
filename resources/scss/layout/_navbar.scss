@@ -13,12 +13,12 @@
 }
 
 .offcanvas-body {
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
+    overflow: visible !important;
 }
 
 @media (max-width: 991.98px) {
     .offcanvas-body {
+        overflow-y: auto !important;
         .nav-link {
             width: 100%;
             padding: 0.75rem 0;
@@ -144,6 +144,10 @@
     }
 }
 
+.dropdown-toggle {
+    overflow: visible !important;
+}
+
 .dropdown-menu {
     position: absolute !important;
     top: 100% !important;
@@ -153,6 +157,23 @@
     background: rgba($nav-dropdown-bg, 0.95) !important;
     border: 1px solid rgba(255, 255, 255, 0.12) !important;
     box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
+    overflow: visible !important; 
+    max-height: none !important;
+    display: none; // Default hidden
+
+    &.show {
+        display: block;
+    }
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar { display: none; }
+
+    // Ensure items follow the container's rounded corners
+    &.rounded-4 {
+        .dropdown-item:first-child { border-top-left-radius: inherit; border-top-right-radius: inherit; }
+        .dropdown-item:last-child { border-bottom-left-radius: inherit; border-bottom-right-radius: inherit; }
+    }
 }
 
 .dropdown-menu .dropdown-item {

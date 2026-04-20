@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 case 'CLOSED':
                     statusBadge = `<span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-2 rounded-pill">Closed Phase</span>`;
                     break;
+                case 'DRAFT':
+                    statusBadge = `<span class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-2 rounded-pill">Draft</span>`;
+                    break;
                 default:
                     statusBadge = `<span class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-2 rounded-pill">${item.status}</span>`;
             }

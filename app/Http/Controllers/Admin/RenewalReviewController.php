@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Renewal;
 use App\Models\Disbursement;
 use App\Models\Scholarship;
+use App\Services\NotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -79,6 +80,16 @@ class RenewalReviewController extends Controller
             }
 
             DB::commit();
+
+            // Notify Student on Dashboard
+            $renewal->load('user', 'scholarship');
+            $statusLabel = str_replace('_', ' ', $request->status);
+            NotificationService::notifyStudent(
+                $renewal->user_id,
+                'Scholarship Renewal Update',
+                "Your renewal submission for {$renewal->scholarship->name} has been updated to: {$statusLabel}.",
+                'ALERT'
+            );
 
             return response()->json([
                 'success' => true,

@@ -97,8 +97,9 @@
                     <div class="mb-3">
                         <label for="status" class="form-label text-sm fw-medium">Operational Status</label>
                         <select class="form-select" id="status" name="status" required>
+                            <option value="DRAFT">DRAFT (Not visible to students)</option>
                             <option value="OPEN">OPEN (Accepting renewals)</option>
-                            <option value="CLOSED">CLOSED (Viewing only)</option>
+                            <option value="CLOSED">CLOSED (Submissions closed)</option>
                         </select>
                     </div>
                 </form>

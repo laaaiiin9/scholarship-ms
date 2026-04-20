@@ -1,118 +1,108 @@
-import { TableService } from '../../services/table.js';
-import { FormService } from '../../services/form.js';
+import * as bootstrap from 'bootstrap';
+import TableService from '../../services/admin/table';
+import FormService from '../../services/admin/form';
+import { showToast } from '../../utils/toast';
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Table Logic
-    const tableBody = document.getElementById('notifications-table-body');
-    const paginationContainer = document.getElementById('pagination-container');
-    const searchInput = document.getElementById('searchInput');
-    const typeFilter = document.getElementById('typeFilter');
-
-    const tableService = new TableService('/admin/notifications', tableBody, paginationContainer);
-
-    tableService.setRenderCallback((notifications) => {
-        if (notifications.length === 0) {
-            return `<tr><td colspan="4" class="text-center py-5 text-muted">No notifications found matching your criteria.</td></tr>`;
-        }
-
-        return notifications.map(n => {
+    const tableService = new TableService({
+        tableBodyId: 'notifications-table-body',
+        paginationContainerId: 'pagination-container',
+        searchInputId: 'searchInput',
+        endpoint: '/admin/notifications',
+        renderRow: (n) => {
             const typeColor = n.type === 'ALERT' ? 'danger' : (n.type === 'ANNOUNCEMENT' ? 'primary' : 'info');
-            const targetLabel = n.user_id 
-                ? `<span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1 rounded-pill">${n.user.profile.first_name} ${n.user.profile.last_name}</span>`
+            const typeIcon  = n.type === 'ALERT' ? 'alert-triangle' : (n.type === 'ANNOUNCEMENT' ? 'megaphone' : 'bell');
+
+            const targetLabel = n.user_id
+                ? `<span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1 rounded-pill">${n.user?.profile?.first_name ?? ''} ${n.user?.profile?.last_name ?? n.user?.email ?? 'Student'}</span>`
                 : `<span class="badge bg-body-secondary text-muted border px-2 py-1 rounded-pill">Broadcast</span>`;
+
+            const date = new Date(n.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
             return `
                 <tr>
                     <td class="ps-4 py-3">
                         <div class="d-flex align-items-start gap-3">
                             <div class="avatar-circle sm bg-${typeColor}-subtle text-${typeColor} mt-1">
-                                <i data-lucide="${n.type === 'ALERT' ? 'alert-triangle' : (n.type === 'ANNOUNCEMENT' ? 'megaphone' : 'bell')}" style="width: 14px;"></i>
+                                <i data-lucide="${typeIcon}" style="width: 14px;"></i>
                             </div>
                             <div>
-                                <h6 class="mb-1 fw-bold text-body">${n.title}</h6>
+                                <h6 class="mb-1 fw-bold text-body">${n.title ?? '(No Title)'}</h6>
                                 <p class="mb-0 text-muted small text-truncate" style="max-width: 300px;">${n.message}</p>
                             </div>
                         </div>
                     </td>
                     <td>${targetLabel}</td>
-                    <td class="text-muted small">${new Date(n.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
+                    <td class="text-muted small">${date}</td>
                     <td class="pe-4 text-end">
-                        <button class="btn btn-sm btn-icon btn-outline-danger border-0 rounded-3 delete-btn" data-id="${n.id}" title="Delete Notification">
+                        <button class="btn btn-sm btn-icon btn-outline-danger border-0 rounded-3 delete-notif-btn" data-id="${n.id}" title="Delete">
                             <i data-lucide="trash-2" style="width: 14px;"></i>
                         </button>
                     </td>
                 </tr>
             `;
-        }).join('');
-    });
-
-    tableService.init();
-
-    // Filters
-    searchInput.addEventListener('input', (e) => {
-        tableService.setFilter('search', e.target.value);
-    });
-
-    typeFilter.addEventListener('change', (e) => {
-        tableService.setFilter('type', e.target.value);
-    });
-
-    // 2. Form Logic
-    const composeForm = document.getElementById('composeForm');
-    const sendBtn = document.getElementById('sendNotificationBtn');
-    const composeModalEl = document.getElementById('composeModal');
-    const composeModal = bootstrap.Modal.getOrCreateInstance(composeModalEl);
-
-    const formService = new FormService(composeForm, sendBtn);
-
-    formService.setSuccessCallback((response) => {
-        composeModal.hide();
-        composeForm.reset();
-        tableService.fetchData(); // Refresh history
-        
-        if (window.Toast) {
-            window.Toast.success(response.message || 'Notification sent!');
         }
     });
 
-    sendBtn.addEventListener('click', () => {
-        formService.submit('/admin/notifications/store', 'POST');
-    });
+    // 2. Search/Type filter
+    const typeFilter = document.getElementById('typeFilter');
+    if (typeFilter) {
+        typeFilter.addEventListener('change', (e) => {
+            tableService.setExtraParams({ type: e.target.value });
+        });
+    }
 
-    // 3. Delete Logic
-    tableBody.addEventListener('click', async (e) => {
-        const deleteBtn = e.target.closest('.delete-btn');
-        if (!deleteBtn) return;
+    // 3. Delete handler (event delegation)
+    const tableBody = document.getElementById('notifications-table-body');
+    if (tableBody) {
+        tableBody.addEventListener('click', async (e) => {
+            const btn = e.target.closest('.delete-notif-btn');
+            if (!btn) return;
+            if (!confirm('Delete this notification record?')) return;
 
-        if (!confirm('Are you sure you want to delete this notification record?')) return;
-
-        try {
-            const response = await fetch(`/admin/notifications/${deleteBtn.dataset.id}`, {
+            const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const res = await fetch(`/admin/notifications/${btn.dataset.id}`, {
                 method: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                    'Accept': 'application/json'
-                }
+                headers: { 'X-CSRF-TOKEN': csrf, 'Accept': 'application/json' }
             });
 
-            if (response.ok) {
+            if (res.ok) {
                 tableService.fetchData();
-                if (window.Toast) window.Toast.success('Record deleted.');
+                showToast('Notification deleted.', 'success');
+            } else {
+                showToast('Failed to delete notification.', 'error');
             }
-        } catch (error) {
-            console.error('Error deleting:', error);
-        }
-    });
+        });
+    }
 
-    // Handle scope radio changes
-    const scopeRadios = composeForm.querySelectorAll('input[name="scope"]');
-    const studentWrapper = document.getElementById('studentSelectWrapper');
+    // 4. Compose Form
+    const composeForm  = document.getElementById('composeForm');
+    const sendBtn      = document.getElementById('sendNotificationBtn');
+    const composeModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('composeModal'));
+
+    if (sendBtn && composeForm) {
+        const formService = new FormService({
+            formId: 'composeForm',
+            saveBtnId: 'sendNotificationBtn',
+            modalId: 'composeModal',
+            buildUrl: () => ({ url: '/admin/notifications/store', isEdit: false }),
+            onSaved: () => {
+                composeForm.reset();
+                document.getElementById('studentSelectWrapper')?.classList.add('d-none');
+                tableService.fetchData();
+                showToast('Notification sent!', 'success');
+            }
+        });
+    }
+
+    // 5. Scope radio toggle
+    const scopeRadios      = document.querySelectorAll('input[name="scope"]');
+    const studentWrapper   = document.getElementById('studentSelectWrapper');
     scopeRadios.forEach(radio => {
         radio.addEventListener('change', () => {
-            if (radio.value === 'individual') {
-                studentWrapper.classList.remove('d-none');
-            } else {
-                studentWrapper.classList.add('d-none');
+            if (studentWrapper) {
+                studentWrapper.classList.toggle('d-none', radio.value !== 'individual');
             }
         });
     });

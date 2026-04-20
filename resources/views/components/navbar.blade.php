@@ -42,15 +42,15 @@
 
                     <ul class="navbar-nav ms-lg-auto gap-3 align-items-start align-items-lg-center">
                         @auth
-                            <li class="nav-item dropdown w-100">
-                                <a class="btn-bordered d-flex align-items-center justify-content-center gap-2 px-3 py-2 rounded-pill" href="#" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false" style="text-decoration: none;">
+                            <li class="nav-item dropdown">
+                                <a class="btn-bordered d-flex align-items-center justify-content-center gap-2 px-3 py-2 rounded-pill dropdown-toggle hide-caret" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false" data-bs-offset="0,12" style="text-decoration: none;">
                                     <div class="avatar-circle sm bg-secondary-subtle text-body m-0 p-0" style="width: 24px; height: 24px; font-size: 0.75rem;">
                                         {{ strtoupper(substr(auth()->user()->username, 0, 1)) }}
                                     </div>
                                     <span class="fw-medium text-sm">{{ auth()->user()->username }}</span>
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 rounded-4">
+                                <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4" style="height: auto !important; max-height: none !important;">
                                     <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="{{ route('student.profile') }}"><i data-lucide="user" style="width: 16px;"></i> Profile</a></li>
                                     @if(auth()->user()->hasRole('admin'))
                                     <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="{{ route('admin.dashboard') }}"><i data-lucide="layout-dashboard" style="width: 16px;"></i> Admin Dashboard</a></li>

@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class RenewalPeriod extends Model
 {
+    public const STATUS_DRAFT = 'DRAFT';
+    public const STATUS_OPEN = 'OPEN';
+    public const STATUS_CLOSED = 'CLOSED';
+
     protected $table = 'renewal_periods';
 
     protected $fillable = [

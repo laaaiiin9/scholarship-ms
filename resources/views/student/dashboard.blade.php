@@ -81,9 +81,16 @@
                                     <i data-lucide="bell" style="width: 16px;"></i>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <h6 class="mb-1 text-xs fw-bold">{{ $n->title }}</h6>
-                                    <p class="mb-0 text-muted text-xs text-truncate" style="max-width: 200px;">{{ $n->message }}</p>
-                                    <small class="text-muted" style="font-size: 0.65rem;">{{ $n->created_at->diffForHumans() }}</small>
+                                    <div class="d-flex align-items-start justify-content-between gap-2">
+                                        <div>
+                                            <h6 class="mb-1 text-xs fw-bold">{{ $n->title }}</h6>
+                                            <p class="mb-0 text-muted text-xs">{{ $n->message }}</p>
+                                            <small class="text-muted" style="font-size: 0.65rem;">{{ $n->created_at->diffForHumans() }}</small>
+                                        </div>
+                                        <a href="{{ route('student.notifications.index') }}#notification-{{ $n->id }}" class="btn btn-sm btn-icon btn-outline-eskoylar-primary flex-shrink-0" title="View Notification">
+                                            <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         @empty

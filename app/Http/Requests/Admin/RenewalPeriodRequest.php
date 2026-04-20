@@ -17,7 +17,7 @@ class RenewalPeriodRequest extends FormRequest
             'scholarship_id' => 'required|exists:scholarships,id',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
-            'status' => 'required|string|in:OPEN,CLOSED',
+            'status' => 'required|string|in:DRAFT,OPEN,CLOSED',
         ];
     }
 }
