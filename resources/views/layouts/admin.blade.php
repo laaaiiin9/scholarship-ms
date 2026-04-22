@@ -89,7 +89,7 @@
                     </li>
                     <li class="nav-item mb-2">
                         <a href="{{ route('admin.notifications.index') }}" class="nav-link {{ Route::is('admin.notifications.index') ? 'active' : '' }} d-flex align-items-center">
-                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="bell" style="width: 20px;"></i></span> Communications
+                            <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="bell" style="width: 20px;"></i></span> Notifications
                         </a>
                     </li>
 
