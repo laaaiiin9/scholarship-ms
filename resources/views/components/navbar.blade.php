@@ -51,7 +51,9 @@
                                     <span class="fw-medium text-sm">{{ auth()->user()->username }}</span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4" style="height: auto !important; max-height: none !important;">
+                                    @if(!auth()->user()->hasRole('admin'))
                                     <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="{{ route('student.profile') }}"><i data-lucide="user" style="width: 16px;"></i> Profile</a></li>
+                                    @endif
                                     @if(auth()->user()->hasRole('admin'))
                                     <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="{{ route('admin.dashboard') }}"><i data-lucide="layout-dashboard" style="width: 16px;"></i> Admin Dashboard</a></li>
                                     @elseif(auth()->user()->hasRole('student'))

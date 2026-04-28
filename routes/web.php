@@ -101,7 +101,8 @@ Route::middleware(['auth', 'role:ADMIN,Admin,admin'])->prefix('admin')->name('ad
     Route::post('applications/{application}/status', [AdminApplicationController::class, 'updateStatus'])->name('applications.status');
 
     Route::get('users', [UserController::class, 'index'])->name('users.index');
-    Route::post('users/store', [UserController::class, 'store'])->name('users.store');
+    Route::get('users/{user}/fetch', [UserController::class, 'edit'])->name('users.fetch');
+    Route::put('users/{user}', [UserController::class, 'update'])->name('users.update');
     Route::post('users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggle-status');
 
 

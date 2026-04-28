@@ -17,7 +17,7 @@
 
 </head>
 
-<body>
+<body data-success="{{ session('success') }}" data-error="{{ session('error') }}">
 
     <div class="dashboard-wrapper">
         <!-- Sidebar -->

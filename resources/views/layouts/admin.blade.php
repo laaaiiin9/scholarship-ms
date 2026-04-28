@@ -17,7 +17,7 @@
 
 </head>
 
-<body>
+<body data-success="{{ session('success') }}" data-error="{{ session('error') }}">
 
     <div class="dashboard-wrapper">
         <!-- Sidebar -->
@@ -159,8 +159,7 @@
                             <div class="avatar-circle">{{ strtoupper(substr(auth()->user()->username, 0, 1)) }}</div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4" aria-labelledby="dropdownUser">
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#"><i data-lucide="user" style="width: 16px;"></i> My Profile</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#"><i data-lucide="settings" style="width: 16px;"></i> Account Settings</a></li>
+                            <li><span class="dropdown-item-text small text-muted">Admin Account</span></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form method="POST" action="{{ route('auth.logout') }}" data-ajax-form>

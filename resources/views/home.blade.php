@@ -8,7 +8,7 @@
                 <div class="col-11 col-xl-10">
                     <div class="row align-items-center g-4 g-lg-0">
 
-                        <div class="col-lg-6 pe-lg-5 text-center text-lg-start">
+                        <div class="col-lg-6 pe-lg-5 text-center text-lg-start scroll-animate">
                             <h1 class="hero-title fw-bold display-3 mb-3">Eskoylar</h1>
                             <p class="hero-description fs-5 mb-4 text-secondary">
                                 A centralized platform for students to apply, track, and manage scholarship
@@ -20,7 +20,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6 ps-lg-5">
+                        <div class="col-lg-6 ps-lg-5 scroll-animate">
                             <div class="hero-card-wrapper">
                                 <div class="card shadow-lg border-0 rounded-4 overflow-hidden hero-album-frame">
                                     <div class="card-header bg-body-tertiary border-0 py-3 px-4">
@@ -46,7 +46,7 @@
 
     <section id="stats-section" class="py-5">
         <div class="container py-lg-4">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 justify-content-center text-center">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 justify-content-center text-center stagger-children">
 
                 <div class="col">
                     <div class="stat-card p-4">
@@ -101,7 +101,7 @@
                     not the paperwork.</p>
             </div>
 
-            <div class="row g-4">
+            <div class="row g-4 stagger-children">
                 <div class="col-md-4">
                     <div class="card h-100 border-0 p-4 shadow-sm">
                         <div class="feature-icon-small bg-primary-subtle text-eskoylar-primary rounded-3 mb-4 d-flex align-items-center justify-content-center"
@@ -149,7 +149,7 @@
                     cycle.</p>
             </div>
 
-            <div class="timeline-container">
+            <div class="timeline-container scroll-animate">
                 <div class="row g-0 justify-content-center">
 
                     <div class="col-lg-2 col-md-4 timeline-item">

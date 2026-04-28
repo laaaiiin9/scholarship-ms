@@ -43,12 +43,18 @@ class UserController extends Controller
         return view('admin.users', compact('roles'));
     }
 
-    public function store(Request $request)
+    public function edit(User $user)
+    {
+        $user->load(['roles', 'profile']);
+        return response()->json($user);
+    }
+
+    public function update(Request $request, User $user)
     {
         $request->validate([
-            'username' => 'required|string|max:255|unique:users',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'username' => 'required|string|max:255|unique:users,username,' . $user->id,
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8',
             'role_id' => 'required|exists:roles,id',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -57,16 +63,18 @@ class UserController extends Controller
         try {
             DB::beginTransaction();
 
-            $user = User::create([
+            $user->update([
                 'username' => $request->username,
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'is_active' => true,
             ]);
 
-            $user->roles()->attach($request->role_id);
+            if ($request->filled('password')) {
+                $user->update(['password' => Hash::make($request->password)]);
+            }
 
-            $user->profile()->create([
+            $user->roles()->sync($request->role_id);
+
+            $user->profile()->update([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
             ]);
@@ -75,14 +83,14 @@ class UserController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'User created successfully.'
+                'message' => 'User updated successfully.'
             ]);
 
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to create user: ' . $e->getMessage()
+                'message' => 'Failed to update user: ' . $e->getMessage()
             ], 500);
         }
     }

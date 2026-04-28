@@ -12,6 +12,10 @@ class Profile extends Model
         'user_id',
         'first_name',
         'last_name',
+        'contact_number',
+        'address',
+        'birth_date',
+        'gender',
         'school',
         'course',
     ];

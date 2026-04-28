@@ -4,7 +4,23 @@ import 'bootstrap';
 import './services/form';
 
 import { createIcons, icons } from 'lucide';
+import { showToast } from './utils/toast';
+
+import { initScrollAnimations } from './modules/scroll-animations';
+
 createIcons({ icons });
+
+// Expose utilities to window
+window.showToast = showToast;
+
+// Handle session flash messages and init animations
+document.addEventListener('DOMContentLoaded', () => {
+    const flash = document.body.dataset;
+    if (flash.success) showToast(flash.success, 'success');
+    if (flash.error) showToast(flash.error, 'error');
+
+    initScrollAnimations();
+});
 
 // Shared Modules (run on all authenticated pages)
 import './modules/notificationBell';

@@ -17,7 +17,7 @@
 
 </head>
 
-<body>
+<body data-success="{{ session('success') }}" data-error="{{ session('error') }}">
 
     <x-navbar></x-navbar>
 

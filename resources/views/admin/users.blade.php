@@ -9,9 +9,6 @@
             <h4 class="fw-bold mb-1">Users & Access Control</h4>
             <p class="text-muted mb-0">Control system access and manage user credentials.</p>
         </div>
-        <button class="btn btn-eskoylar-primary text-white d-flex align-items-center gap-2 rounded-3 shadow-sm px-4 py-2" data-bs-toggle="modal" data-bs-target="#createUserModal">
-            <i data-lucide="plus-circle" style="width: 18px;"></i> Create New User
-        </button>
     </div>
 
     <!-- Table Card -->
@@ -67,37 +64,39 @@
     </div>
 </div>
 
-<!-- Create User Modal -->
-<div class="modal fade" id="createUserModal" tabindex="-1" aria-hidden="true">
+<!-- Edit User Modal -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg rounded-4">
             <div class="modal-header border-bottom-0 p-4">
-                <h5 class="modal-title fw-bold">Add New System User</h5>
+                <h5 class="modal-title fw-bold">Edit System User</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="createUserForm">
+            <form id="editUserForm">
+                @csrf
+                <input type="hidden" name="user_id" id="edit_user_id">
                 <div class="modal-body p-4 pt-0">
-                    <p class="text-muted small mb-4">Create access credentials and basic profile information.</p>
+                    <p class="text-muted small mb-4">Update access credentials and basic profile information.</p>
                     
                     <div class="row g-3 mb-3">
                         <div class="col-md-6">
                             <label class="form-label fw-medium text-sm">First Name</label>
-                            <input type="text" name="first_name" class="form-control" required placeholder="John">
+                            <input type="text" name="first_name" id="edit_first_name" class="form-control" required placeholder="John">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-medium text-sm">Last Name</label>
-                            <input type="text" name="last_name" class="form-control" required placeholder="Doe">
+                            <input type="text" name="last_name" id="edit_last_name" class="form-control" required placeholder="Doe">
                         </div>
                     </div>
 
                     <div class="row g-3 mb-3">
                         <div class="col-md-6">
                             <label class="form-label fw-medium text-sm">Username</label>
-                            <input type="text" name="username" class="form-control" required placeholder="johndoe">
+                            <input type="text" name="username" id="edit_username" class="form-control" required placeholder="johndoe">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-medium text-sm">Role Assignment</label>
-                            <select name="role_id" class="form-select" required>
+                            <select name="role_id" id="edit_role_id" class="form-select" required>
                                 <option value="" disabled selected>Select role...</option>
                                 @foreach($roles as $role)
                                     <option value="{{ $role->id }}">{{ ucfirst($role->name) }}</option>
@@ -108,17 +107,17 @@
 
                     <div class="mb-3">
                         <label class="form-label fw-medium text-sm">Email Address</label>
-                        <input type="email" name="email" class="form-control" required placeholder="john@example.com">
+                        <input type="email" name="email" id="edit_email" class="form-control" required placeholder="john@example.com">
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label fw-medium text-sm">Password</label>
-                        <input type="password" name="password" class="form-control" required placeholder="Minimum 8 characters">
+                        <label class="form-label fw-medium text-sm">Password (Leave blank to keep current)</label>
+                        <input type="password" name="password" class="form-control" placeholder="New password if changing">
                     </div>
                 </div>
                 <div class="modal-footer border-top-0 p-4">
                     <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-eskoylar-primary text-white px-4" id="submitUserBtn">Create Account</button>
+                    <button type="submit" class="btn btn-eskoylar-primary text-white px-4" id="submitEditUserBtn">Update Account</button>
                 </div>
             </form>
         </div>

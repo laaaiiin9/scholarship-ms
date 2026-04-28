@@ -60,23 +60,83 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. Create User Form
-    const createUserForm = document.getElementById('createUserForm');
-    if (createUserForm) {
-        new FormService('createUserForm', {
-            btnId: 'submitUserBtn',
-            endpoint: '/admin/users/store',
-            onSuccess: (data) => {
-                showToast(data.message, 'success');
-                const modal = bootstrap.Modal.getInstance(document.getElementById('createUserModal'));
-                modal.hide();
-                createUserForm.reset();
-                tableService.fetchData();
+    // 3. Edit User Logic
+    document.getElementById(tableBodyId).addEventListener('click', async (e) => {
+        const btn = e.target.closest('.edit-user-btn');
+        if (btn) {
+            const userId = btn.dataset.id;
+            try {
+                const response = await fetch(`/admin/users/${userId}/fetch`, {
+                    headers: { 'Accept': 'application/json' }
+                });
+                const user = await response.json();
+
+                if (response.ok) {
+                    // Fill modal fields
+                    document.getElementById('edit_user_id').value = user.id;
+                    document.getElementById('edit_first_name').value = user.profile?.first_name || '';
+                    document.getElementById('edit_last_name').value = user.profile?.last_name || '';
+                    document.getElementById('edit_username').value = user.username;
+                    document.getElementById('edit_email').value = user.email;
+                    document.getElementById('edit_role_id').value = user.roles?.[0]?.id || '';
+
+                    // Show modal
+                    const modal = new bootstrap.Modal(document.getElementById('editUserModal'));
+                    modal.show();
+                } else {
+                    showToast('Failed to fetch user data', 'error');
+                }
+            } catch (err) {
+                showToast('Network error', 'error');
+            }
+        }
+    });
+
+    // 4. Update User Form
+    const editUserForm = document.getElementById('editUserForm');
+    if (editUserForm) {
+        editUserForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userId = document.getElementById('edit_user_id').value;
+            const btn = document.getElementById('submitEditUserBtn');
+            const originalHtml = btn.innerHTML;
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Updating...';
+
+            const formData = new FormData(editUserForm);
+            // Append _method for Laravel PUT request
+            formData.append('_method', 'PUT');
+
+            try {
+                const response = await fetch(`/admin/users/${userId}`, {
+                    method: 'POST', // Use POST with _method=PUT
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    showToast(data.message, 'success');
+                    bootstrap.Modal.getInstance(document.getElementById('editUserModal')).hide();
+                    tableService.fetchData();
+                } else {
+                    showToast(data.message || 'Error updating user', 'error');
+                }
+            } catch (err) {
+                showToast('Network error', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalHtml;
             }
         });
     }
 
-    // 4. Status Toggle Listener (Delegated)
+    // 5. Status Toggle Listener (Delegated)
     document.getElementById(tableBodyId).addEventListener('change', async (e) => {
         if (e.target.classList.contains('status-toggle')) {
             const userId = e.target.dataset.id;
