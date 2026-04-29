@@ -94,7 +94,7 @@ class ApplicationController extends Controller
 
             // Notify Student via Email
             $application->load('user', 'scholarship');
-            Mail::to($application->user->email)->send(new ApplicationStatusUpdated($application));
+            //Mail::to($application->user->email)->send(new ApplicationStatusUpdated($application));
 
             // Notify Student on Dashboard
             $statusLabel = str_replace('_', ' ', $request->status);

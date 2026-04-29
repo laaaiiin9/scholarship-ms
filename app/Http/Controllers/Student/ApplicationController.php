@@ -111,7 +111,7 @@ class ApplicationController extends Controller
             $application = $service->submitApplication($data, auth()->id());
             
             // Notify Student via Email
-            Mail::to(auth()->user()->email)->send(new ApplicationSubmitted($application->load('scholarship', 'user')));
+            //Mail::to(auth()->user()->email)->send(new ApplicationSubmitted($application->load('scholarship', 'user')));
 
             // Notify Admins on Dashboard
             $studentName = auth()->user()->name ?? auth()->user()->email;
