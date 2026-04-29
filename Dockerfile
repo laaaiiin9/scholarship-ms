@@ -40,9 +40,10 @@ RUN rm /etc/nginx/sites-enabled/default
 
 EXPOSE 80
 
-CMD sh -c "php artisan config:clear && \
-    php artisan route:clear && \
-    php artisan view:clear && \
-    php artisan migrate --force && \
-    php-fpm -D && \
-    nginx -g 'daemon off;'"
+CMD sh -c "php artisan storage:link && \
+php artisan config:clear && \
+php artisan route:clear && \
+php artisan view:clear && \
+php artisan migrate --force && \
+php-fpm -D && \
+nginx -g 'daemon off;'"
