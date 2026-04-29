@@ -33,7 +33,7 @@ class AuthController extends Controller
             }
 
             $request->session()->regenerate();
-            $request->session()->flash('success', 'Welcome back, ' . $user->username . '!');
+            //$request->session()->flash('success', 'Welcome back, ' . $user->username . '!');
 
             return response()->json([
                 'message' => 'Login successful',
@@ -57,7 +57,7 @@ class AuthController extends Controller
     {
         $service->store($request->validated());
 
-        session()->flash('success', 'Account created successfully! Please login to continue.');
+        //session()->flash('success', 'Account created successfully! Please login to continue.');
 
         return response()->json([
             'success' => true,
@@ -73,7 +73,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        session()->flash('success', 'You have been logged out safely.');
+        //session()->flash('success', 'You have been logged out safely.');
 
         return response()->json([
             'message' => 'Logout successful',

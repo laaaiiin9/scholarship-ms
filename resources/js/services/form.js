@@ -38,7 +38,12 @@ document.addEventListener('submit', async (e) => {
         if (res.ok) {
             if (data.redirect) {
                 // If there's a redirect, prioritize it
-                window.location.href = data.redirect;
+                showToast(data.message, 'success');
+                setTimeout(() => {
+                    window.location.href = data.redirect;
+                }, 500);
+                console.log("message: " + data.message);
+
             } else {
                 if (data.message) showToast(data.message, 'success');
                 if (form.matches('[data-reset-on-success]')) {
@@ -56,7 +61,7 @@ document.addEventListener('submit', async (e) => {
                         const errorDiv = document.createElement('div');
                         errorDiv.className = 'invalid-feedback ajax-error';
                         errorDiv.innerText = data.errors[field][0]; // Show first error
-                        
+
                         // Append logic based on form groups or append directly
                         if (input.nextElementSibling && input.nextElementSibling.tagName === 'LABEL') {
                             // Floating labels pattern

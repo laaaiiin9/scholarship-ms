@@ -77,7 +77,7 @@
                 <hr class="text-white-50 mx-3 my-2">
                 
                 <div class="px-3 pb-4">
-                    <form action="{{ route('auth.logout') }}" method="POST" class="d-inline w-100">
+                    <form action="{{ route('auth.logout') }}" method="POST" class="d-inline w-100" data-ajax-form>
                         @csrf
                         <button type="submit" class="btn nav-link text-danger d-flex align-items-center w-100 text-start shadow-none mt-2">
                             <span class="d-flex align-items-center justify-content-center me-3" style="width: 24px;"><i data-lucide="log-out" style="width: 20px;"></i></span> Logout
