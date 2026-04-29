@@ -19,6 +19,39 @@
     </div>
 </div>
 
+<script>
+    window.ReportData = {!! json_encode($reportData) !!};
+</script>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-header bg-transparent border-bottom-0 p-4 pb-0">
+                <h5 class="fw-bold mb-0">Application Trends</h5>
+                <p class="text-muted small mb-0">Last 30 Days</p>
+            </div>
+            <div class="card-body p-4 pt-2">
+                <div style="height: 300px; width: 100%;">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-header bg-transparent border-bottom-0 p-4 pb-0">
+                <h5 class="fw-bold mb-0">Status Outcomes</h5>
+                <p class="text-muted small mb-0">Distribution of application statuses</p>
+            </div>
+            <div class="card-body p-4 pt-2 d-flex justify-content-center align-items-center">
+                <div style="height: 250px; width: 100%; position: relative;">
+                    <canvas id="outcomeChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row g-4">
     <!-- Applications Report Card -->
     <div class="col-md-6">

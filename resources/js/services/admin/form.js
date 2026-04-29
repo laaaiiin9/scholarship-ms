@@ -1,4 +1,3 @@
-import * as bootstrap from 'bootstrap';
 import { showToast } from '../../utils/toast';
 
 export default class FormService {

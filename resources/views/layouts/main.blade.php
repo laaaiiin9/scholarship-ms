@@ -15,6 +15,12 @@
 
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 
+    <script>
+        (function() {
+            const storedTheme = localStorage.getItem('theme') || 'dark'; // default to dark
+            document.documentElement.setAttribute('data-bs-theme', storedTheme);
+        })();
+    </script>
 </head>
 
 <body data-success="{{ session('success') }}" data-error="{{ session('error') }}">

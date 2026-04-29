@@ -14,7 +14,33 @@ class ReportController extends Controller
     public function index()
     {
         $scholarships = Scholarship::all();
-        return view('admin.reports.index', compact('scholarships'));
+
+        // 1. Application Trends (Last 30 days)
+        $thirtyDaysAgo = now()->subDays(30);
+        $trendsData = Application::selectRaw('DATE(created_at) as date, COUNT(*) as count')
+            ->where('created_at', '>=', $thirtyDaysAgo)
+            ->groupBy('date')
+            ->orderBy('date', 'asc')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'month' => \Carbon\Carbon::parse($item->date)->format('M d'),
+                    'count' => $item->count
+                ];
+            });
+
+        // 2. Application Outcomes Breakdown
+        $statusBreakdown = Application::selectRaw('status, COUNT(*) as count')
+            ->groupBy('status')
+            ->pluck('count', 'status')
+            ->toArray();
+
+        $reportData = [
+            'trends' => $trendsData,
+            'outcomes' => $statusBreakdown
+        ];
+
+        return view('admin.reports.index', compact('scholarships', 'reportData'));
     }
 
     public function exportApplications(Request $request)

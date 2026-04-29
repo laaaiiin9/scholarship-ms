@@ -6,18 +6,19 @@ export function initScrollAnimations() {
     const observerOptions = {
         root: null,
         rootMargin: '0px',
-        threshold: 0.15
+        threshold: 0.1
     };
+
+    if (!('IntersectionObserver' in window)) {
+        document.querySelectorAll('.scroll-animate').forEach(el => el.classList.add('animate-in'));
+        return;
+    }
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('animate-in');
-                // Optional: stop observing once animation is triggered
-                // observer.unobserve(entry.target);
-            } else {
-                // Remove class if you want animation to re-trigger when scrolling back up
-                entry.target.classList.remove('animate-in');
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);

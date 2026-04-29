@@ -1,9 +1,13 @@
-import * as bootstrap from 'bootstrap';
 import { createIcons, icons } from 'lucide';
 import TableService from '../../services/admin/table';
 import FormService from '../../services/admin/form';
 
 document.addEventListener('DOMContentLoaded', () => {
+    const tableBody = document.getElementById('disbursements-table-body');
+    const payoutForm = document.getElementById('payoutForm');
+
+    if (!tableBody && !payoutForm) return;
+
     // 1. Initialize Table Service
     const tableService = new TableService({
         tableBodyId: 'disbursements-table-body',

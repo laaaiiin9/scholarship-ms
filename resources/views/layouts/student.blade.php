@@ -15,6 +15,12 @@
 
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 
+    <script>
+        (function() {
+            const storedTheme = localStorage.getItem('theme') || 'dark'; // default to dark
+            document.documentElement.setAttribute('data-bs-theme', storedTheme);
+        })();
+    </script>
 </head>
 
 <body data-success="{{ session('success') }}" data-error="{{ session('error') }}">
@@ -96,9 +102,14 @@
                 </div>
 
                 <div class="d-flex align-items-center gap-3">
+                    {{-- Theme Toggle --}}
+                    <button class="btn btn-icon theme-toggle border-0 shadow-none" type="button" title="Toggle Theme">
+                        <i data-lucide="moon" class="theme-icon-active" style="width: 20px; height: 20px;"></i>
+                    </button>
+
                     {{-- Notification Bell --}}
                     <div class="dropdown">
-                        <button class="btn btn-icon position-relative" id="notifBellBtn" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-offset="0,12">
+                        <button class="btn btn-icon position-relative" id="notifBellBtn" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-offset="0,6">
                             <i data-lucide="bell" style="width: 20px; height: 20px;"></i>
                             <span id="notif-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-flex align-items-center justify-content-center" style="font-size:0.6rem;min-width:18px;height:18px;display:none!important;">0</span>
                         </button>
@@ -117,12 +128,18 @@
                     </div>
 
                     <div class="dropdown">
-                        <a href="#" class="d-flex align-items-center text-decoration-none hide-caret dropdown-toggle gap-2" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="0,12">
+                        <a href="#" class="d-flex align-items-center text-decoration-none hide-caret dropdown-toggle gap-2" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="0,6">
                             <div class="text-end d-none d-md-block me-1">
                                 <p class="mb-0 text-sm fw-medium lh-1 text-body">{{ auth()->user()->name ?? 'Student' }}</p>
                                 <small class="text-muted" style="font-size: 0.75rem;">Scholar</small>
                             </div>
-                            <div class="avatar-circle">{{ substr(auth()->user()->name ?? 'S', 0, 1) }}</div>
+                            <div class="avatar-circle overflow-hidden">
+                                @if(auth()->user()->profile_picture)
+                                    <img src="{{ asset('storage/' . auth()->user()->profile_picture) }}" alt="Profile" class="w-100 h-100 object-fit-cover rounded-circle">
+                                @else
+                                    {{ substr(auth()->user()->name ?? 'S', 0, 1) }}
+                                @endif
+                            </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4" aria-labelledby="dropdownUser">
                             <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="{{ route('student.profile') }}"><i data-lucide="user" style="width: 16px;"></i> My Profile</a></li>

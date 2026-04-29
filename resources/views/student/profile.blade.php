@@ -85,43 +85,63 @@
             <div class="card border-0 shadow-sm rounded-4 text-center p-4 h-100">
                 <div class="card-body">
                     <div class="mb-4 position-relative d-inline-block">
-                        <div class="avatar-circle mx-auto bg-eskoylar-primary bg-opacity-10 text-eskoylar-primary" style="width: 100px; height: 100px; font-size: 2.5rem;">
-                            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                        <div class="avatar-circle mx-auto bg-eskoylar-primary bg-opacity-10 text-eskoylar-primary overflow-hidden" style="width: 100px; height: 100px; font-size: 2.5rem;" id="profileAvatarContainer">
+                            @if(auth()->user()->profile_picture)
+                                <img src="{{ asset('storage/' . auth()->user()->profile_picture) }}" alt="Profile" class="w-100 h-100 object-fit-cover" id="profileAvatar">
+                            @else
+                                <span id="avatarLetter">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</span>
+                            @endif
                         </div>
                         <div class="position-absolute bottom-0 end-0">
-                            <button class="btn btn-eskoylar-primary btn-icon rounded-circle shadow-sm border-2 border-white" style="width: 32px; height: 32px;">
-                                <i data-lucide="camera" style="width: 16px;"></i>
-                            </button>
+                            <form id="profilePictureForm" enctype="multipart/form-data">
+                                <input type="file" name="profile_picture" id="profilePictureInput" class="d-none" accept="image/*">
+                                <button type="button" class="btn btn-eskoylar-primary btn-icon rounded-circle shadow-sm border-2 border-white" style="width: 32px; height: 32px;" id="uploadPictureBtn">
+                                    <i data-lucide="camera" style="width: 16px;"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
 
                     <h4 class="fw-bold mb-1 text-body">{{ auth()->user()->name }}</h4>
-                    <p class="text-muted mb-4">{{ auth()->user()->email }}</p>
+                    <p class="text-muted mb-4 small">{{ auth()->user()->email }}</p>
 
                     <div class="bg-body-tertiary rounded-4 p-3 mb-4 border border-secondary-subtle">
                         <div class="d-flex justify-content-between mb-2 small">
                             <span class="text-muted">Account Status:</span>
-                            <span class="badge bg-success-subtle text-success border border-success-subtle px-2">Verified</span>
+                            @if(auth()->user()->hasVerifiedEmail())
+                                <span class="badge bg-success-subtle text-success border border-success-subtle px-2">Verified</span>
+                            @else
+                                <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-2">Not Verified</span>
+                            @endif
                         </div>
                         <div class="d-flex justify-content-between small">
                             <span class="text-muted">Member Since:</span>
-                            <span class="fw-medium text-body">{{ auth()->user()->created_at->format('M Y') }}</span>
+                            <span class="fw-medium text-body">{{ auth()->user()->created_at->format('M d, Y') }}</span>
                         </div>
                     </div>
+
+                    @php
+                        $progress = 0;
+                        if(auth()->user()->profile) $progress += 40;
+                        if(auth()->user()->hasVerifiedEmail()) $progress += 30;
+                        if(auth()->user()->applications()->exists()) $progress += 30;
+                    @endphp
 
                     <div class="text-start mb-4">
                         <h6 class="fw-bold mb-3 small text-uppercase" style="letter-spacing: 1px;">Scholarship Progress</h6>
                         <div class="mb-2 d-flex justify-content-between small">
-                            <span class="text-muted">Profile Completion</span>
-                            <span class="fw-bold text-eskoylar-primary">75%</span>
+                            <span class="text-muted">General Progress</span>
+                            <span class="fw-bold text-eskoylar-primary">{{ $progress }}%</span>
                         </div>
                         <div class="progress rounded-pill" style="height: 8px;">
-                            <div class="progress-bar bg-eskoylar-primary rounded-pill progress-bar-striped progress-bar-animated" role="progressbar" style="width: 75%"></div>
+                            <div class="progress-bar bg-eskoylar-primary rounded-pill progress-bar-striped progress-bar-animated" role="progressbar" style="width: calc({{ $progress }} * 1%);"></div>
                         </div>
                     </div>
 
                     <div class="pt-3 border-top">
-                        <p class="text-muted small mb-0">Identity Verified &bull; Document Verified</p>
+                        <p class="text-muted small mb-0">
+                            @if(auth()->user()->hasVerifiedEmail()) <i data-lucide="check-circle" class="text-success" style="width:14px;"></i> Identity Verified @else <i data-lucide="x-circle" class="text-danger" style="width:14px;"></i> Identity Not Verified @endif
+                        </p>
                     </div>
                 </div>
             </div>

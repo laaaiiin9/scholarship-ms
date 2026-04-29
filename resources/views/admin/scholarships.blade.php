@@ -56,7 +56,7 @@
                     </thead>
                     <tbody class="border-top-0" id="scholarships-table-body">
                         <tr>
-                            <td colspan="4" class="text-center py-4 text-muted">
+                            <td colspan="5" class="text-center py-4 text-muted">
                                 <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Loading...
                             </td>
                         </tr>

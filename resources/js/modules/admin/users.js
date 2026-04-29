@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.getElementById('edit_role_id').value = user.roles?.[0]?.id || '';
 
                     // Show modal
-                    const modal = new bootstrap.Modal(document.getElementById('editUserModal'));
+                    const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('editUserModal'));
                     modal.show();
                 } else {
                     showToast('Failed to fetch user data', 'error');
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (response.ok && data.success) {
                     showToast(data.message, 'success');
-                    bootstrap.Modal.getInstance(document.getElementById('editUserModal')).hide();
+                    bootstrap.Modal.getOrCreateInstance(document.getElementById('editUserModal')).hide();
                     tableService.fetchData();
                 } else {
                     showToast(data.message || 'Error updating user', 'error');

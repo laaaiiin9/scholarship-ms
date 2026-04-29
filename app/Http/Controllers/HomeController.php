@@ -18,6 +18,7 @@ class HomeController extends Controller
             })->count(),
             'applications' => Application::where('status', '!=', Application::STATUS_DRAFT)->count(),
             'approved' => Decision::where('result', Decision::RESULT_APPROVED)->count(),
+            'total_disbursed' => \App\Models\Disbursement::where('status', \App\Models\Disbursement::STATUS_PAID)->sum('amount'),
         ];
 
         return view('home', compact('stats'));

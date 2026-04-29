@@ -30,6 +30,35 @@ $theme-colors: (
 
 @import 'bootstrap/scss/bootstrap';
 
+// Fix for Modal Backdrop Stacking Issue
+.modal-backdrop {
+    z-index: 1040 !important;
+    background-color: #000 !important;
+    opacity: 0.5 !important;
+}
+.modal {
+    z-index: 1060 !important;
+}
+.offcanvas-backdrop {
+    z-index: 1035 !important;
+    opacity: 0.5 !important;
+}
+.offcanvas {
+    z-index: 1045 !important;
+}
+
+// Remove unintended global glows
+* {
+    box-shadow: none;
+}
+body {
+    box-shadow: none !important;
+    background-attachment: fixed;
+}
+.dashboard-wrapper {
+    box-shadow: none !important;
+}
+
 @import 'components/themes';
 @import 'components/buttons';
 @import 'components/album';

@@ -15,6 +15,12 @@
 
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 
+    <script>
+        (function() {
+            const storedTheme = localStorage.getItem('theme') || 'dark'; // default to dark
+            document.documentElement.setAttribute('data-bs-theme', storedTheme);
+        })();
+    </script>
 </head>
 
 <body data-success="{{ session('success') }}" data-error="{{ session('error') }}">
@@ -123,16 +129,14 @@
                 </div>
 
                 <div class="d-flex align-items-center gap-3">
-                    <form class="d-none d-md-flex" role="search">
-                        <div class="position-relative">
-                            <i data-lucide="search" class="position-absolute top-50 translate-middle-y ms-3 text-muted" style="width: 16px;"></i>
-                            <input class="form-control ps-5 rounded-pill" type="search" placeholder="Search..." aria-label="Search">
-                        </div>
-                    </form>
+                    {{-- Theme Toggle --}}
+                    <button class="btn btn-icon theme-toggle border-0 shadow-none p-2 rounded-circle hover-bg" type="button" title="Toggle Theme">
+                        <i data-lucide="moon" class="theme-icon-active" style="width: 20px; height: 20px;"></i>
+                    </button>
 
                     {{-- Notification Bell --}}
                     <div class="dropdown">
-                        <button class="btn btn-icon position-relative" id="notifBellBtn" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-offset="0,12">
+                        <button class="btn btn-icon position-relative" id="notifBellBtn" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-offset="0,6">
                             <i data-lucide="bell" style="width: 20px; height: 20px;"></i>
                             <span id="notif-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-flex align-items-center justify-content-center" style="font-size:0.6rem;min-width:18px;height:18px;display:none!important;">0</span>
                         </button>
@@ -151,21 +155,28 @@
                     </div>
 
                     <div class="dropdown">
-                        <a href="#" class="d-flex align-items-center text-decoration-none hide-caret dropdown-toggle gap-2" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="0,12">
-                            <div class="text-end d-none d-md-block me-1">
-                                <p class="mb-0 text-sm fw-medium lh-1 text-body">{{ auth()->user()->username }}</p>
-                                <small class="text-muted" style="font-size: 0.75rem;">{{ auth()->user()->roles->first()->name ?? 'Administrator' }}</small>
+                        <a href="#" class="d-flex align-items-center text-decoration-none hide-caret dropdown-toggle gap-2 p-1 pe-2 rounded-pill hover-bg" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="0,6">
+                            <div class="avatar-circle shadow-sm overflow-hidden" style="border: 2px solid var(--eskoylar-primary);">
+                                @if(auth()->user()->profile_picture)
+                                    <img src="{{ asset('storage/' . auth()->user()->profile_picture) }}" alt="Profile" class="w-100 h-100 object-fit-cover rounded-circle">
+                                @else
+                                    {{ strtoupper(substr(auth()->user()->username, 0, 1)) }}
+                                @endif
                             </div>
-                            <div class="avatar-circle">{{ strtoupper(substr(auth()->user()->username, 0, 1)) }}</div>
+                            <div class="text-start d-none d-md-block ms-1">
+                                <p class="mb-0 text-xs fw-bold lh-1 text-body">{{ auth()->user()->username }}</p>
+                                <small class="text-muted" style="font-size: 0.65rem;">{{ auth()->user()->roles->first()->name ?? 'Administrator' }}</small>
+                            </div>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4" aria-labelledby="dropdownUser">
-                            <li><span class="dropdown-item-text small text-muted">Admin Account</span></li>
-                            <li><hr class="dropdown-divider"></li>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-4 glass-card py-2 overflow-hidden" aria-labelledby="dropdownUser" style="min-width: 180px;">
+                            <li class="px-3 py-2 border-bottom border-secondary border-opacity-10 mb-1">
+                                <div class="text-xs text-muted text-uppercase fw-bold tracking-wider">Session Info</div>
+                            </li>
                             <li>
                                 <form method="POST" action="{{ route('auth.logout') }}" data-ajax-form>
                                     @csrf
                                     <button type="submit" class="dropdown-item text-danger d-flex align-items-center gap-2 py-2 border-0 bg-transparent w-100 text-start">
-                                        <i data-lucide="log-out" style="width: 16px;"></i> Logout
+                                        <i data-lucide="log-out" style="width: 16px;"></i> Logout Dashboard
                                     </button>
                                 </form>
                             </li>

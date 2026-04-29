@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['username', 'email', 'password'])]
+#[Fillable(['username', 'email', 'password', 'profile_picture'])]
 #[Hidden(['password', 'remember_token'])]
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -59,5 +59,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function notifications()
     {
         return $this->hasMany(Notification::class, 'user_id');
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new \App\Notifications\CustomResetPassword($token));
     }
 }

@@ -1,9 +1,13 @@
-import * as bootstrap from 'bootstrap';
 import { createIcons, icons } from 'lucide';
 import TableService from '../../services/admin/table';
 import FormService from '../../services/admin/form';
 
 document.addEventListener('DOMContentLoaded', () => {
+    const tableBody = document.getElementById('renewals-table-body');
+    const reviewForm = document.getElementById('reviewForm');
+
+    if (!tableBody && !reviewForm) return;
+
     // 1. Initialize Table Service
     const tableService = new TableService({
         tableBodyId: 'renewals-table-body',

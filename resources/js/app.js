@@ -1,5 +1,7 @@
 import './bootstrap';
 import 'bootstrap';
+import * as bootstrap from 'bootstrap';
+window.bootstrap = bootstrap;
 
 import './services/form';
 
@@ -7,6 +9,9 @@ import { createIcons, icons } from 'lucide';
 import { showToast } from './utils/toast';
 
 import { initScrollAnimations } from './modules/scroll-animations';
+
+import { initCookieConsent } from './modules/cookie-consent';
+import './modules/public-scholarships';
 
 createIcons({ icons });
 
@@ -20,7 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (flash.error) showToast(flash.error, 'error');
 
     initScrollAnimations();
+    initCookieConsent();
 });
+
+// Theme logic
+import './modules/theme';
 
 // Shared Modules (run on all authenticated pages)
 import './modules/notificationBell';

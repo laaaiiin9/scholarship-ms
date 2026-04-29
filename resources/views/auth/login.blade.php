@@ -20,14 +20,17 @@
                                     <label for="email">Email address</label>
                                 </div>
 
-                                <div class="form-floating mb-3">
-                                    <input type="password" class="form-control shadow-none" id="password" name="password"
+                                <div class="form-floating mb-3 position-relative">
+                                    <input type="password" class="form-control shadow-none pe-5" id="password" name="password"
                                         placeholder="Password" required>
                                     <label for="password">Password</label>
+                                    <button type="button" class="btn btn-sm position-absolute top-50 end-0 translate-middle-y me-2 toggle-password" style="z-index: 10;">
+                                        <i data-lucide="eye" style="width: 20px; color: #6c757d;"></i>
+                                    </button>
                                 </div>
 
                                 <div class="d-flex justify-content-end align-items-center mb-4">
-                                    <a href="#" class="small text-decoration-none">Forgot password?</a>
+                                    <a href="{{ route('password.request') }}" class="small text-decoration-none">Forgot password?</a>
                                 </div>
 
                                 <button type="submit" class="btn-gradient w-100 py-2 fw-bold mb-3">Login</button>

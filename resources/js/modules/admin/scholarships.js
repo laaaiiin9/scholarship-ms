@@ -1,8 +1,12 @@
-import * as bootstrap from 'bootstrap';
 import TableService from '../../services/admin/table';
 import FormService from '../../services/admin/form';
 
 document.addEventListener('DOMContentLoaded', () => {
+    const tableBody = document.getElementById('scholarships-table-body');
+    const scholarshipForm = document.getElementById('scholarshipForm');
+    
+    if (!tableBody && !scholarshipForm) return;
+
     // 1. Initialize Table Service
     const tableService = new TableService({
         tableBodyId: 'scholarships-table-body',

@@ -7,6 +7,10 @@
     --card-bg: #fff;
     --button-color: #fff;
     --form-control-focus: #d8d8d8;
+
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(0, 0, 0, 0.1);
+    --glass-shadow: rgba(0, 0, 0, 0.05);
 }
 
 [data-bs-theme="dark"] {
@@ -18,4 +22,16 @@
     --card-bg: #182730;
     --button-color: #fff;
     --form-control-focus: #0e171d;
+
+    --glass-bg: rgba(24, 39, 48, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --glass-shadow: rgba(0, 0, 0, 0.3);
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 var(--glass-shadow);
 }

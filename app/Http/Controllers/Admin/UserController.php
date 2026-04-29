@@ -74,10 +74,13 @@ class UserController extends Controller
 
             $user->roles()->sync($request->role_id);
 
-            $user->profile()->update([
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-            ]);
+            $user->profile()->updateOrCreate(
+                ['user_id' => $user->id],
+                [
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                ]
+            );
 
             DB::commit();
 

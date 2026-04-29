@@ -19,9 +19,12 @@ use App\Http\Controllers\Student\ScholarshipController as StudentScholarshipCont
 use App\Http\Controllers\Student\DashboardController as StudentDashboardController;
 use App\Http\Controllers\Student\ApplicationController as StudentApplicationController;
 use App\Http\Controllers\Student\RenewalController as StudentRenewalController;
+use App\Http\Controllers\ScholarshipPublicController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/scholarships', [ScholarshipPublicController::class, 'index'])->name('scholarships.public');
+Route::get('/api/public/scholarships', [ScholarshipPublicController::class, 'apiIndex'])->name('api.scholarships.public');
 
 /* Notification Bell — shared by both admin and student */
 Route::middleware(['auth'])->prefix('notifications')->name('notifications.bell.')->group(function () {
@@ -38,6 +41,13 @@ Route::get('/register', [AuthController::class, 'register'])->name('auth.registe
 Route::post('/signUp', [AuthController::class, 'signUp'])->name('auth.signup');
 Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
+/* Password Reset */
+Route::get('forgot-password', [\App\Http\Controllers\Auth\PasswordResetController::class, 'create'])->middleware('guest')->name('password.request');
+Route::post('forgot-password', [\App\Http\Controllers\Auth\PasswordResetController::class, 'store'])->middleware('guest')->name('password.email');
+Route::get('reset-password/{token}', [\App\Http\Controllers\Auth\PasswordResetController::class, 'edit'])->middleware('guest')->name('password.reset');
+Route::post('reset-password', [\App\Http\Controllers\Auth\PasswordResetController::class, 'update'])->middleware('guest')->name('password.update');
+
+
 /* Email Verification */
 Route::middleware(['auth'])->prefix('email')->group(function () {
     Route::get('verify', [VerificationController::class, 'notice'])->name('verification.notice');
@@ -53,6 +63,7 @@ Route::middleware(['auth', 'role:STUDENT,Student,student'])->prefix('student')->
     Route::get('dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
     Route::get('profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('profile/picture', [ProfileController::class, 'updatePicture'])->name('profile.picture');
     
     // Application Flow
     Route::get('applications', [StudentApplicationController::class, 'index'])->name('applications.index');

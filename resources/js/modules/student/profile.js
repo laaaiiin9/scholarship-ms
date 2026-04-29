@@ -43,11 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok && result.success) {
                 showToast(result.message, 'success');
-                // Optional: Update some UI elements if needed
             } else {
                 let errorMsg = result.message || 'An error occurred while updating profile.';
                 if (result.errors) {
-                    errorMsg = Object.values(result.errors)[0][0];
+                    errorMsg = Object.values(result.errors).flat().join('<br>');
                 }
                 showToast(errorMsg, 'error');
             }
@@ -60,5 +59,67 @@ document.addEventListener('DOMContentLoaded', () => {
             createIcons({ icons });
         }
     });
+
+    // Profile Picture Upload
+    const uploadBtn = document.getElementById('uploadPictureBtn');
+    const fileInput = document.getElementById('profilePictureInput');
+    const avatarContainer = document.getElementById('profileAvatarContainer');
+
+    if (uploadBtn && fileInput) {
+        uploadBtn.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const originalBtnHtml = uploadBtn.innerHTML;
+            uploadBtn.disabled = true;
+            uploadBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+
+            const formData = new FormData();
+            formData.append('profile_picture', file);
+            
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+            try {
+                const response = await fetch('/student/profile/picture', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    if (avatarContainer) {
+                        avatarContainer.innerHTML = `<img src="${result.path}" alt="Profile" class="w-100 h-100 object-fit-cover" id="profileAvatar">`;
+                    }
+                    
+                    // Update all other avatars on page
+                    document.querySelectorAll('.avatar-circle').forEach(avatar => {
+                        if (avatar.id !== 'profileAvatarContainer') {
+                            avatar.innerHTML = `<img src="${result.path}" alt="Profile" class="w-100 h-100 object-fit-cover rounded-circle">`;
+                            avatar.style.background = 'transparent';
+                        }
+                    });
+
+                    showToast(result.message, 'success');
+                } else {
+                    showToast(result.message || 'Failed to upload image', 'error');
+                }
+            } catch (error) {
+                console.error('Upload error:', error);
+                showToast('Network error while uploading image.', 'error');
+            } finally {
+                uploadBtn.disabled = false;
+                uploadBtn.innerHTML = originalBtnHtml;
+                createIcons({ icons });
+            }
+        });
+    }
 
 });

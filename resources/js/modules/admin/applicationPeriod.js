@@ -1,8 +1,12 @@
-import * as bootstrap from 'bootstrap';
 import TableService from '../../services/admin/table';
 import FormService from '../../services/admin/form';
 
 document.addEventListener('DOMContentLoaded', () => {
+    const tableBody = document.getElementById('application-periods-table-body');
+    const appPeriodForm = document.getElementById('appPeriodForm');
+    
+    if (!tableBody && !appPeriodForm) return;
+
     // 1. Initialize Table Service
     const tableService = new TableService({
         tableBodyId: 'application-periods-table-body',

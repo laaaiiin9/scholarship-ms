@@ -84,3 +84,25 @@ document.addEventListener('submit', async (e) => {
         }
     }
 });
+
+// Password Toggle Logic
+document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.toggle-password');
+    if (btn) {
+        const input = btn.parentElement.querySelector('input');
+        const icon = btn.querySelector('[data-lucide]');
+        if (input) {
+            if (input.type === 'password') {
+                input.type = 'text';
+                if (icon) icon.setAttribute('data-lucide', 'eye-off');
+            } else {
+                input.type = 'password';
+                if (icon) icon.setAttribute('data-lucide', 'eye');
+            }
+            // Re-render icons if using lucide
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
+        }
+    }
+});
