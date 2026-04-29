@@ -1,5 +1,10 @@
 FROM php:8.3-fpm
 
+RUN echo "upload_max_filesize=20M" >> /usr/local/etc/php/conf.d/uploads.ini \
+ && echo "post_max_size=20M" >> /usr/local/etc/php/conf.d/uploads.ini \
+ && echo "max_execution_time=120" >> /usr/local/etc/php/conf.d/uploads.ini \
+ && echo "max_input_time=120" >> /usr/local/etc/php/conf.d/uploads.ini
+
 RUN apt-get update && apt-get install -y \
     git \
     curl \

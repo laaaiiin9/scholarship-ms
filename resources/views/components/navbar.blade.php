@@ -43,7 +43,7 @@
                     <ul class="navbar-nav ms-lg-auto gap-3 align-items-start align-items-lg-center">
                         <li class="nav-item">
                             <button class="btn btn-icon theme-toggle d-flex align-items-center gap-2 p-2 rounded-circle hover-bg shadow-none border-0" type="button" title="Toggle Theme">
-                                <i data-lucide="moon" class="theme-icon-active" style="width: 20px; height: 20px;"></i>
+                                <i data-lucide="sun" class="theme-icon-active" style="width: 20px; height: 20px;"></i>
                             </button>
                         </li>
                         @auth
